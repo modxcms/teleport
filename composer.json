@@ -1,0 +1,22 @@
+{
+    "name": "opengeek/teleport",
+    "description": "A Packaging Toolkit for MODX Revolution >=2.2",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jason Coward",
+            "email": "jason@opengeek.com",
+            "homepage": "http://www.opengeek.com/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "aws/aws-sdk-php": "~2.4"
+    },
+    "autoload": {
+        "psr-0": {
+            "Teleport": "src/"
+        }
+    }
+}
