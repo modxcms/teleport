@@ -203,7 +203,7 @@ class Extract extends Action
                 }
                 $this->request->log("Packaged {$vehicleCount} xPDOObjectVehicles for class {$vehicle['object']['class']}");
                 break;
-            case '\\Teleport\\Transport\\TeleportXPDOCollectionVehicle':
+            case '\\Teleport\\Transport\\xPDOCollectionVehicle':
                 $objCnt = 0;
                 $realClass = $this->modx->loadClass($vehicle['object']['class']);
                 $graph = isset($vehicle['object']['graph']) && is_array($vehicle['object']['graph']) ? $vehicle['object']['graph'] : array();
@@ -233,9 +233,9 @@ class Extract extends Action
                         $set = $this->modx->getCollection($vehicle['object']['class'], $criteria->limit($limit, $offset), false);
                     }
                 }
-                $this->request->log("Packaged {$vehicleCount} TeleportXPDOCollectionVehicles with {$objCnt} total objects for class {$vehicle['object']['class']}");
+                $this->request->log("Packaged {$vehicleCount} xPDOCollectionVehicles with {$objCnt} total objects for class {$vehicle['object']['class']}");
                 break;
-            case '\\Teleport\\Transport\\TeleportMySQLVehicle':
+            case '\\Teleport\\Transport\\MySQLVehicle':
                 /* collect table names from classes and grab any additional tables/data not listed */
                 $modxDatabase = $this->modx->getOption('dbname', null, $this->modx->getOption('database'));
                 $modxTablePrefix = $this->modx->getOption('table_prefix', null, '');
@@ -257,11 +257,11 @@ class Extract extends Action
                         $instances = 0;
                         $object = array(
                             'vehicle_package' => '',
-                            'vehicle_class' => '\\Teleport\\Transport\\TeleportMySQLVehicle'
+                            'vehicle_class' => '\\Teleport\\Transport\\MySQLVehicle'
                         );
                         $attributes = array(
                             'vehicle_package' => '',
-                            'vehicle_class' => '\\Teleport\\Transport\\TeleportMySQLVehicle'
+                            'vehicle_class' => '\\Teleport\\Transport\\MySQLVehicle'
                         );
 
                         /* remove modx table_prefix if table starts with it */
