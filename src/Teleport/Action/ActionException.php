@@ -17,17 +17,18 @@ namespace Teleport\Action;
  */
 class ActionException extends \Exception
 {
-    /** @var AbstractAction */
+    /** @var Action */
     protected $action;
 
     /**
      * Create a RequestException instance.
+
      *
-     * @param AbstractAction &$action The action instance triggering this exception.
+*@param Action &$action The action instance triggering this exception.
      * @param string $message The exception message.
      * @param \Exception|null $previous The previous Exception.
      */
-    public function __construct(AbstractAction &$action, $message = '', $previous = null)
+    public function __construct(Action &$action, $message = '', $previous = null)
     {
         $this->action = &$action;
         $code = E_USER_ERROR;

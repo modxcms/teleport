@@ -17,17 +17,18 @@ namespace Teleport\Request;
  */
 class RequestException extends \Exception
 {
-    /** @var AbstractRequest */
+    /** @var Request */
     protected $request;
 
     /**
      * Create a RequestException instance.
+
      *
-     * @param AbstractRequest &$request The request triggering this exception.
+*@param Request &$request The request triggering this exception.
      * @param string $message The exception message.
      * @param \Exception|null $previous The previous Exception.
      */
-    public function __construct(AbstractRequest &$request, $message = '', $previous = null)
+    public function __construct(Request &$request, $message = '', $previous = null)
     {
         $this->request = &$request;
         $code = E_USER_ERROR;

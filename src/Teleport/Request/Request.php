@@ -13,9 +13,11 @@ namespace Teleport\Request;
 /**
  * Provides common features for all Teleport Request classes.
  *
+ * @property bool verbose
+ *
  * @package Teleport\Request
  */
-abstract class AbstractRequest implements RequestInterface
+abstract class Request implements RequestInterface
 {
     /** @var string */
     protected $action;
@@ -139,14 +141,14 @@ abstract class AbstractRequest implements RequestInterface
         $actionClass = "\\Teleport\\Action\\" . str_replace('/', '\\', $this->action);
         if (class_exists($actionClass, true)) {
             try {
-                /** @var \Teleport\Action\AbstractAction $handler */
+                /** @var \Teleport\Action\Action $handler */
                 $handler = new $actionClass($this);
                 $handler->process();
             } catch (\Exception $e) {
-                throw new RequestException("Error handling {$this->action} Teleport request: " . $e->getMessage(), $this->results, $e);
+                throw new RequestException($this, "Error handling {$this->action} Teleport request: " . $e->getMessage(), $e);
             }
         } else {
-            throw new RequestException("Unknown action {$this->action} specified in Teleport request.", $this->results);
+            throw new RequestException($this, "Unknown action {$this->action} specified in Teleport request.");
         }
     }
 

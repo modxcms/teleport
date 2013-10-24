@@ -11,15 +11,15 @@
 namespace Teleport\Test\Request;
 
 
-use Teleport\Request\AbstractRequest;
+use Teleport\Request\Request;
 use Teleport\Request\RequestException;
 
 /**
- * Provides a mock test implementation of AbstractRequest
+ * Provides a mock test implementation of Request
  *
  * @package Teleport\Test\Request
  */
-class MockRequest extends AbstractRequest
+class MockRequest extends Request
 {
     /**
      * Parse the request arguments into a normalized format.

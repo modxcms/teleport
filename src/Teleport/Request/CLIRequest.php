@@ -15,7 +15,7 @@ namespace Teleport\Request;
  *
  * @package Teleport\Request
  */
-class CLIRequest extends AbstractRequest
+class CLIRequest extends Request
 {
     /**
      * Parse the CLI request arguments into a normalized format.

@@ -25,7 +25,7 @@ class AbstractRequestTest extends RequestTestCase {
     public function testInstanceOf()
     {
         $this->assertInstanceOf('Teleport\\Request\\RequestInterface', $this->fixture);
-        $this->assertInstanceOf('Teleport\\Request\\AbstractRequest', $this->fixture);
+        $this->assertInstanceOf('Teleport\\Request\\Request', $this->fixture);
         $this->assertInstanceOf('Teleport\\Test\\Request\\MockRequest', $this->fixture);
     }
 

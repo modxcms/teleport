@@ -26,7 +26,7 @@ class AbstractActionTest extends ActionTestCase {
     public function testInstanceOf()
     {
         $this->assertInstanceOf('Teleport\\Action\\ActionInterface', $this->fixture);
-        $this->assertInstanceOf('Teleport\\Action\\AbstractAction', $this->fixture);
+        $this->assertInstanceOf('Teleport\\Action\\Action', $this->fixture);
         $this->assertInstanceOf('Teleport\\Test\\Action\\MockAction', $this->fixture);
     }
 }

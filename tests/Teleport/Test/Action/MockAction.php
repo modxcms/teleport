@@ -11,9 +11,9 @@
 namespace Teleport\Test\Action;
 
 
-use Teleport\Action\AbstractAction;
+use Teleport\Action\Action;
 
-class MockAction extends AbstractAction
+class MockAction extends Action
 {
     /**
      * Process this action.
