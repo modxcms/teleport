@@ -1,0 +1,19 @@
+{
+    "name": "changeset",
+    "vehicles": [
+        {
+            "vehicle_class": "xPDOObjectVehicle",
+            "object": {
+                "class": "xPDOObject",
+                "criteria": [],
+                "script": "extract\/changeset.php",
+                "changeset": "{+changeSet}",
+                "remove_read": "{+removeRead}"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true
+            }
+        }
+    ]
+}

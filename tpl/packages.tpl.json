@@ -1,0 +1,28 @@
+{"name":"packages", "vehicles":[
+    {
+        "vehicle_class":"xPDOObjectVehicle",
+        "object":{
+            "class":"transport.modTransportProvider",
+            "criteria":["1 = 1"],
+            "package":"modx"
+        },
+        "attributes":{
+            "preserve_keys":true,
+            "update_object":true
+        }
+    },
+    {
+        "vehicle_class":"xPDOObjectVehicle",
+        "object":{
+            "class":"transport.modTransportPackage",
+            "criteria":["1 = 1"],
+            "script":"extract\/modtransportpackage.php",
+            "package":"modx",
+            "install":true
+        },
+        "attributes":{
+            "preserve_keys":true,
+            "update_object":true
+        }
+    }
+]}

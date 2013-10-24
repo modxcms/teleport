@@ -1,0 +1,1307 @@
+{
+    "name": "complete_db",
+    "vehicles": [
+        {
+            "vehicle_class": "xPDOScriptVehicle",
+            "object": {
+                "source": "tpl\/scripts\/truncate.tables.php",
+                "classes": [
+                    "modAccessAction",
+                    "modAccessActionDom",
+                    "modAccessCategory",
+                    "modAccessContext",
+                    "modAccessElement",
+                    "modAccessMenu",
+                    "modAccessPermission",
+                    "modAccessPolicy",
+                    "modAccessPolicyTemplate",
+                    "modAccessPolicyTemplateGroup",
+                    "modAccessResource",
+                    "modAccessResourceGroup",
+                    "modAccessTemplateVar",
+                    "modAction",
+                    "modActionDom",
+                    "modActionField",
+                    "modActiveUser",
+                    "modCategory",
+                    "modCategoryClosure",
+                    "modChunk",
+                    "modClassMap",
+                    "modContentType",
+                    "modContext",
+                    "modContextResource",
+                    "modContextSetting",
+                    "modDashboard",
+                    "modDashboardWidget",
+                    "modDashboardWidgetPlacement",
+                    "modElementPropertySet",
+                    "modEvent",
+                    "modFormCustomizationProfile",
+                    "modFormCustomizationProfileUserGroup",
+                    "modFormCustomizationSet",
+                    "modLexiconEntry",
+                    "modManagerLog",
+                    "modMenu",
+                    "modNamespace",
+                    "modPlugin",
+                    "modPluginEvent",
+                    "modPropertySet",
+                    "modResource",
+                    "modResourceGroup",
+                    "modResourceGroupResource",
+                    "modSession",
+                    "modSnippet",
+                    "modSystemSetting",
+                    "modTemplate",
+                    "modTemplateVar",
+                    "modTemplateVarResource",
+                    "modTemplateVarResourceGroup",
+                    "modTemplateVarTemplate",
+                    "modUser",
+                    "modUserProfile",
+                    "modUserGroup",
+                    "modUserGroupMember",
+                    "modUserGroupRole",
+                    "modUserMessage",
+                    "modUserSetting",
+                    "modWorkspace",
+                    "registry.db.modDbRegisterMessage",
+                    "registry.db.modDbRegisterTopic",
+                    "registry.db.modDbRegisterQueue",
+                    "transport.modTransportProvider",
+                    "transport.modTransportPackage",
+                    "sources.modAccessMediaSource",
+                    "sources.modMediaSource",
+                    "sources.modMediaSourceElement",
+                    "sources.modMediaSourceContext"
+                ]
+            },
+            "attributes": {
+                "vehicle_class": "xPDOScriptVehicle"
+            }
+        },
+        {
+            "vehicle_class": "xPDOObjectVehicle",
+            "object": {
+                "class": "modSystemSetting",
+                "criteria": {
+                    "key": "extension_packages"
+                }
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "resolve": [
+                    {
+                        "type": "php",
+                        "source": "tpl\/scripts\/resolve\/modsystemsetting\/extension_packages.php"
+                    }
+                ]
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modAccessAction",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modAccessActionDom",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modAccessCategory",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modAccessContext",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modAccessElement",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modAccessMenu",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modAccessPermission",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modAccessPolicy",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modAccessPolicyTemplate",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modAccessPolicyTemplateGroup",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modAccessResource",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modAccessResourceGroup",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modAccessTemplateVar",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modAction",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modActionDom",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modActionField",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modCategory",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modCategoryClosure",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modChunk",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modClassMap",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modContentType",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modContext",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modContextResource",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modContextSetting",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modDashboard",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modDashboardWidget",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modDashboardWidgetPlacement",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modElementPropertySet",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modEvent",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modFormCustomizationProfile",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modFormCustomizationProfileUserGroup",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modFormCustomizationSet",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modLexiconEntry",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modMenu",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modNamespace",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modPlugin",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modPluginEvent",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modPropertySet",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modResource",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modResourceGroup",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modResourceGroupResource",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modSnippet",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modSystemSetting",
+                "criteria": {
+                    "key:NOT IN": [
+                        "extension_packages"
+                    ]
+                },
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modTemplate",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modTemplateVar",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modTemplateVarResource",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modTemplateVarResourceGroup",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modTemplateVarTemplate",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modUser",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modUserProfile",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modUserGroup",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modUserGroupMember",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modUserGroupRole",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modUserMessage",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modUserSetting",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "modWorkspace",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "transport.modTransportProvider",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "xPDOObjectVehicle",
+            "object": {
+                "class": "transport.modTransportPackage",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "script": "extract\/modtransportpackage.php",
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "xPDOObjectVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "sources.modAccessMediaSource",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "sources.modMediaSource",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "sources.modMediaSourceElement",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+            "object": {
+                "class": "sources.modMediaSourceContext",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "limit": 500,
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+            }
+        },
+        {
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\MySQLVehicle",
+            "object": {
+                "classes": [
+                    "modAccessAction",
+                    "modAccessActionDom",
+                    "modAccessCategory",
+                    "modAccessContext",
+                    "modAccessElement",
+                    "modAccessMenu",
+                    "modAccessPermission",
+                    "modAccessPolicy",
+                    "modAccessPolicyTemplate",
+                    "modAccessPolicyTemplateGroup",
+                    "modAccessResource",
+                    "modAccessResourceGroup",
+                    "modAccessTemplateVar",
+                    "modAction",
+                    "modActionDom",
+                    "modActionField",
+                    "modActiveUser",
+                    "modCategory",
+                    "modCategoryClosure",
+                    "modChunk",
+                    "modClassMap",
+                    "modContentType",
+                    "modContext",
+                    "modContextResource",
+                    "modContextSetting",
+                    "modDashboard",
+                    "modDashboardWidget",
+                    "modDashboardWidgetPlacement",
+                    "modElementPropertySet",
+                    "modEvent",
+                    "modFormCustomizationProfile",
+                    "modFormCustomizationProfileUserGroup",
+                    "modFormCustomizationSet",
+                    "modLexiconEntry",
+                    "modManagerLog",
+                    "modMenu",
+                    "modNamespace",
+                    "modPlugin",
+                    "modPluginEvent",
+                    "modPropertySet",
+                    "modResource",
+                    "modResourceGroup",
+                    "modResourceGroupResource",
+                    "modSession",
+                    "modSnippet",
+                    "modSystemSetting",
+                    "modTemplate",
+                    "modTemplateVar",
+                    "modTemplateVarResource",
+                    "modTemplateVarResourceGroup",
+                    "modTemplateVarTemplate",
+                    "modUser",
+                    "modUserProfile",
+                    "modUserGroup",
+                    "modUserGroupMember",
+                    "modUserGroupRole",
+                    "modUserMessage",
+                    "modUserSetting",
+                    "modWorkspace",
+                    "registry.db.modDbRegisterMessage",
+                    "registry.db.modDbRegisterTopic",
+                    "registry.db.modDbRegisterQueue",
+                    "transport.modTransportProvider",
+                    "transport.modTransportPackage",
+                    "sources.modAccessMediaSource",
+                    "sources.modMediaSource",
+                    "sources.modMediaSourceElement",
+                    "sources.modMediaSourceContext"
+                ],
+                "excludeExtraTables": [
+
+                ],
+                "excludeExtraTablePrefix": [
+
+                ]
+            },
+            "attributes": {
+                "vehicle_package": "",
+                "vehicle_class": "\\Teleport\\Transport\\MySQLVehicle"
+            }
+        }
+    ]
+}

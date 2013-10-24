@@ -1,0 +1,102 @@
+{
+    "name": "resources",
+    "vehicles": [
+        {
+            "vehicle_class": "xPDOObjectVehicle",
+            "object": {
+                "class": "modResource",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "graph": {
+                    "Template": [
+
+                    ],
+                    "ContentType": [
+
+                    ],
+                    "TemplateVarResources": {
+                        "TemplateVar": [
+
+                        ]
+                    },
+                    "ResourceGroupResources": {
+                        "ResourceGroup": [
+
+                        ]
+                    },
+                    "ContextResources": {
+                        "Context": [
+
+                        ]
+                    }
+                },
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": false,
+                "update_object": true,
+                "unique_key": [
+                    "context_key",
+                    "uri"
+                ],
+                "related_objects": true,
+                "related_object_attributes": {
+                    "Template": {
+                        "preserve_keys": false,
+                        "update_object": true,
+                        "unique_key": "templatename"
+                    },
+                    "ContentType": {
+                        "preserve_keys": false,
+                        "update_object": true,
+                        "unique_key": "name"
+                    },
+                    "TemplateVarResources": {
+                        "preserve_keys": false,
+                        "update_object": true,
+                        "unique_key": [
+                            "tmplvarid",
+                            "contentid"
+                        ],
+                        "related_objects": true,
+                        "related_object_attributes": {
+                            "TemplateVar": {
+                                "preserve_keys": false,
+                                "update_object": true,
+                                "unique_key": "name"
+                            }
+                        }
+                    },
+                    "ResourceGroupResources": {
+                        "preserve_keys": false,
+                        "update_object": true,
+                        "unique_key": [
+                            "document_group",
+                            "document"
+                        ],
+                        "related_objects": true,
+                        "related_object_attributes": {
+                            "ResourceGroup": {
+                                "preserve_keys": false,
+                                "update_object": true,
+                                "unique_key": "name"
+                            }
+                        }
+                    },
+                    "ContextResources": {
+                        "preserve_keys": true,
+                        "update_object": true,
+                        "related_objects": true,
+                        "related_object_attributes": {
+                            "Context": {
+                                "preserve_keys": true,
+                                "update_object": false
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
