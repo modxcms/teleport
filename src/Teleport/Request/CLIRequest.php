@@ -47,6 +47,7 @@ class CLIRequest extends Request
         }
         $this->action = $parsed['action'];
         unset($parsed['action']);
-        return $parsed;
+        $this->arguments = $parsed;
+        return $this->arguments;
     }
 }
