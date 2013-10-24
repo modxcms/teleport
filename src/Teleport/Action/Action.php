@@ -101,7 +101,10 @@ abstract class Action implements ActionInterface
      * @throws \Teleport\Action\ActionException If an error is encountered processing this Action.
      * @return void
      */
-    abstract public function process();
+    public function process()
+    {
+        $this->validate();
+    }
 
     /**
      * Validate the arguments specified for this action.
