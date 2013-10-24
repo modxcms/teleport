@@ -43,7 +43,7 @@ class CLIRequest extends AbstractRequest
             $argument = next($args);
         }
         if (!isset($parsed['action']) || empty($parsed['action'])) {
-            throw new RequestException("No valid action argument specified.", $this->results);
+            throw new RequestException($this, "No valid action argument specified.");
         }
         $this->action = $parsed['action'];
         unset($parsed['action']);

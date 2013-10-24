@@ -17,20 +17,27 @@ namespace Teleport\Request;
  */
 class RequestException extends \Exception
 {
-    /** @var array */
-    protected $results;
+    /** @var AbstractRequest */
+    protected $request;
 
     /**
      * Create a RequestException instance.
      *
+     * @param AbstractRequest &$request The request triggering this exception.
      * @param string $message The exception message.
-     * @param array &$results The array of results from the request.
      * @param \Exception|null $previous The previous Exception.
      */
-    public function __construct($message, array &$results = array(), $previous = null)
+    public function __construct(AbstractRequest &$request, $message = '', $previous = null)
     {
-        parent::__construct($message, E_USER_ERROR, $previous);
-        $this->results =& $results;
+        $this->request = &$request;
+        $code = E_USER_ERROR;
+        if ($previous instanceof \Exception) {
+            if (!is_string($message) || $message === '') {
+                $message = $previous->getMessage();
+            }
+            $code = $previous->getCode();
+        }
+        parent::__construct($message, $code, $previous);
     }
 
     /**
@@ -40,6 +47,6 @@ class RequestException extends \Exception
      */
     public function getResults()
     {
-        return $this->results;
+        return $this->request->getResults();
     }
 }

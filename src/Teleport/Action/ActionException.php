@@ -17,29 +17,36 @@ namespace Teleport\Action;
  */
 class ActionException extends \Exception
 {
-    /** @var array */
-    protected $results;
+    /** @var AbstractAction */
+    protected $action;
 
     /**
      * Create a RequestException instance.
      *
+     * @param AbstractAction &$action The action instance triggering this exception.
      * @param string $message The exception message.
-     * @param array &$results The array of results from the action.
      * @param \Exception|null $previous The previous Exception.
      */
-    public function __construct($message, array &$results = array(), $previous = null)
+    public function __construct(AbstractAction &$action, $message = '', $previous = null)
     {
-        parent::__construct($message, E_USER_ERROR, $previous);
-        $this->results =& $results;
+        $this->action = &$action;
+        $code = E_USER_ERROR;
+        if ($previous instanceof \Exception) {
+            if (!is_string($message) || $message === '') {
+                $message = $previous->getMessage();
+            }
+            $code = $previous->getCode();
+        }
+        parent::__construct($message, $code, $previous);
     }
 
     /**
-     * Get the results reference provided to this exception.
+     * Get the results of the action provided to this exception.
      *
      * @return array The results array.
      */
     public function getResults()
     {
-        return $this->results;
+        return $this->action->getRequest()->getResults();
     }
 }

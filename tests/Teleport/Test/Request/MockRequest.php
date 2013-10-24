@@ -26,15 +26,15 @@ class MockRequest extends AbstractRequest
      *
      * @param array $args An array of arguments to parse.
      *
-     * @return array The normalized array of parsed arguments.
      * @throws RequestException If no valid action argument is specified.
+     * @return array The normalized array of parsed arguments.
      */
     public function parseArguments(array $args)
     {
         $this->action = null;
         $this->arguments = array();
         if (!isset($args['action'])) {
-            throw new RequestException("No action argument provided", $this->results);
+            throw new RequestException($this, "No action argument provided");
         }
         $this->action = $args['action'];
         unset($args['action']);
