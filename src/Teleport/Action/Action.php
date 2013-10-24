@@ -10,7 +10,6 @@
 
 namespace Teleport\Action;
 
-
 use Teleport\Request\Request;
 
 /**
@@ -20,7 +19,7 @@ use Teleport\Request\Request;
  */
 abstract class Action implements ActionInterface
 {
-    /** @var array  */
+    /** @var array */
     protected $required = array();
     /** @var \Teleport\Request\Request */
     protected $request;
@@ -29,9 +28,8 @@ abstract class Action implements ActionInterface
 
     /**
      * Construct a new Action instance.
-
      *
-*@param Request &$request The request implementation processing the action.
+     * @param Request &$request The request implementation processing the action.
      */
     public function __construct(Request &$request)
     {
@@ -66,7 +64,7 @@ abstract class Action implements ActionInterface
      * Set an argument or member variable value for this Action.
      *
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function __set($name, $value)
     {
@@ -78,10 +76,47 @@ abstract class Action implements ActionInterface
     /**
      * Get a MODX reference to operate on.
      *
+     * @throws ActionException If a MODX instance could not be initialized.
      * @return \modX A reference to a MODX instance.
      */
     public function &getMODX()
     {
+        if (!$this->modx instanceof \modX) {
+            if (defined('MODX_CORE_PATH')) {
+                try {
+                    require MODX_CORE_PATH . 'model/modx/modx.class.php';
+                    $results = $this->request->getResults();
+                    $logTarget = $this->request->args('log_target') !== null
+                        ? $this->request->args('log_target')
+                        : array('target' => 'ARRAY', 'target_options' => array('var' => &$results));
+                    $logLevel = $this->request->args('log_level') !== null
+                        ? $this->request->args('log_level')
+                        : \modX::LOG_LEVEL_INFO;
+                    $config = array(
+                        'log_target' => $logTarget,
+                        'log_level' => $logLevel,
+                        'cache_db' => false,
+                    );
+                    $this->modx = new \modX('', $config);
+                    $this->modx->setLogLevel($config['log_level']);
+                    $this->modx->setLogTarget($config['log_target']);
+                    $this->modx->setOption('cache_db', $config['cache_db']);
+                    $this->modx->getVersionData();
+                    if (version_compare($this->modx->version['full_version'], '2.2.1-pl', '>=')) {
+                        $this->modx->initialize('mgr', $config);
+                    } else {
+                        $this->modx->initialize('mgr');
+                    }
+                    $this->modx->setLogLevel($config['log_level']);
+                    $this->modx->setLogTarget($config['log_target']);
+                    $this->modx->setOption('cache_db', $config['cache_db']);
+                } catch (\Exception $e) {
+                    throw new ActionException($this, "Error initializing MODX: " . $e->getMessage(), $e);
+                }
+            } else {
+                throw new ActionException($this, "Could not initialize MODX: MODX_CORE_PATH not defined.");
+            }
+        }
         return $this->modx;
     }
 
@@ -107,7 +142,7 @@ abstract class Action implements ActionInterface
     }
 
     /**
-     * Validate the arguments specified for this action.
+     * Validate the arguments specified for this Action.
      *
      * @throws \Teleport\Action\ActionException If required arguments are not specified.
      * @return bool TRUE if the arguments are valid, FALSE otherwise.
@@ -120,7 +155,7 @@ abstract class Action implements ActionInterface
                 foreach ($invalid as $argKey) {
                     $this->request->addResult("{$argKey} required for this request.");
                 }
-                throw new ActionException($this, "Required arguments " . implode(',', $invalid) . " not specified.");
+                throw new ActionException($this, "Required arguments " . implode(', ', $invalid) . " not specified.");
             }
         }
     }
@@ -133,11 +168,13 @@ abstract class Action implements ActionInterface
      * @throws ActionException If a valid code cannot be found in the profile.
      * @return \stdClass A stdObject representation of the JSON profile data.
      */
-    protected function loadProfile($profile) {
+    protected function loadProfile($profile)
+    {
         $decoded = json_decode(file_get_contents($profile));
         if (!empty($decoded->code)) {
             $decoded->code = str_replace(array('-', '.'), array('_', '_'), $decoded->code);
-        } else {
+        }
+        else {
             throw new ActionException($this, "Error getting 'code' from profile {$profile}");
         }
         return $decoded;
@@ -148,16 +185,14 @@ abstract class Action implements ActionInterface
      *
      * @param string $source A valid stream URI or file path to the snapshot source.
      * @param string $target A valid stream URI or file path to copy the snapshot to.
+     *
      * @return bool Returns true if the pull was completed successfully.
      */
-    public function pull($source, $target) {
+    public function pull($source, $target)
+    {
         $pulled = false;
         if ($this->modx->getCacheManager()) {
-            $pulled = $this->modx->cacheManager->copyFile(
-                $source,
-                $target,
-                array('copy_preserve_permissions' => true)
-            );
+            $pulled = $this->modx->cacheManager->copyFile($source, $target, array('copy_preserve_permissions' => true));
         }
         return $pulled;
     }
@@ -167,17 +202,14 @@ abstract class Action implements ActionInterface
      *
      * @param string $source A valid file or stream location source.
      * @param string $target A valid file or stream location target.
+     *
      * @return bool Returns true if the source was pushed successfully to the target, false otherwise.
      */
     public function push($source, $target)
     {
         $pushed = false;
         if ($this->modx->getCacheManager()) {
-            $pushed = $this->modx->cacheManager->copyFile(
-                $source,
-                $target,
-                array('copy_preserve_permissions' => true)
-            );
+            $pushed = $this->modx->cacheManager->copyFile($source, $target, array('copy_preserve_permissions' => true));
         }
         return $pushed;
     }

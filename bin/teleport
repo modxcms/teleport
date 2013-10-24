@@ -45,6 +45,8 @@ if (function_exists('ini_set')) {
 try {
     require_once __DIR__ . '/../src/bootstrap.php';
 
+    define('TELEPORT_BASE_PATH', rtrim(getcwd(), '/') . '/');
+
     $options = array(
         'debug' => $debug
     );

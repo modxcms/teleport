@@ -119,11 +119,11 @@ abstract class Request implements RequestInterface
     }
 
     /**
-     * Get the results of this request.
+     * Get a reference to the results of this Request.
      *
      * @return array An array of results from this request.
      */
-    public function getResults()
+    public function &getResults()
     {
         return $this->results;
     }
