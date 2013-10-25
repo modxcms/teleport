@@ -23,3 +23,6 @@ test-*.json
 
 # ignore mac files
 .DS_Store
+
+# ignore phar archives
+*.phar

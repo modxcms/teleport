@@ -17,6 +17,9 @@ use Teleport\Request\Request;
  */
 class Teleport
 {
+    const VERSION = '@version@';
+    const RELEASE_DATE = '@versionDate@';
+
     /** @var Teleport */
     private static $instance = null;
 

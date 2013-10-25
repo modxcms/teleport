@@ -14,6 +14,10 @@
         "php": ">=5.3.3",
         "aws/aws-sdk-php": "~2.4"
     },
+    "require-dev": {
+        "symfony/finder": "~2.2",
+        "symfony/process": "~2.1@dev"
+    },
     "autoload": {
         "psr-0": {
             "Teleport": "src/"
