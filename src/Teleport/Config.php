@@ -17,11 +17,13 @@ namespace Teleport;
  */
 class Config
 {
-    /** @var array */
+    /**
+     * @var array An associative array of options defining this Config object.
+     */
     private $config;
 
     /**
-     * Construct a new instance of Config.
+     * Construct a new instance of a Teleport Config.
      *
      * @param array $config An associative array of Config options.
      */
@@ -33,9 +35,9 @@ class Config
     /**
      * Get a Config option value.
      *
-     * @param string $key The option key to lookup a value for.
-     * @param array|null $options An associative array of options to override the persistent config.
-     * @param mixed $default A default value to return if the lookup fails.
+     * @param string        $key The option key to lookup a value for.
+     * @param array|null    $options An associative array of options to override the persistent config.
+     * @param mixed         $default A default value to return if the lookup fails.
      * @param callable|null $filter An optional callback to filter the value with.
      *
      * @return mixed The value of the option or the specified default.
@@ -58,7 +60,7 @@ class Config
      * Set a Config option value.
      *
      * @param string $key The key identifying the option to set.
-     * @param mixed $value The value to set for the option.
+     * @param mixed  $value The value to set for the option.
      */
     public function set($key, $value)
     {
@@ -80,12 +82,9 @@ class Config
         if (empty($search)) {
             $results = $this->config;
         } elseif (is_scalar($search)) {
-            $results = array_filter(
-                $this->config,
-                function($value, $key) use ($search) {
+            $results = array_filter($this->config, function ($value, $key) use ($search) {
                     return strpos($key, $search) !== false;
-                }
-            );
+                });
         } elseif (is_array($search)) {
             foreach ($search as $key) {
                 if (!is_array($results)) $results = array();

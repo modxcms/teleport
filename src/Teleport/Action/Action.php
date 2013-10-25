@@ -86,11 +86,9 @@ abstract class Action implements ActionInterface
                 try {
                     require MODX_CORE_PATH . 'model/modx/modx.class.php';
                     $results = $this->request->getResults();
-                    $logTarget = $this->request->args('log_target') !== null
-                        ? $this->request->args('log_target')
+                    $logTarget = $this->request->args('log_target') !== null ? $this->request->args('log_target')
                         : array('target' => 'ARRAY', 'target_options' => array('var' => &$results));
-                    $logLevel = $this->request->args('log_level') !== null
-                        ? $this->request->args('log_level')
+                    $logLevel = $this->request->args('log_level') !== null ? $this->request->args('log_level')
                         : \modX::LOG_LEVEL_INFO;
                     $config = array(
                         'log_target' => $logTarget,
@@ -173,8 +171,7 @@ abstract class Action implements ActionInterface
         $decoded = json_decode(file_get_contents($profile));
         if (!empty($decoded->code)) {
             $decoded->code = str_replace(array('-', '.'), array('_', '_'), $decoded->code);
-        }
-        else {
+        } else {
             throw new ActionException($this, "Error getting 'code' from profile {$profile}");
         }
         return $decoded;

@@ -15,17 +15,19 @@ namespace Teleport\Transport;
  *
  * @package Teleport\Transport
  */
-class MySQLVehicle extends \xPDOVehicle {
+class MySQLVehicle extends \xPDOVehicle
+{
     public $class = 'MySQLVehicle';
 
     /**
      * Put a representation of a MySQL table and it's data into this vehicle.
      *
      * @param \xPDOTransport $transport The transport package hosting the vehicle.
-     * @param mixed &$object A reference to the artifact this vehicle will represent.
-     * @param array $attributes Additional attributes represented in the vehicle.
+     * @param mixed          &$object A reference to the artifact this vehicle will represent.
+     * @param array          $attributes Additional attributes represented in the vehicle.
      */
-    public function put(& $transport, & $object, $attributes = array ()) {
+    public function put(& $transport, & $object, $attributes = array())
+    {
         $this->payload['class'] = $this->class;
         if (is_array($object) && isset($object['table']) && isset($object['tableName'])) {
             $this->payload['object'] = $object;
@@ -37,10 +39,12 @@ class MySQLVehicle extends \xPDOVehicle {
      * Install the vehicle artifact into a transport host.
      *
      * @param \xPDOTransport &$transport A reference to the transport.
-     * @param array $options An array of options for altering the installation of the artifact.
+     * @param array          $options An array of options for altering the installation of the artifact.
+     *
      * @return boolean True if the installation of the vehicle artifact was successful.
      */
-    public function install(& $transport, $options) {
+    public function install(& $transport, $options)
+    {
         $installed = false;
         $vOptions = $this->get($transport, $options);
         if (isset($vOptions['object']) && isset($vOptions['object']['tableName']) && isset($vOptions['object']['table']) && isset($vOptions['object']['data'])) {
@@ -81,10 +85,12 @@ class MySQLVehicle extends \xPDOVehicle {
      * This vehicle implementation does not support uninstall.
      *
      * @param \xPDOTransport &$transport A reference to the transport.
-     * @param array $options An array of options for altering the uninstallation of the artifact.
+     * @param array          $options An array of options for altering the uninstallation of the artifact.
+     *
      * @return boolean True, always.
      */
-    public function uninstall(& $transport, $options) {
+    public function uninstall(& $transport, $options)
+    {
         return true;
     }
 }

@@ -1,7 +1,44 @@
 #!/usr/bin/env php
 <?php
+$start = microtime(true);
 
-require __DIR__.'/../src/bootstrap.php';
+if (PHP_SAPI !== 'cli') {
+    echo 'fatal: teleport should be invoked via the CLI version of PHP; you are using the ' . PHP_SAPI . ' SAPI' . PHP_EOL;
+    exit(E_USER_ERROR);
+}
+
+error_reporting(-1);
+
+if (function_exists('ini_set')) {
+    @ini_set('display_errors', 1);
+
+    $memoryLimit = trim(ini_get('memory_limit'));
+
+    if ($memoryLimit != -1) {
+        $memoryInBytes = function ($value) {
+            $unit = strtolower(substr($value, -1, 1));
+            $value = (int)$value;
+            switch ($unit) {
+                case 'g':
+                    $value *= 1024;
+                case 'm':
+                    $value *= 1024;
+                case 'k':
+                    $value *= 1024;
+            }
+            return $value;
+        };
+
+        // Increase memory_limit if it is lower than 512M
+        if ($memoryInBytes($memoryLimit) < 512 * 1024 * 1024) {
+            @ini_set('memory_limit', '512M');
+        }
+        unset($memoryInBytes);
+    }
+    unset($memoryLimit);
+}
+
+require __DIR__ . '/../src/bootstrap.php';
 
 use Teleport\Compiler;
 
@@ -11,7 +48,11 @@ ini_set('display_errors', 1);
 try {
     $compiler = new Compiler();
     $compiler->compile();
+
+    printf("execution finished with exit code 0 in %2.4f seconds" . PHP_EOL, microtime(true) - $start);
+    exit(0);
 } catch (\Exception $e) {
-    echo 'Failed to compile phar: ['.get_class($e).'] '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine().PHP_EOL;
-    exit(1);
+    echo 'fatal: could not compile phar [' . get_class($e) . '] ' . $e->getMessage() . ' at ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
+    printf("execution failed with exit code {$e->getCode()} in %2.4f seconds" . PHP_EOL, microtime(true) - $start);
+    exit($e->getCode());
 }

@@ -10,28 +10,29 @@
 
 namespace Teleport\Action;
 
-
 /**
  * Create a user in a MODX installation.
  *
  * @property \stdClass profile
- * @property string username
- * @property string password
- * @property string passwordnotifymethod
- * @property string passwordgenmethod
- * @property string newpassword
- * @property string specifiedpassword
- * @property string confirmpassword
+ * @property string    username
+ * @property string    password
+ * @property string    passwordnotifymethod
+ * @property string    passwordgenmethod
+ * @property string    newpassword
+ * @property string    specifiedpassword
+ * @property string    confirmpassword
  *
  * @package Teleport\Action
  */
-class UserCreate extends Action {
+class UserCreate extends Action
+{
     /**
      * @var array Defines the arguments required for the UserCreate action.
      */
     protected $required = array('profile', 'username');
 
-    public function process() {
+    public function process()
+    {
         parent::process();
         try {
             $this->profile = $this->loadProfile($this->profile);
@@ -46,7 +47,8 @@ class UserCreate extends Action {
             }
 
             define('MODX_CORE_PATH', $this->profile->properties->modx->core_path);
-            define('MODX_CONFIG_KEY', !empty($this->profile->properties->modx->config_key) ? $this->profile->properties->modx->config_key : 'config');
+            define('MODX_CONFIG_KEY', !empty($this->profile->properties->modx->config_key)
+                ? $this->profile->properties->modx->config_key : 'config');
 
             $this->getMODX();
             $this->modx->getService('error', 'error.modError');

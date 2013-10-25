@@ -10,7 +10,6 @@
 
 namespace Teleport\Transport;
 
-
 class Transport extends \xPDOTransport
 {
     /** @var \modX */
@@ -19,15 +18,16 @@ class Transport extends \xPDOTransport
     /**
      * Get an existing \xPDOTransport instance.
      *
-     * @param \modX &$xpdo A reference to a \modX instance.
+     * @param \modX  &$xpdo A reference to a \modX instance.
      * @param string $source The source path to the transport.
      * @param string $target The target path to unpack the transport.
-     * @param int $state The packed state of the transport.
+     * @param int    $state The packed state of the transport.
      *
      * @return null|Transport|\xPDOTransport The transport instance or null.
      */
-    public static function retrieve(& $xpdo, $source, $target, $state= self::STATE_PACKED) {
-        $instance= null;
+    public static function retrieve(& $xpdo, $source, $target, $state = self::STATE_PACKED)
+    {
+        $instance = null;
         $signature = basename($source, '.transport.zip');
         if (file_exists($source)) {
             if (is_writable($target)) {
@@ -35,7 +35,7 @@ class Transport extends \xPDOTransport
                 if ($manifest) {
                     $instance = new Transport($xpdo, $signature, $target);
                     if (!$instance) {
-                        $xpdo->log(\xPDO::LOG_LEVEL_ERROR, "Could not instantiate a valid TeleportTransport object from the package {$source} to {$target}. SIG: {$signature} MANIFEST: " . print_r($manifest, 1));
+                        $xpdo->log(\xPDO::LOG_LEVEL_ERROR, "Could not instantiate a valid Transport object from the package {$source} to {$target}. SIG: {$signature} MANIFEST: " . print_r($manifest, 1));
                     }
                     $manifestVersion = self::manifestVersion($manifest);
                     switch ($manifestVersion) {
@@ -66,7 +66,8 @@ class Transport extends \xPDOTransport
         return $instance;
     }
 
-    public function get($objFile, $options= array ()) {
+    public function get($objFile, $options = array())
+    {
         $vehicle = null;
         $objFile = $this->path . $this->signature . '/' . $objFile;
         $vehiclePackage = isset($options['vehicle_package']) ? $options['vehicle_package'] : 'transport';
@@ -82,7 +83,7 @@ class Transport extends \xPDOTransport
         if ($className) {
             $vehicle = new $className();
             if (file_exists($objFile)) {
-                $payload = include ($objFile);
+                $payload = include($objFile);
                 if ($payload) {
                     $vehicle->payload = $payload;
                 }
@@ -93,8 +94,9 @@ class Transport extends \xPDOTransport
         return $vehicle;
     }
 
-    public function put($artifact, $attributes = array ()) {
-        $added= false;
+    public function put($artifact, $attributes = array())
+    {
+        $added = false;
         if (!empty($artifact)) {
             $vehiclePackage = isset($attributes['vehicle_package']) ? $attributes['vehicle_package'] : 'transport';
             $vehiclePackagePath = isset($attributes['vehicle_package_path']) ? $attributes['vehicle_package_path'] : '';
@@ -110,7 +112,7 @@ class Transport extends \xPDOTransport
                 /** @var \xPDOVehicle $vehicle */
                 $vehicle = new $className();
                 $vehicle->put($this, $artifact, $attributes);
-                if ($added= $vehicle->store($this)) {
+                if ($added = $vehicle->store($this)) {
                     $this->registerVehicle($vehicle);
                 }
             } else {
@@ -120,9 +122,10 @@ class Transport extends \xPDOTransport
         return $added;
     }
 
-    public function preInstall() {
+    public function preInstall()
+    {
         /* filter problem vehicles */
-        $this->vehicles = array_filter($this->vehicles, function($vehicle) {
+        $this->vehicles = array_filter($this->vehicles, function ($vehicle) {
             $keep = true;
             switch ($vehicle['vehicle_class']) {
                 case 'xPDOObjectVehicle':
@@ -149,7 +152,8 @@ class Transport extends \xPDOTransport
         });
     }
 
-    public function postInstall() {
+    public function postInstall()
+    {
         /* fix settings_version */
         /** @var \modSystemSetting $object */
         $object = $this->xpdo->getObject('modSystemSetting', array('key' => 'settings_version'));

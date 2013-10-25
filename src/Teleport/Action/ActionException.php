@@ -22,15 +22,14 @@ class ActionException extends \Exception
 
     /**
      * Create a RequestException instance.
-
      *
-*@param Action &$action The action instance triggering this exception.
-     * @param string $message The exception message.
+     * @param Action          &$action The action instance triggering this exception.
+     * @param string          $message The exception message.
      * @param \Exception|null $previous The previous Exception.
      */
     public function __construct(Action &$action, $message = '', $previous = null)
     {
-        $this->action = &$action;
+        $this->action = & $action;
         $code = E_USER_ERROR;
         if ($previous instanceof \Exception) {
             if (!is_string($message) || $message === '') {

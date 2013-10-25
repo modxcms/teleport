@@ -22,15 +22,14 @@ class RequestException extends \Exception
 
     /**
      * Create a RequestException instance.
-
      *
-*@param Request &$request The request triggering this exception.
-     * @param string $message The exception message.
+     * @param Request         &$request The request triggering this exception.
+     * @param string          $message The exception message.
      * @param \Exception|null $previous The previous Exception.
      */
     public function __construct(Request &$request, $message = '', $previous = null)
     {
-        $this->request = &$request;
+        $this->request = & $request;
         $code = E_USER_ERROR;
         if ($previous instanceof \Exception) {
             if (!is_string($message) || $message === '') {

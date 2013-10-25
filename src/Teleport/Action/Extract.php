@@ -17,10 +17,10 @@ use Teleport\Transport\Transport;
  * Extract a Snapshot from a MODX Instance.
  *
  * @property \stdClass profile
- * @property array tpl
- * @property string target
- * @property string push
- * @property bool preserveWorkspace
+ * @property array     tpl
+ * @property string    target
+ * @property string    push
+ * @property bool      preserveWorkspace
  *
  * @package Teleport\Action
  */
@@ -40,14 +40,16 @@ class Extract extends Action
      *
      * @throws ActionException If an error is encountered during processing.
      */
-    public function process() {
+    public function process()
+    {
         parent::process();
         try {
             $this->profile = $this->loadProfile($this->profile);
             $this->tpl = $this->loadTpl($this->tpl);
 
             define('MODX_CORE_PATH', $this->profile->properties->modx->core_path);
-            define('MODX_CONFIG_KEY', !empty($this->profile->properties->modx->config_key) ? $this->profile->properties->modx->config_key : 'config');
+            define('MODX_CONFIG_KEY', !empty($this->profile->properties->modx->config_key)
+                ? $this->profile->properties->modx->config_key : 'config');
 
             $this->getMODX();
 
@@ -87,22 +89,25 @@ class Extract extends Action
      * Load the JSON extract tpl data into a PHP array.
      *
      * @param string $tpl A valid stream or file location for the tpl.
+     *
      * @return array An array of the tpl data.
      */
-    protected function loadTpl($tpl) {
+    protected function loadTpl($tpl)
+    {
         return json_decode(file_get_contents($tpl), true);
     }
 
     /**
-     * Parse the tpl replacing placeholders from the profile.
+     * Parse the tpl replacing placeholders from the profile and request arguments.
      */
-    protected function prepareTpl() {
+    protected function prepareTpl()
+    {
         $this->modx->loadClass('modParser', '', false, true);
         $parser = new Parser($this->modx);
         $this->modx->toPlaceholders($this->profile);
         $this->modx->toPlaceholders($this->request->args());
         $tpl = $this->tpl;
-        array_walk_recursive($tpl, function(&$value, $key, Parser $parser) {
+        array_walk_recursive($tpl, function (&$value, $key, Parser $parser) {
             if (is_string($value)) {
                 $parser->processElementTags('', $value);
             }
@@ -110,7 +115,17 @@ class Extract extends Action
         $this->tpl = $tpl;
     }
 
-    public function createPackage($name, $version, $release = '') {
+    /**
+     * Create a Transport package to store extracted data into.
+     *
+     * @param string $name The name of the package to create.
+     * @param string $version The version of the package to create.
+     * @param string $release The release of the package to create.
+     *
+     * @return Transport A new Transport instance with a signature compiled from name, version, and release.
+     */
+    protected function createPackage($name, $version, $release = '')
+    {
         $this->modx->loadClass('transport.xPDOTransport', XPDO_CORE_PATH, true, true);
         $this->modx->loadClass('transport.xPDOVehicle', XPDO_CORE_PATH, true, true);
         $this->modx->loadClass('transport.xPDOObjectVehicle', XPDO_CORE_PATH, true, true);
@@ -152,7 +167,8 @@ class Extract extends Action
      *
      * @return string The package version string.
      */
-    public function getVersion() {
+    protected function getVersion()
+    {
         return strftime('%y%m%d.%H%M.%S');
     }
 
@@ -161,7 +177,8 @@ class Extract extends Action
      *
      * @return string The package sequence string.
      */
-    public function getSequence() {
+    protected function getSequence()
+    {
         return $this->modx->version['full_version'];
     }
 
@@ -169,15 +186,19 @@ class Extract extends Action
      * Create \xPDOVehicle instances from MODX assets and data to go into the Snapshot.
      *
      * @param object $vehicle A vehicle definition from the Extract tpl being applied.
+     *
      * @return int The number of vehicles created from the definition.
      */
-    public function createVehicles($vehicle) {
+    protected function createVehicles($vehicle)
+    {
         $vehicleCount = 0;
         switch ($vehicle['vehicle_class']) {
             case 'xPDOObjectVehicle':
                 $realClass = $this->modx->loadClass($vehicle['object']['class']);
-                $graph = isset($vehicle['object']['graph']) && is_array($vehicle['object']['graph']) ? $vehicle['object']['graph'] : array();
-                $graphCriteria = isset($vehicle['object']['graphCriteria']) && is_array($vehicle['object']['graphCriteria']) ? $vehicle['object']['graphCriteria'] : null;
+                $graph = isset($vehicle['object']['graph']) && is_array($vehicle['object']['graph'])
+                    ? $vehicle['object']['graph'] : array();
+                $graphCriteria = isset($vehicle['object']['graphCriteria']) && is_array($vehicle['object']['graphCriteria'])
+                    ? $vehicle['object']['graphCriteria'] : null;
                 if (isset($vehicle['object']['script'])) {
                     include TELEPORT_BASE_PATH . 'tpl/scripts/' . $vehicle['object']['script'];
                 } elseif (isset($vehicle['object']['criteria'])) {
@@ -206,8 +227,10 @@ class Extract extends Action
             case '\\Teleport\\Transport\\xPDOCollectionVehicle':
                 $objCnt = 0;
                 $realClass = $this->modx->loadClass($vehicle['object']['class']);
-                $graph = isset($vehicle['object']['graph']) && is_array($vehicle['object']['graph']) ? $vehicle['object']['graph'] : array();
-                $graphCriteria = isset($vehicle['object']['graphCriteria']) && is_array($vehicle['object']['graphCriteria']) ? $vehicle['object']['graphCriteria'] : null;
+                $graph = isset($vehicle['object']['graph']) && is_array($vehicle['object']['graph'])
+                    ? $vehicle['object']['graph'] : array();
+                $graphCriteria = isset($vehicle['object']['graphCriteria']) && is_array($vehicle['object']['graphCriteria'])
+                    ? $vehicle['object']['graphCriteria'] : null;
                 if (isset($vehicle['object']['script'])) {
                     include TELEPORT_BASE_PATH . 'tpl/scripts/' . $vehicle['object']['script'];
                 } elseif (isset($vehicle['object']['criteria'])) {
@@ -249,8 +272,10 @@ class Extract extends Action
                 $extraTables = $stmt->fetchAll(\PDO::FETCH_COLUMN);
 
                 if (is_array($extraTables) && !empty($extraTables)) {
-                    $excludeExtraTablePrefix = isset($vehicle['object']['excludeExtraTablePrefix']) && is_array($vehicle['object']['excludeExtraTablePrefix']) ? $vehicle['object']['excludeExtraTablePrefix'] : array();
-                    $excludeExtraTables = isset($vehicle['object']['excludeExtraTables']) && is_array($vehicle['object']['excludeExtraTables']) ? $vehicle['object']['excludeExtraTables'] : array();
+                    $excludeExtraTablePrefix = isset($vehicle['object']['excludeExtraTablePrefix']) && is_array($vehicle['object']['excludeExtraTablePrefix'])
+                        ? $vehicle['object']['excludeExtraTablePrefix'] : array();
+                    $excludeExtraTables = isset($vehicle['object']['excludeExtraTables']) && is_array($vehicle['object']['excludeExtraTables'])
+                        ? $vehicle['object']['excludeExtraTables'] : array();
                     foreach ($extraTables as $extraTable) {
                         if (in_array($extraTable, $excludeExtraTables)) continue;
 
@@ -311,7 +336,7 @@ class Extract extends Action
                                             $values[] = 'NULL';
                                             break;
                                         default:
-                                            $values[] = (string) $value;
+                                            $values[] = (string)$value;
                                             break;
                                     }
                                 }
@@ -345,7 +370,8 @@ class Extract extends Action
                     include TELEPORT_BASE_PATH . 'tpl/scripts/' . $vehicle['object']['script'];
                 } else {
                     if ($this->package->put($vehicle['object'], $vehicle['attributes'])) {
-                        $this->request->log("Packaged 1 {$vehicle['vehicle_class']}" . (isset($vehicle['object']['source']) ? " from {$vehicle['object']['source']}" : ""));
+                        $this->request->log("Packaged 1 {$vehicle['vehicle_class']}" . (isset($vehicle['object']['source'])
+                                ? " from {$vehicle['object']['source']}" : ""));
                         $vehicleCount++;
                     }
                 }

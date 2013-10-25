@@ -19,27 +19,27 @@ namespace Teleport\Action;
  *
  * @package Teleport\Action
  */
-class Push extends Action {
+class Push extends Action
+{
     /**
      * @var array Defines the arguments required for the Push action.
      */
-    protected $required = array('source','target','profile');
+    protected $required = array('source', 'target', 'profile');
 
-    public function process() {
+    public function process()
+    {
         parent::process();
         try {
             $pushed = false;
 
             if (empty($this->profile) or !file_exists($this->profile)) {
-                throw new ActionException($this, "Profile does not exist at: ".$this->profile);
+                throw new ActionException($this, "Profile does not exist at: " . $this->profile);
             }
 
             $this->profile = $this->loadProfile($this->profile);
             define('MODX_CORE_PATH', $this->profile->properties->modx->core_path);
             define('MODX_CONFIG_KEY', !empty($this->profile->properties->modx->config_key)
-                ? $this->profile->properties->modx->config_key
-                : 'config'
-            );
+                ? $this->profile->properties->modx->config_key : 'config');
 
             $this->getMODX();
             $this->modx->getService('error', 'error.modError');
@@ -47,11 +47,7 @@ class Push extends Action {
             $this->modx->setOption(\xPDO::OPT_SETUP, true);
 
             if ($this->modx->getCacheManager()) {
-                $pushed = $this->modx->cacheManager->copyFile(
-                    $this->source,
-                    $this->target,
-                    array('copy_preserve_permissions' => true)
-                );
+                $pushed = $this->modx->cacheManager->copyFile($this->source, $this->target, array('copy_preserve_permissions' => true));
             }
             $this->request->log($this->target, false);
 

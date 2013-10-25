@@ -65,12 +65,7 @@ class Compiler
 
         /* add src files */
         $src = new Finder();
-        $src->files()
-            ->ignoreVCS(true)
-            ->ignoreDotFiles(true)
-            ->name('*.php')
-            ->notName('Compiler.php')
-            ->in(__DIR__ . '/..');
+        $src->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->notName('Compiler.php')->in(__DIR__ . '/..');
 
         foreach ($src as $file) {
             $this->addFile($phar, $file);
@@ -78,26 +73,21 @@ class Compiler
 
         /* add tpl files */
         $tpl = new Finder();
-        $tpl->files()
-            ->ignoreVCS(true)
-            ->ignoreDotFiles(true)
-            ->name('*.php')
-            ->name('*.tpl.json')
-            ->in(__DIR__ . '/../../tpl');
+        $tpl->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->name('*.tpl.json')->in(__DIR__ . '/../../tpl');
 
         foreach ($tpl as $file) {
             $this->addFile($phar, $file);
         }
 
         /* add composer autoloading infrastructure */
-        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/autoload.php'));
-        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/autoload_namespaces.php'));
-        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/autoload_classmap.php'));
-        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/autoload_real.php'));
-        if (file_exists(__DIR__.'/../../vendor/composer/include_paths.php')) {
-            $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/include_paths.php'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/autoload.php'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/composer/autoload_namespaces.php'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/composer/autoload_classmap.php'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/composer/autoload_real.php'));
+        if (file_exists(__DIR__ . '/../../vendor/composer/include_paths.php')) {
+            $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/composer/include_paths.php'));
         }
-        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/ClassLoader.php'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/composer/ClassLoader.php'));
         $this->addTeleportBin($phar);
 
         /* set the stub */
@@ -106,7 +96,7 @@ class Compiler
         $phar->stopBuffering();
 
         /* add LICENSE */
-        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../LICENSE'), false);
+        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../LICENSE'), false);
 
         unset($phar);
     }
@@ -114,19 +104,19 @@ class Compiler
     /**
      * Add a file to the Phar, optionally stripping whitespace.
      *
-     * @param \Phar $phar
+     * @param \Phar        $phar
      * @param \SplFileInfo $file
-     * @param bool $strip
+     * @param bool         $strip
      */
     private function addFile($phar, $file, $strip = true)
     {
-        $path = str_replace(dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR, '', $file->getRealPath());
+        $path = str_replace(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR, '', $file->getRealPath());
 
         $content = file_get_contents($file);
         if ($strip) {
             $content = $this->stripWhitespace($content);
         } elseif ('LICENSE' === basename($file)) {
-            $content = "\n".$content."\n";
+            $content = "\n" . $content . "\n";
         }
 
         $content = str_replace('@version@', $this->version, $content);
@@ -142,7 +132,7 @@ class Compiler
      */
     private function addTeleportBin($phar)
     {
-        $content = file_get_contents(__DIR__.'/../../bin/teleport');
+        $content = file_get_contents(__DIR__ . '/../../bin/teleport');
         $content = preg_replace('{^#!/usr/bin/env php\s*}', '', $content);
         $phar->addFromString('bin/teleport', $content);
     }
@@ -151,6 +141,7 @@ class Compiler
      * Removes whitespace from a PHP source string while preserving line numbers.
      *
      * @param  string $source A PHP string
+     *
      * @return string The PHP string with the whitespace removed
      */
     private function stripWhitespace($source)
@@ -201,7 +192,7 @@ EOF;
 
         // add warning once the phar is older than 30 days
         if (preg_match('{^[a-f0-9]+$}', $this->version)) {
-            $warningTime = time() + 30*86400;
+            $warningTime = time() + 30 * 86400;
             $stub .= "define('COMPOSER_DEV_WARNING_TIME', $warningTime);\n";
         }
 

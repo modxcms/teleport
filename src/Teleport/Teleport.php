@@ -20,20 +20,24 @@ class Teleport
     const VERSION = '@version@';
     const RELEASE_DATE = '@versionDate@';
 
-    /** @var Teleport */
+    /**
+     * @var Teleport The Teleport singleton instance.
+     */
     private static $instance = null;
 
-    /** @var \modX */
-    public $modx;
-    /** @var Config */
+    /**
+     * @var Config An object containing the Teleport configuration options.
+     */
     private $config;
-    /** @var Request */
+    /**
+     * @var Request A Request instance controlled by this Teleport instance.
+     */
     private $request;
 
     /**
      * Get a singleton instance of Teleport.
      *
-     * @param array $options  An associative array of Teleport Config options for the instance.
+     * @param array $options An associative array of Teleport Config options for the instance.
      * @param bool  $forceNew If true, a new instance of Teleport is created and replaces the existing singleton.
      *
      * @return Teleport
@@ -42,8 +46,7 @@ class Teleport
     {
         if (!self::$instance instanceof Teleport || $forceNew === true) {
             self::$instance = new Teleport($options);
-        }
-        else {
+        } else {
             self::$instance->setConfig($options);
         }
         return self::$instance;

@@ -59,7 +59,7 @@ interface RequestInterface
      * Log a result message and echo it if verbose is true.
      *
      * @param string $msg The result message.
-     * @param bool $timestamp Indicates if the log entry should include a timestamp.
+     * @param bool   $timestamp Indicates if the log entry should include a timestamp.
      *
      * @return void
      */

@@ -10,15 +10,14 @@
 
 namespace Teleport\Action;
 
-
 use Teleport\Transport\Transport;
 
 /**
  * Inject a Snapshot into a MODX Instance.
  *
  * @property \stdClass profile
- * @property string source
- * @property bool preserveWorkspace
+ * @property string    source
+ * @property bool      preserveWorkspace
  *
  * @package Teleport\Action
  */
@@ -29,7 +28,7 @@ class Inject extends Action
      */
     protected $required = array('profile', 'source');
     /**
-     * @var Transport The Snapshot transport package to be Injected into the \modX instance.
+     * @var Transport The Transport package to be Injected into the \modX instance.
      */
     public $package;
 
@@ -38,13 +37,15 @@ class Inject extends Action
      *
      * @throws ActionException If an error is encountered during processing.
      */
-    public function process() {
+    public function process()
+    {
         parent::process();
         try {
             $this->profile = $this->loadProfile($this->profile);
 
             define('MODX_CORE_PATH', $this->profile->properties->modx->core_path);
-            define('MODX_CONFIG_KEY', !empty($this->profile->properties->modx->config_key) ? $this->profile->properties->modx->config_key : 'config');
+            define('MODX_CONFIG_KEY', !empty($this->profile->properties->modx->config_key)
+                ? $this->profile->properties->modx->config_key : 'config');
 
             $this->getMODX();
 
