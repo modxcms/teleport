@@ -10,6 +10,8 @@
 
 namespace Teleport\Request;
 
+use Teleport\Action\Action;
+
 /**
  * Provides a CLI request handler for Teleport.
  *
@@ -49,5 +51,54 @@ class CLIRequest extends Request
         unset($parsed['action']);
         $this->arguments = $parsed;
         return $this->arguments;
+    }
+
+    public function beforeHandle(Action &$action)
+    {
+        if (!$this->switchUser()) {
+            throw new RequestException($this, 'error switching user for teleport execution');
+        }
+    }
+
+    /**
+     * Switch the user executing the current process.
+     *
+     * If username arg is provided and the current user does not match, attempt
+     * to switch to this user via posix_ functions.
+     *
+     * @return bool True if the user and group were successfully switched, the
+     * process is already running as the requested user, or no username arg was
+     * provided.
+     */
+    private function switchUser()
+    {
+        if (isset($this->username) && function_exists('posix_getpwnam')) {
+            $current_user = @posix_getpwuid(@posix_getuid());
+            if (!is_array($current_user)) {
+                $this->log("user switch to {$this->username} failed: could not determine current username");
+                return false;
+            }
+            if ($current_user['name'] !== $this->username) {
+                $u = @posix_getpwnam($this->username);
+                if (!is_array($u)) {
+                    $this->log("user switch failed: could not find user {$this->username}");
+                    return false;
+                }
+                if (!@posix_setuid($u['uid'])) {
+                    $this->log("user switch failed: could not switch to {$this->username} using uid {$u['uid']}");
+                    return false;
+                }
+                if (!@posix_setgid($u['gid'])) {
+                    $this->log("warning: error switching group for {$this->username} to gid {$u['gid']}");
+                }
+                $current_user = @posix_getpwuid(@posix_getuid());
+                if (is_array($current_user) && $current_user['name'] === $this->username) {
+                    $this->log("user switch successful: teleport running as {$this->username}");
+                }
+            } else {
+                $this->log("teleport already running as user {$this->username}...");
+            }
+        }
+        return true;
     }
 }

@@ -10,6 +10,8 @@
 
 namespace Teleport\Request;
 
+use Teleport\Action\Action;
+
 /**
  * Provides common features for all Teleport Request classes.
  *
@@ -143,13 +145,25 @@ abstract class Request implements RequestInterface
             try {
                 /** @var \Teleport\Action\Action $handler */
                 $handler = new $actionClass($this);
+                $this->beforeHandle($handler);
                 $handler->process();
+                $this->afterHandle($handler);
             } catch (\Exception $e) {
                 throw new RequestException($this, "Error handling {$this->action} Teleport request: " . $e->getMessage(), $e);
             }
         } else {
             throw new RequestException($this, "Unknown action {$this->action} specified in Teleport request.");
         }
+    }
+
+    public function beforeHandle(Action &$action)
+    {
+
+    }
+
+    public function afterHandle(Action &$action)
+    {
+
     }
 
     /**

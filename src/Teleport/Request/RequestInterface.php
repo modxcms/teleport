@@ -10,6 +10,8 @@
 
 namespace Teleport\Request;
 
+use Teleport\Action\Action;
+
 /**
  * Defines the API contract for a Teleport Request handler.
  *
@@ -54,6 +56,25 @@ interface RequestInterface
      * or an unknown action is requested.
      */
     public function handle(array $arguments);
+
+    /**
+     * Request-specific logic executed before an action is handled.
+     *
+     * @param Action &$action The action to be processed.
+     *
+     * @throws RequestException If an error occurs which should stop processing of
+     * the action.
+     */
+    public function beforeHandle(Action &$action);
+
+    /**
+     * Request-specific logic executed after an action is handled.
+     *
+     * @param Action &$action The action that was just processed.
+     *
+     * @throws RequestException If an error occurs.
+     */
+    public function afterHandle(Action &$action);
 
     /**
      * Log a result message and echo it if verbose is true.
