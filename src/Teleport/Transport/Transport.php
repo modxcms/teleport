@@ -16,7 +16,7 @@ class Transport extends \xPDOTransport
     public $xpdo = null;
 
     /**
-     * Get an existing \xPDOTransport instance.
+     * Get an existing Transport instance.
      *
      * @param \modX  &$xpdo A reference to a \modX instance.
      * @param string $source The source path to the transport.
@@ -124,6 +124,20 @@ class Transport extends \xPDOTransport
 
     public function preInstall()
     {
+        /* convert Siphon vehicle classes */
+        $toTeleportMap = array(
+            'Teleport\\Transport\\MySQLVehicle' => '\\Siphon\\Transport\\SiphonMySQLVehicle',
+            'Teleport\\Transport\\xPDOCollectionVehicle' => '\\Siphon\\Transport\\SiphonXPDOCollectionVehicle',
+        );
+        array_walk($this->vehicles, function (&$vehicle) use ($toTeleportMap) {
+            if ($teleportClass = array_search($vehicle['vehicle_class'], $toTeleportMap)) {
+                $vehicle['vehicle_class'] = $teleportClass;
+                if (isset($vehicle['object']) && isset($vehicle['object']['vehicle_class'])) {
+                    $vehicle['object']['vehicle_class'] = $teleportClass;
+                }
+            }
+        });
+
         /* filter problem vehicles */
         $this->vehicles = array_filter($this->vehicles, function ($vehicle) {
             $keep = true;
