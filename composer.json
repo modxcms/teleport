@@ -1,6 +1,6 @@
 {
-    "name": "opengeek/teleport",
-    "description": "A Packaging Toolkit for MODX Revolution >=2.2.1",
+    "name": "modxcms/teleport",
+    "description": "A Packaging Toolkit for MODX Revolution",
     "license": "MIT",
     "authors": [
         {
