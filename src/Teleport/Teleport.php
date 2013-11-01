@@ -33,6 +33,10 @@ class Teleport
      * @var Request A Request instance controlled by this Teleport instance.
      */
     private $request;
+    /**
+     * @var resource The default stream context used by Teleport.
+     */
+    private $streamContext;
 
     /**
      * Get a singleton instance of Teleport.
@@ -94,6 +98,49 @@ class Teleport
     }
 
     /**
+     * Register stream handlers specified in the Teleport Config.
+     *
+     * @throws ConfigException If an error occurs attempting to register a
+     * stream_handler configuration element.
+     */
+    protected function registerStreamHandlers()
+    {
+        $handlers = $this->getConfig()->get('stream_handlers', null, array());
+        if (!is_array($handlers)) {
+            throw new ConfigException('Invalid stream_handlers configuration', E_USER_ERROR);
+        }
+
+        $defaultStreamContext = array();
+        foreach ($handlers as $protocol => $handler) {
+            if (isset($handler['class'])) {
+                try {
+                    $flags = isset($handler['local']) ? !empty($handler['local']) : STREAM_IS_URL;
+                    if (isset($handler['register_callback']) && is_callable($handler['register_callback'])) {
+                        $registered = $handler['register_callback']($protocol, $handler);
+                    } else {
+                        if (in_array($protocol, stream_get_wrappers())) {
+                            stream_wrapper_unregister($protocol);
+                        }
+                        $registered = stream_register_wrapper($protocol, $handler['class'], $flags);
+                    }
+                    if (isset($handler['options']) && is_array($handler['options'])) {
+                        $defaultStreamContext[$protocol] = $handler['options'];
+                    }
+                } catch (\Exception $e) {
+                    throw new ConfigException("Error registering stream_handler {$handler['class']} ({$protocol}://)", E_USER_ERROR, $e);
+                }
+                if (!$registered) {
+                    throw new ConfigException("Could not register stream_handler {$handler['class']} ({$protocol}://)", E_USER_ERROR);
+                }
+            } else {
+                throw new ConfigException("Invalid stream_handler configuration for protocol {$protocol}", E_USER_ERROR);
+            }
+        }
+
+        $this->streamContext = stream_context_set_default($defaultStreamContext);
+    }
+
+    /**
      * Construct an instance of Teleport.
      *
      * @param array $options An associative array of Teleport Config options.
@@ -101,5 +148,6 @@ class Teleport
     private function __construct(array $options = array())
     {
         $this->setConfig($options);
+        $this->registerStreamHandlers();
     }
 }
