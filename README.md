@@ -33,7 +33,7 @@ There are several methods for installing Teleport. Using either method described
 3. Create a Profile of a MODX site:
     `php teleport.phar --action=Profile --name="MyMODXSite" --code=mymodxsite --core_path=/path/to/mysite/modx/core/ --config_key=config`
 4. Extract a Snapshot from the MODX site you just profiled:
-    `php teleport.phar --action=Extract --profile=profile/mymodxsite.profile.json --tpl=tpl/develop.tpl.json`
+    `php teleport.phar --action=Extract --profile=profile/mymodxsite.profile.json --tpl=phar://teleport.phar/tpl/develop.tpl.json`
 
 ### Install via Archive and Composer
 
@@ -58,8 +58,13 @@ There are several methods for installing Teleport. Using either method described
 4. Extract a Snapshot from the MODX site you just profiled:
     `bin/teleport --action=Extract --profile=profile/mymodxsite.profile.json --tpl=tpl/develop.tpl.json`
 
+### Teleport in your path
+
+With any of the installation methods you can create an executable symlink called teleport pointing to bin/teleport, or directly to the teleport.phar. You can then simply type `teleport` instead of `bin/teleport` or `php teleport.phar` to execute the teleport application.
 
 ## Usage
+
+In all of the usage examples that follow, call teleport based on how you have installed the application. For example, if you have created an executable symlink to the teleport.phar, substitute `teleport` for `php teleport.phar` in the sample commands. These examples assume you have installed teleport.phar.
 
 Before using Teleport with a MODX site, you will need to create a Teleport Profile from the installed site.
 
@@ -67,7 +72,7 @@ Before using Teleport with a MODX site, you will need to create a Teleport Profi
 
 You can create a Teleport Profile of an existing MODX site using the following command:
 
-    teleport --action=Profile --name="MySite" --code=mysite --core_path=/path/to/mysite/modx/core/ --config_key=config
+    php teleport.phar --action=Profile --name="MySite" --code=mysite --core_path=/path/to/mysite/modx/core/ --config_key=config
 
 The resulting file would be located at profile/mysite.profile.json and could then be used for Extract or Inject commands to be run against the site represented in the profile.
 
@@ -75,13 +80,13 @@ The resulting file would be located at profile/mysite.profile.json and could the
 
 You can Extract a Teleport snapshot from a MODX site using the following command:
 
-    teleport --action=Extract --profile=profile/mysite.profile.json --tpl=tpl/develop.tpl.json
+    php teleport.phar --action=Extract --profile=profile/mysite.profile.json --tpl=phar://teleport.phar/tpl/develop.tpl.json
 
 The snapshot will be located in the workspace/ directory if it is created successfully.
 
 You can also Extract a Teleport snapshot and push it to any valid stream target using the following command:
 
-    teleport --action=Extract --profile=profile/mysite.profile.json --tpl=tpl/develop.tpl.json --target=s3://mybucket/snapshots/ --push
+    php teleport.phar --action=Extract --profile=profile/mysite.profile.json --tpl=phar://teleport.phar/tpl/develop.tpl.json --target=s3://mybucket/snapshots/ --push
 
 In either case, the absolute path to the snapshot is returned by the process as the final output. You can use this as the path for an Inject source.
 
@@ -91,7 +96,7 @@ _NOTE: The workspace copy is removed after it is pushed unless you pass --preser
 
 You can Inject a Teleport snapshot from any valid stream source into a MODX site using the following command:
 
-    teleport --action=Inject --profile=profile/mysite.profile.json --source=workspace/mysite_develop-120315.1106.30-2.2.1-dev.transport.zip
+    php teleport.phar --action=Inject --profile=profile/mysite.profile.json --source=workspace/mysite_develop-120315.1106.30-2.2.1-dev.transport.zip
 
 _NOTE: If the source is not within the workspace/ directory a copy will be pulled to that location and then removed after the Inject completes unless --preserveWorkspace is passed_
 
@@ -114,7 +119,7 @@ To prevent some data from corrupting a target MODX deployment when it is injecte
 
 You can create a user in a profiled MODX site using the following command:
 
-    teleport --action=UserCreate --profile=profile/mysite.profile.json --username=superuser --password=password --sudo --active --fullname="Test User" --email=testuser@example.com
+    php teleport.phar --action=UserCreate --profile=profile/mysite.profile.json --username=superuser --password=password --sudo --active --fullname="Test User" --email=testuser@example.com
 
 _NOTE: This uses the security/user/create processor from the site in the specified profile to create a user, and the action accepts any properties the processor does._
 
