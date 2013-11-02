@@ -4,7 +4,7 @@
         {
             "vehicle_class": "xPDOScriptVehicle",
             "object": {
-                "source": "tpl\/scripts\/truncate.tables.php",
+                "source": "scripts\/truncate.tables.php",
                 "classes": [
                     "modAccessAction",
                     "modAccessActionDom",
@@ -94,7 +94,7 @@
                 "resolve": [
                     {
                         "type": "php",
-                        "source": "tpl\/scripts\/resolve\/modsystemsetting\/extension_packages.php"
+                        "source": "scripts\/resolve\/modsystemsetting\/extension_packages.php"
                     }
                 ]
             }

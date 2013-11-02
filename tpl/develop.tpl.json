@@ -33,7 +33,7 @@
             "resolve":[
                 {
                     "type":"php",
-                    "source":"tpl\/scripts\/resolve\/modsystemsetting\/extension_packages.php"
+                    "source":"scripts\/resolve\/modsystemsetting\/extension_packages.php"
                 }
             ]
         }

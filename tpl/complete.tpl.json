@@ -31,7 +31,7 @@
     {
         "vehicle_class": "xPDOScriptVehicle",
         "object": {
-            "source": "tpl\/scripts\/truncate.tables.php",
+            "source": "scripts\/truncate.tables.php",
             "classes": ["modAccessAction", "modAccessActionDom", "modAccessCategory", "modAccessContext", "modAccessElement", "modAccessMenu", "modAccessPermission", "modAccessPolicy", "modAccessPolicyTemplate", "modAccessPolicyTemplateGroup", "modAccessResource", "modAccessResourceGroup", "modAccessTemplateVar", "modAction", "modActionDom", "modActionField", "modActiveUser", "modCategory", "modCategoryClosure", "modChunk", "modClassMap", "modContentType", "modContext", "modContextResource", "modContextSetting", "modDashboard", "modDashboardWidget", "modDashboardWidgetPlacement", "modElementPropertySet", "modEvent", "modFormCustomizationProfile", "modFormCustomizationProfileUserGroup", "modFormCustomizationSet", "modLexiconEntry", "modManagerLog", "modMenu", "modNamespace", "modPlugin", "modPluginEvent", "modPropertySet", "modResource", "modResourceGroup", "modResourceGroupResource", "modSession", "modSnippet", "modSystemSetting", "modTemplate", "modTemplateVar", "modTemplateVarResource", "modTemplateVarResourceGroup", "modTemplateVarTemplate", "modUser", "modUserProfile", "modUserGroup", "modUserGroupMember", "modUserGroupRole", "modUserMessage", "modUserSetting", "modWorkspace", "registry.db.modDbRegisterMessage", "registry.db.modDbRegisterTopic", "registry.db.modDbRegisterQueue", "transport.modTransportProvider", "transport.modTransportPackage", "sources.modAccessMediaSource", "sources.modMediaSource", "sources.modMediaSourceElement", "sources.modMediaSourceContext"]
         },
         "attributes": {
@@ -52,7 +52,7 @@
             "resolve": [
                 {
                     "type": "php",
-                    "source": "tpl\/scripts\/resolve\/modsystemsetting\/extension_packages.php"
+                    "source": "scripts\/resolve\/modsystemsetting\/extension_packages.php"
                 }
             ]
         }

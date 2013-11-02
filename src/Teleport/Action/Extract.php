@@ -27,13 +27,17 @@ use Teleport\Transport\Transport;
 class Extract extends Action
 {
     /**
+     * @var Transport The transport package Extracted from the \modX instance.
+     */
+    public $package;
+    /**
      * @var array Defines the arguments required for the Push action.
      */
     protected $required = array('profile', 'tpl');
     /**
-     * @var Transport The transport package Extracted from the \modX instance.
+     * @var string Defines the base path of the tpl.
      */
-    public $package;
+    private $tplBase;
 
     /**
      * Process the Extract action.
@@ -94,6 +98,7 @@ class Extract extends Action
      */
     protected function loadTpl($tpl)
     {
+        $this->tplBase = dirname($tpl);
         return json_decode(file_get_contents($tpl), true);
     }
 
@@ -192,6 +197,24 @@ class Extract extends Action
     protected function createVehicles($vehicle)
     {
         $vehicleCount = 0;
+        if (isset($vehicle['attributes']['validate'])) {
+            foreach ($vehicle['attributes']['validate'] as &$validator) {
+                if ($validator['type'] === 'php') {
+                    if (strpos($validator['source'], ':/') === false && strpos($validator['source'], '/') !== 0) {
+                        $validator['source'] = $this->tplBase . '/' . $validator['source'];
+                    }
+                }
+            }
+        }
+        if (isset($vehicle['attributes']['resolve'])) {
+            foreach ($vehicle['attributes']['resolve'] as &$resolver) {
+                if ($resolver['type'] === 'php') {
+                    if (strpos($resolver['source'], ':/') === false && strpos($resolver['source'], '/') !== 0) {
+                        $resolver['source'] = $this->tplBase . '/' . $resolver['source'];
+                    }
+                }
+            }
+        }
         switch ($vehicle['vehicle_class']) {
             case 'xPDOObjectVehicle':
                 $realClass = $this->modx->loadClass($vehicle['object']['class']);
@@ -200,7 +223,7 @@ class Extract extends Action
                 $graphCriteria = isset($vehicle['object']['graphCriteria']) && is_array($vehicle['object']['graphCriteria'])
                     ? $vehicle['object']['graphCriteria'] : null;
                 if (isset($vehicle['object']['script'])) {
-                    include TELEPORT_BASE_PATH . 'tpl/scripts/' . $vehicle['object']['script'];
+                    include $this->tplBase . '/scripts/' . $vehicle['object']['script'];
                 } elseif (isset($vehicle['object']['criteria'])) {
                     $iterator = $this->modx->getIterator($vehicle['object']['class'], (array)$vehicle['object']['criteria'], false);
                     foreach ($iterator as $object) {
@@ -232,7 +255,7 @@ class Extract extends Action
                 $graphCriteria = isset($vehicle['object']['graphCriteria']) && is_array($vehicle['object']['graphCriteria'])
                     ? $vehicle['object']['graphCriteria'] : null;
                 if (isset($vehicle['object']['script'])) {
-                    include TELEPORT_BASE_PATH . 'tpl/scripts/' . $vehicle['object']['script'];
+                    include $this->tplBase . '/scripts/' . $vehicle['object']['script'];
                 } elseif (isset($vehicle['object']['criteria'])) {
                     $limit = isset($vehicle['object']['limit']) ? (integer)$vehicle['object']['limit'] : 0;
                     if ($limit < 1) {
@@ -362,12 +385,17 @@ class Extract extends Action
                     $this->request->log("No non-core tables found for packaging");
                 }
                 break;
-            case 'xPDOFileVehicle':
             case 'xPDOScriptVehicle':
+                if (isset($vehicle['object']['source'])) {
+                    if (strpos($vehicle['object']['source'], ':/') === false && strpos($vehicle['object']['source'], '/') !== 0) {
+                        $vehicle['object']['source'] = $this->tplBase . $vehicle['object']['source'];
+                    }
+                }
+            case 'xPDOFileVehicle':
             case 'xPDOTransportVehicle':
             default:
                 if (isset($vehicle['object']['script'])) {
-                    include TELEPORT_BASE_PATH . 'tpl/scripts/' . $vehicle['object']['script'];
+                    include $this->tplBase . '/scripts/' . $vehicle['object']['script'];
                 } else {
                     if ($this->package->put($vehicle['object'], $vehicle['attributes'])) {
                         $this->request->log("Packaged 1 {$vehicle['vehicle_class']}" . (isset($vehicle['object']['source'])
