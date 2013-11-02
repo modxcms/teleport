@@ -1,0 +1,64 @@
+{
+    "name": "user",
+    "description": "Package a single User by id with Profile, Settings, UserGroup Memberships, UserGroups, UserGroup Roles, and Primary UserGroup. WARNING: This looks up existing users by id and overwrites them in the target, not by username.",
+    "vehicles": [
+        {
+            "vehicle_class": "xPDOObjectVehicle",
+            "object": {
+                "class": "modUser",
+                "criteria": {
+                    "id": "{+user-id}"
+                },
+                "graph": {
+                    "Profile": [],
+                    "UserSettings": [],
+                    "UserGroupMembers": {
+                        "UserGroup": [],
+                        "UserGroupRole": []
+                    },
+                    "PrimaryGroup": []
+                },
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true,
+                "related_objects": true,
+                "related_object_attributes": {
+                    "Profile": {
+                        "preserve_keys": false,
+                        "update_object": true,
+                        "unique_key": "internalKey"
+                    },
+                    "UserSettings": {
+                        "preserve_keys": true,
+                        "update_object": true
+                    },
+                    "UserGroupMembers": {
+                        "preserve_keys": false,
+                        "update_object": true,
+                        "unique_key": ["user_group", "member"],
+                        "related_objects": true,
+                        "related_object_attributes": {
+                            "UserGroup": {
+                                "preserve_keys": false,
+                                "update_object": true,
+                                "unique_key": "name"
+                            },
+                            "UserGroupRole": {
+                                "preserve_keys": false,
+                                "update_object": true,
+                                "unique_key": "name"
+                            }
+                        }
+                    },
+                    "PrimaryGroup": {
+                        "preserve_keys": false,
+                        "update_object": true,
+                        "unique_key": "name"
+                    }
+                }
+            }
+        }
+    ]
+}
