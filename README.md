@@ -29,57 +29,57 @@ There are several methods for installing Teleport. Using either method described
 
 Create a directory for teleport to live and work in and cd to that directory, e.g.
 
-`mkdir teleport/ && cd teleport/`
+    mkdir teleport/ && cd teleport/
 
 Download the latest [`teleport.phar`](http://modx.s3.amazonaws.com/releases/teleport/teleport.phar "teleport.phar") executable.
 
 Create a Profile of a MODX site:
 
-`php teleport.phar --action=Profile --name="MyMODXSite" --code=mymodxsite --core_path=/path/to/mysite/modx/core/ --config_key=config`
+    php teleport.phar --action=Profile --name="MyMODXSite" --code=mymodxsite --core_path=/path/to/mysite/modx/core/ --config_key=config
 
 Extract a Snapshot from the MODX site you just profiled:
 
-`php teleport.phar --action=Extract --profile=profile/mymodxsite.profile.json --tpl=phar://teleport.phar/tpl/develop.tpl.json`
+    php teleport.phar --action=Extract --profile=profile/mymodxsite.profile.json --tpl=phar://teleport.phar/tpl/develop.tpl.json
 
 
 ### Install via Archive and Composer
 
 Create a directory for teleport to live and work in and cd to that directory, e.g.
 
-`mkdir ~/teleport/ && cd ~/teleport/`
+    mkdir ~/teleport/ && cd ~/teleport/
 
 Download the latest [release of teleport](https://github.com/modxcms/teleport/releases "Teleport releases") or a [zip of master](https://github.com/modxcms/teleport/archive/master.zip "zip of master branch") from GitHub and extract it into the directory you created.
 
 Run composer install to get the dependencies.
 
-`composer install`
+    composer install
 
 Create a Profile of a MODX site:
 
-`bin/teleport --action=Profile --name="MyMODXSite" --code=mymodxsite --core_path=/path/to/mysite/modx/core/ --config_key=config`
+    bin/teleport --action=Profile --name="MyMODXSite" --code=mymodxsite --core_path=/path/to/mysite/modx/core/ --config_key=config
 
 Extract a Snapshot from the MODX site you just profiled:
 
-`bin/teleport --action=Extract --profile=profile/mymodxsite.profile.json --tpl=tpl/develop.tpl.json`
+    bin/teleport --action=Extract --profile=profile/mymodxsite.profile.json --tpl=tpl/develop.tpl.json
 
 
 ### Install via Git and Composer (for contributors)
 
 Git clone the teleport repository into a directory for teleport to live and work and cd to that directory.
 
-`git clone https://github.com/modxcms/teleport.git teleport/ && cd teleport/`
+    git clone https://github.com/modxcms/teleport.git teleport/ && cd teleport/
 
 Run composer install to get the dependencies.
 
-`composer install`
+    composer install
 
 Create a Profile of a MODX site:
 
-`bin/teleport --action=Profile --name="MyMODXSite" --code=mymodxsite --core_path=/path/to/mysite/modx/core/ --config_key=config`
+    bin/teleport --action=Profile --name="MyMODXSite" --code=mymodxsite --core_path=/path/to/mysite/modx/core/ --config_key=config
 
 Extract a Snapshot from the MODX site you just profiled:
 
-`bin/teleport --action=Extract --profile=profile/mymodxsite.profile.json --tpl=tpl/develop.tpl.json`
+    bin/teleport --action=Extract --profile=profile/mymodxsite.profile.json --tpl=tpl/develop.tpl.json
 
 
 ### Teleport in your path
