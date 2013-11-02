@@ -154,10 +154,10 @@ class Extract extends Action
             unlink($directory . $filename);
         }
         if (file_exists($directory . $signature) && is_dir($directory . $signature)) {
-            $cacheManager = $this->modx->getCacheManager();
-            if ($cacheManager) {
-                $cacheManager->deleteTree($directory . $signature, true, false, array());
-            }
+            $this->modx->getCacheManager()->deleteTree($directory . $signature, array('deleteTop' => false, 'skipDirs' => false, 'extensions' => array()));
+        }
+        if (!file_exists($directory)) {
+            $this->modx->getCacheManager()->writeTree($directory);
         }
 
         /* create the transport package */

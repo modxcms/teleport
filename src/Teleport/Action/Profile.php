@@ -66,7 +66,7 @@ class Profile extends Action
             );
 
             $profileFilename = TELEPORT_BASE_PATH . 'profile/' . $this->code . '.profile.json';
-            $written = file_put_contents($profileFilename, $this->modx->toJSON($profile));
+            $written = $this->modx->getCacheManager()->writeFile($profileFilename, $this->modx->toJSON($profile));
 
             if ($written === false) {
                 throw new ActionException($this, "Error writing profile {$profileFilename}");
