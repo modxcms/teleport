@@ -19,7 +19,6 @@
         "symfony/process": "~2.1@dev"
     },
     "bin": [
-        "bin/compile",
         "bin/teleport"
     ],
     "autoload": {
