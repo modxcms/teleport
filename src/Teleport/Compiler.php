@@ -20,22 +20,94 @@ use Symfony\Component\Process\Process;
  */
 class Compiler
 {
+    /**
+     * @var string The filename given to the phar that is created.
+     */
+    private $name;
+    /**
+     * @var string The alias given to the phar that is created.
+     */
+    private $alias;
+    /**
+     * @var string The root path of the project being compiled.
+     */
+    private $path;
+    /**
+     * @var string The version of the project being compiled.
+     */
     private $version;
+    /**
+     * @var string The date the version of the project being compiled.
+     */
     private $versionDate;
+
+    /**
+     * Construct a new Compiler instance.
+     *
+     * @param string      $name The name of the file to create.
+     * @param string      $alias The alias of the phar created.
+     * @param null|string $path The root path of the project being compiled.
+     */
+    public function __construct($name = 'teleport.phar', $alias = 'teleport.phar', $path = null)
+    {
+        $this->name = $name;
+        $this->alias = $alias;
+        if ($path === null) $path = __DIR__ . '/../..';
+        $this->path = $path;
+    }
 
     /**
      * Compile Teleport into a Phar for distribution.
      *
-     * @param string $into The name of the phar to build.
-     *
-     * @throws \RuntimeException If git execution fails to get the version information.
+     * @throws \RuntimeException If there is an error during compilation of the phar.
      */
-    public function compile($into = 'teleport.phar')
+    public function compile()
     {
-        if (file_exists($into)) {
-            unlink($into);
-        }
+        $this->cleanse();
 
+        $this->getVersion();
+
+        echo "building {$this->name} version {$this->version} ({$this->versionDate})" . PHP_EOL;
+
+        $phar = $this->preparePhar();
+
+        $this->addSrc($phar);
+
+        $this->addTpl($phar);
+
+        $this->addAutoload($phar);
+
+        $this->addDependencies($phar);
+
+        $this->addTeleportBin($phar);
+
+        $phar->setStub($this->getStub());
+
+        $this->addLicense($phar);
+
+        $this->writePhar($phar);
+
+        unset($phar);
+    }
+
+    /**
+     * Cleanse the environment before compiling the phar.
+     */
+    private function cleanse()
+    {
+        if (file_exists($this->name)) {
+            unlink($this->name);
+        }
+    }
+
+    /**
+     * Get version data from the Git repository for identifying the phar.
+     *
+     * @throws \RuntimeException If a problem occurs getting version data from
+     * the git binary.
+     */
+    private function getVersion()
+    {
         $process = new Process('git log --pretty="%H" -n1 HEAD', __DIR__);
         if ($process->run() != 0) {
             throw new \RuntimeException("Can't run git log. You must ensure to run compile from the teleport git repository clone and that git binary is available.");
@@ -54,51 +126,166 @@ class Compiler
         if ($process->run() == 0) {
             $this->version = trim($process->getOutput());
         }
+    }
 
-        echo "building {$into} version {$this->version} ({$this->versionDate})" . PHP_EOL;
-
+    /**
+     * Prepare a phar object for adding files.
+     *
+     * @return \Phar The phar object ready to add files to.
+     */
+    private function preparePhar()
+    {
         /* start building the Phar */
-        $phar = new \Phar($into, 0, 'teleport.phar');
+        $phar = new \Phar($this->name, 0, $this->alias);
         $phar->setSignatureAlgorithm(\Phar::SHA1);
 
         $phar->startBuffering();
+        return $phar;
+    }
 
-        /* add src files */
+    /**
+     * Add php resources from the src/ directory.
+     *
+     * @param \Phar $phar
+     */
+    private function addSrc($phar)
+    {
         $src = new Finder();
-        $src->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->notName('Compiler.php')->in(__DIR__ . '/..');
+        $src->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->notName('Compiler.php')->in($this->path . '/src');
 
         foreach ($src as $file) {
             $this->addFile($phar, $file);
         }
+    }
 
-        /* add tpl files */
-        $tpl = new Finder();
-        $tpl->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->name('*.tpl.json')->in(__DIR__ . '/../../tpl');
+    /**
+     * Add tpl.json and php resources from the tpl/ directory.
+     *
+     * @param \Phar $phar
+     */
+    private function addTpl($phar)
+    {
+        $json = new Finder();
+        $json->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.tpl.json')->in($this->path . '/tpl');
 
-        foreach ($tpl as $file) {
+        foreach ($json as $file) {
+            $this->addFile($phar, $file, false);
+        }
+
+        $php = new Finder();
+        $php->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/tpl');
+
+        foreach ($php as $file) {
+            $this->addFile($phar, $file);
+        }
+    }
+
+    /**
+     * Add the Composer autoload infrastructure.
+     *
+     * @param \Phar $phar
+     */
+    private function addAutoload($phar)
+    {
+        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/autoload.php'));
+        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_namespaces.php'));
+        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_classmap.php'));
+        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_real.php'));
+        if (file_exists($this->path . '/vendor/composer/include_paths.php')) {
+            $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/include_paths.php'));
+        }
+        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/ClassLoader.php'));
+    }
+
+    /**
+     * Add required dependencies.
+     *
+     * @param \Phar $phar
+     */
+    private function addDependencies($phar)
+    {
+        /* add aws */
+        $aws = new Finder();
+        $aws->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/aws/aws-sdk-php/src');
+        foreach ($aws as $file) {
             $this->addFile($phar, $file);
         }
 
-        /* add composer autoloading infrastructure */
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/autoload.php'));
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/composer/autoload_namespaces.php'));
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/composer/autoload_classmap.php'));
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/composer/autoload_real.php'));
-        if (file_exists(__DIR__ . '/../../vendor/composer/include_paths.php')) {
-            $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/composer/include_paths.php'));
+        /* add guzzle (aws requirement) */
+        $guzzle = new Finder();
+        $guzzle->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/guzzle/guzzle/src');
+        foreach ($guzzle as $file) {
+            $this->addFile($phar, $file);
         }
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/composer/ClassLoader.php'));
-        $this->addTeleportBin($phar);
+        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/guzzle/guzzle/src/Guzzle/Http/Resources/cacert.pem'), false);
+        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/guzzle/guzzle/src/Guzzle/Http/Resources/cacert.pem.md5'), false);
 
-        /* set the stub */
-        $phar->setStub($this->getStub());
+        /* add symfony/event-dispatcher (guzzle requirement) */
+        $eventDispatcher = new Finder();
+        $eventDispatcher->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/symfony/event-dispatcher');
+        foreach ($eventDispatcher as $file) {
+            $this->addFile($phar, $file);
+        }
+    }
 
+    /**
+     * Add the bin/teleport script.
+     *
+     * @param \Phar $phar
+     */
+    private function addTeleportBin($phar)
+    {
+        $content = file_get_contents($this->path . '/bin/teleport');
+        $content = preg_replace('{^#!/usr/bin/env php\s*}', '', $content);
+        $phar->addFromString('bin/teleport', $content);
+    }
+
+    /**
+     * Get the stub code for the phar.
+     *
+     * @return string The stub PHP code.
+     */
+    private function getStub()
+    {
+        return <<<'EOF'
+#!/usr/bin/env php
+<?php
+/**
+ * This file is part of the teleport package.
+ *
+ * Copyright (c) MODX, LLC
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+Phar::mapPhar('teleport.phar');
+require 'phar://teleport.phar/bin/teleport';
+
+__HALT_COMPILER();
+EOF;
+    }
+
+    /**
+     * Add the LICENSE file if it exists.
+     *
+     * @param \Phar $phar
+     */
+    private function addLicense($phar)
+    {
+        if (is_readable($this->path . '/LICENSE')) {
+            $this->addFile($phar, new \SplFileInfo($this->path . '/LICENSE'), false);
+        }
+    }
+
+    /**
+     * Commit all changes to and write the phar archive.
+     *
+     * @param \Phar $phar
+     */
+    private function writePhar($phar)
+    {
         $phar->stopBuffering();
-
-        /* add LICENSE */
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../LICENSE'), false);
-
-        unset($phar);
     }
 
     /**
@@ -123,18 +310,6 @@ class Compiler
         $content = str_replace('@versionDate@', $this->versionDate, $content);
 
         $phar->addFromString($path, $content);
-    }
-
-    /**
-     * Add the bin/teleport script.
-     *
-     * @param \Phar $phar
-     */
-    private function addTeleportBin($phar)
-    {
-        $content = file_get_contents(__DIR__ . '/../../bin/teleport');
-        $content = preg_replace('{^#!/usr/bin/env php\s*}', '', $content);
-        $phar->addFromString('bin/teleport', $content);
     }
 
     /**
@@ -171,35 +346,4 @@ class Compiler
 
         return $output;
     }
-
-    private function getStub()
-    {
-        $stub = <<<'EOF'
-#!/usr/bin/env php
-<?php
-/**
- * This file is part of the teleport package.
- *
- * Copyright (c) MODX, LLC
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-Phar::mapPhar('teleport.phar');
-
-EOF;
-
-        // add warning once the phar is older than 30 days
-        if (preg_match('{^[a-f0-9]+$}', $this->version)) {
-            $warningTime = time() + 30 * 86400;
-            $stub .= "define('COMPOSER_DEV_WARNING_TIME', $warningTime);\n";
-        }
-
-        return $stub . <<<'EOF'
-require 'phar://teleport.phar/bin/teleport';
-
-__HALT_COMPILER();
-EOF;
-    }
-} 
+}
