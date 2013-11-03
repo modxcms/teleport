@@ -18,6 +18,10 @@
         "symfony/finder": "~2.2",
         "symfony/process": "~2.1@dev"
     },
+    "bin": [
+        "bin/compile",
+        "bin/teleport"
+    ],
     "autoload": {
         "psr-0": {
             "Teleport": "src/"
