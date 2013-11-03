@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Teleport\Transport\TeleportTransport $transport
+ * @var \Teleport\Transport\Transport $transport
  * @var \modTransportPackage $object
  * @var array $options
  */

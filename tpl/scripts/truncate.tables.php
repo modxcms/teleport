@@ -1,5 +1,5 @@
 <?php
-/** @var \Teleport\Transport\TeleportTransport $transport  */
+/** @var \Teleport\Transport\Transport $transport  */
 $results = array();
 if (isset($object['classes'])) {
     foreach ($object['classes'] as $class) {
