@@ -388,7 +388,7 @@ class Extract extends Action
             case 'xPDOScriptVehicle':
                 if (isset($vehicle['object']['source'])) {
                     if (strpos($vehicle['object']['source'], ':/') === false && strpos($vehicle['object']['source'], '/') !== 0) {
-                        $vehicle['object']['source'] = $this->tplBase . $vehicle['object']['source'];
+                        $vehicle['object']['source'] = $this->tplBase . '/' . $vehicle['object']['source'];
                     }
                 }
             case 'xPDOFileVehicle':
