@@ -48,7 +48,7 @@ class Composer
     public static function symLinkTpl(Event $event)
     {
         $installPath = $event->getComposer()->getInstallationManager()->getInstallPath($event->getComposer()->getPackage());
-        $target = dirname(dirname($installPath)) . '/tpl';
+        $target = dirname(dirname(dirname($installPath))) . '/tpl';
 
         /* symlink the tpl files from the teleport library */
         $sources = new Finder();
