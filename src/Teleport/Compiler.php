@@ -21,10 +21,6 @@ use Symfony\Component\Process\Process;
 class Compiler
 {
     /**
-     * @var string The filename given to the phar that is created.
-     */
-    private $name;
-    /**
      * @var string The alias given to the phar that is created.
      */
     private $alias;
@@ -44,15 +40,13 @@ class Compiler
     /**
      * Construct a new Compiler instance.
      *
-     * @param string      $name The name of the file to create.
-     * @param string      $alias The alias of the phar created.
-     * @param null|string $path The root path of the project being compiled.
+     * @param string $path The root path of the project being compiled.
+     * @param string $alias The alias of the phar created.
      */
-    public function __construct($name = 'teleport.phar', $alias = 'teleport.phar', $path = null)
+    public function __construct($path = '', $alias = 'teleport.phar')
     {
-        $this->name = $name;
         $this->alias = $alias;
-        if ($path === null) $path = __DIR__ . '/../..';
+        if (empty($path) && $path !== '0') $path = dirname(dirname(__DIR__));
         $this->path = $path;
     }
 
@@ -61,15 +55,15 @@ class Compiler
      *
      * @throws \RuntimeException If there is an error during compilation of the phar.
      */
-    public function compile()
+    public function compile($name = 'teleport.phar')
     {
-        $this->cleanse();
+        $this->cleanse($name);
 
         $this->getVersion();
 
-        echo "building {$this->name} version {$this->version} ({$this->versionDate})" . PHP_EOL;
+        echo "building {$name} version {$this->version} ({$this->versionDate})" . PHP_EOL;
 
-        $phar = $this->preparePhar();
+        $phar = $this->preparePhar($name);
 
         $this->addSrc($phar);
 
@@ -92,11 +86,13 @@ class Compiler
 
     /**
      * Cleanse the environment before compiling the phar.
+     *
+     * @param string $name The filename of the phar being compiled.
      */
-    private function cleanse()
+    private function cleanse($name)
     {
-        if (file_exists($this->name)) {
-            unlink($this->name);
+        if (file_exists($name)) {
+            unlink($name);
         }
     }
 
@@ -131,12 +127,14 @@ class Compiler
     /**
      * Prepare a phar object for adding files.
      *
+     * @param string $name The filename for the phar.
+     *
      * @return \Phar The phar object ready to add files to.
      */
-    private function preparePhar()
+    private function preparePhar($name)
     {
         /* start building the Phar */
-        $phar = new \Phar($this->name, 0, $this->alias);
+        $phar = new \Phar($name, 0, $this->alias);
         $phar->setSignatureAlgorithm(\Phar::SHA1);
 
         $phar->startBuffering();
@@ -247,7 +245,7 @@ class Compiler
      */
     private function getStub()
     {
-        return <<<'EOF'
+        return <<<EOF
 #!/usr/bin/env php
 <?php
 /**
@@ -259,8 +257,8 @@ class Compiler
  * file that was distributed with this source code.
  */
 
-Phar::mapPhar('teleport.phar');
-require 'phar://teleport.phar/bin/teleport';
+Phar::mapPhar('{$this->alias}');
+require 'phar://{$this->alias}/bin/teleport';
 
 __HALT_COMPILER();
 EOF;
