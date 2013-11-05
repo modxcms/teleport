@@ -70,7 +70,7 @@ class Composer
     {
         $filename = $source->getPathname();
         $relative = substr($filename, strlen($base) + 1);
-        $relativeFilename = '../vendor/modxcms/teleport/tpl/' . $relative;
+        $relativeFilename = 'vendor/modxcms/teleport/tpl/' . $relative;
         $target = $config['teleport-tpl-dir'] . '/' . $relative;
         if (!is_dir(dirname($target))) {
             @mkdir(dirname($target), 0777, true);
