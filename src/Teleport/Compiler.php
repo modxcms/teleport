@@ -148,11 +148,13 @@ class Compiler
      */
     private function addSrc($phar)
     {
-        $src = new Finder();
-        $src->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->notName('Compiler.php')->notName('Composer.php')->in($this->path . '/src');
+        if (file_exists($this->path . '/src')) {
+            $src = new Finder();
+            $src->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->notName('Compiler.php')->notName('Composer.php')->in($this->path . '/src');
 
-        foreach ($src as $file) {
-            $this->addFile($phar, $file);
+            foreach ($src as $file) {
+                $this->addFile($phar, $file);
+            }
         }
     }
 
