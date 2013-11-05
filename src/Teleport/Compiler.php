@@ -306,7 +306,7 @@ EOF;
      */
     private function addFile($phar, $file, $strip = true)
     {
-        $path = str_replace(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR, '', $file->getRealPath());
+        $path = str_replace($this->path . DIRECTORY_SEPARATOR, '', $file->getRealPath());
 
         $content = file_get_contents($file);
         if ($strip) {
