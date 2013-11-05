@@ -46,7 +46,7 @@ class Compiler
     public function __construct($path = '', $alias = 'teleport.phar')
     {
         $this->alias = $alias;
-        if (empty($path) && $path !== '0') $path = dirname(dirname(__DIR__));
+        if (empty($path) && $path !== '0') $path = getcwd();
         $this->path = $path;
     }
 

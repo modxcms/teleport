@@ -75,7 +75,7 @@ require __DIR__ . '/../src/bootstrap.php';
 use Teleport\Compiler;
 
 try {
-    $compiler = new Compiler(dirname(__DIR__));
+    $compiler = new Compiler($arg(2, ''));
     $compiler->compile($arg(1, 'teleport.phar'));
 
     printf("execution finished with exit code 0 in %2.4f seconds" . PHP_EOL, microtime(true) - $start);
