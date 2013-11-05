@@ -10,7 +10,7 @@
 
 namespace Teleport;
 
-use Composer\Script\Event;
+use Composer\Script\CommandEvent;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -23,9 +23,9 @@ class Composer
     /**
      * Composer post-install-cmd callback.
      *
-     * @param Event $event The composer Event object.
+     * @param CommandEvent $event The composer Event object.
      */
-    public static function postInstall(Event $event)
+    public static function postInstall(CommandEvent $event)
     {
         self::symLinkTpl($event);
     }
@@ -33,9 +33,9 @@ class Composer
     /**
      * Composer post-update-cmd callback.
      *
-     * @param Event $event The composer Event object.
+     * @param CommandEvent $event The composer Event object.
      */
-    public static function postUpdate(Event $event)
+    public static function postUpdate(CommandEvent $event)
     {
         self::symLinkTpl($event);
     }
@@ -43,11 +43,12 @@ class Composer
     /**
      * Create symlinks to teleport tpl files in local tpl directory.
      *
-     * @param Event $event The composer Event object.
+     * @param CommandEvent $event The composer Event object.
      */
-    public static function symLinkTpl(Event $event)
+    public static function symLinkTpl(CommandEvent $event)
     {
         $installPath = $event->getComposer()->getInstallationManager()->getInstallPath($event->getComposer()->getPackage());
+        $event->getIO()->write(__METHOD__ . " - using installPath {$installPath}");
         $target = dirname(dirname(dirname($installPath))) . '/tpl';
 
         /* symlink the tpl files from the teleport library */
@@ -62,7 +63,7 @@ class Composer
     /**
      * Create a symlink to a source in a specified target directory.
      *
-     * @param Event $event The composer Event object.
+     * @param CommandEvent $event The composer Event object.
      * @param string $base The base path of the installation.
      * @param \SplFileInfo $source The source file info.
      * @param string $target The target link base path.
