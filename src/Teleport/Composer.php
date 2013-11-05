@@ -47,16 +47,14 @@ class Composer
      */
     public static function symLinkTpl(CommandEvent $event)
     {
-        $installPath = $event->getComposer()->getInstallationManager()->getInstallPath($event->getComposer()->getPackage());
-        $event->getIO()->write(__METHOD__ . " - using installPath {$installPath}");
-        $target = dirname(dirname(dirname($installPath))) . '/tpl';
+        $config = self::getOptions($event);
 
         /* symlink the tpl files from the teleport library */
         $sources = new Finder();
         $sources->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.tpl.json')->name('*.php')->in(dirname(dirname(__DIR__)) . '/tpl');
 
         foreach ($sources as $source) {
-            self::createSymLink($event, dirname(dirname(__DIR__)) . '/tpl', $source, $target);
+            self::createSymLink($event, dirname(dirname(__DIR__)) . '/tpl', $source, $config['teleport-tpl-dir']);
         }
     }
 
@@ -79,5 +77,16 @@ class Composer
         if (!file_exists($target)) {
             symlink($filename, $target);
         }
+    }
+
+    protected static function getOptions(CommandEvent $event)
+    {
+        $options = array_merge(
+            array(
+                'teleport-tpl-dir' => 'tpl',
+            ),
+            $event->getComposer()->getPackage()->getExtra()
+        );
+        return $options;
     }
 }
