@@ -149,7 +149,7 @@ class Compiler
     private function addSrc($phar)
     {
         $src = new Finder();
-        $src->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->notName('Compiler.php')->in($this->path . '/src');
+        $src->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->notName('Compiler.php')->notName('Composer.php')->in($this->path . '/src');
 
         foreach ($src as $file) {
             $this->addFile($phar, $file);
@@ -202,6 +202,15 @@ class Compiler
      */
     private function addDependencies($phar)
     {
+        /* add teleport if this is a project using it as a library */
+        if (file_exists($this->path . '/vendor/modxcms/teleport/src/Teleport/Teleport.php')) {
+            $teleport = new Finder();
+            $teleport->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->notName('Compiler.php')->notName('Composer.php')->in($this->path . '/vendor/modxcms/teleport/src');
+            foreach ($teleport as $file) {
+                $this->addFile($phar, $file);
+            }
+        }
+
         /* add aws */
         $aws = new Finder();
         $aws->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/aws/aws-sdk-php/src');
