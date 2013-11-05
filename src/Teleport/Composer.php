@@ -94,7 +94,7 @@ class Composer
         $options = array_merge(
             array(
                 'teleport-tpl-dir' => 'tpl',
-                'teleport-tpl-update' => true
+                'teleport-tpl-update' => false
             ),
             $event->getComposer()->getPackage()->getExtra()
         );
