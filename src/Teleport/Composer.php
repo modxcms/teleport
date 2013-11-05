@@ -54,7 +54,7 @@ class Composer
         $sources->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.tpl.json')->name('*.php')->in(dirname(dirname(__DIR__)) . '/tpl');
 
         foreach ($sources as $source) {
-            self::createSymLink($event, dirname(dirname(__DIR__)) . '/tpl', $source, $config['teleport-tpl-dir']);
+            self::createSymLink($event, dirname(dirname(__DIR__)) . '/tpl', $source, $config);
         }
     }
 
@@ -64,26 +64,37 @@ class Composer
      * @param CommandEvent $event The composer Event object.
      * @param string $base The base path of the installation.
      * @param \SplFileInfo $source The source file info.
-     * @param string $target The target link base path.
+     * @param array $config Project config options.
      */
-    protected static function createSymLink($event, $base, $source, $target)
+    protected static function createSymLink($event, $base, $source, $config)
     {
         $filename = $source->getPathname();
         $relative = substr($filename, strlen($base) + 1);
-        $target .= '/' . $relative;
+        $target = $config['teleport-tpl-dir'] . '/' . $relative;
         if (!is_dir(dirname($target))) {
             @mkdir(dirname($target), 0777, true);
+        }
+        if ($config['teleport-tpl-update'] && file_exists($target)) {
+            unlink($target);
         }
         if (!file_exists($target)) {
             symlink($filename, $target);
         }
     }
 
+    /**
+     * Get the config data from the extra definition in composer.json.
+     *
+     * @param CommandEvent $event The composer Event object.
+     *
+     * @return array An array of options from the package extra.
+     */
     protected static function getOptions(CommandEvent $event)
     {
         $options = array_merge(
             array(
                 'teleport-tpl-dir' => 'tpl',
+                'teleport-tpl-update' => true
             ),
             $event->getComposer()->getPackage()->getExtra()
         );
