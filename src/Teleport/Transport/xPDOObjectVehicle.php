@@ -52,4 +52,12 @@ class xPDOObjectVehicle extends \xPDOObjectVehicle
         }
         return $object;
     }
+
+    public function put(& $transport, & $object, $attributes = array ())
+    {
+        parent::put($transport, $object, $attributes);
+        if (isset($this->payload['package'])) {
+            $this->payload['package'] = strtolower($this->payload['package']);
+        }
+    }
 }
