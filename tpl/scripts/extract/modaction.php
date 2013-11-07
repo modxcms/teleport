@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Teleport\Actions\Extract $this
+ * @var \Teleport\Action\Extract $this
  * @var array $graph
  * @var array $graphCriteria
  * @var array $vehicle
