@@ -244,8 +244,7 @@ class Compiler
      */
     private function addTeleportBin($phar)
     {
-        $content = file_get_contents($this->path . '/bin/teleport');
-        $content = preg_replace('{^#!/usr/bin/env php\s*}', '', $content);
+        $content = file_get_contents($this->path . '/bin/teleport.php');
         $phar->addFromString('bin/teleport', $content);
     }
 
