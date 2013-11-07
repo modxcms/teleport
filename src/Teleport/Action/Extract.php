@@ -216,6 +216,7 @@ class Extract extends Action
             }
         }
         switch ($vehicle['vehicle_class']) {
+            case '\\Teleport\\Transport\\xPDOObjectVehicle':
             case 'xPDOObjectVehicle':
                 $realClass = $this->modx->loadClass($vehicle['object']['class']);
                 $graph = isset($vehicle['object']['graph']) && is_array($vehicle['object']['graph'])
