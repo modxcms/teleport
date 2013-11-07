@@ -20,7 +20,9 @@
     },
     "bin": [
         "bin/compile",
-        "bin/teleport"
+        "bin/compile.php",
+        "bin/teleport",
+        "bin/teleport.php"
     ],
     "autoload": {
         "psr-0": {
