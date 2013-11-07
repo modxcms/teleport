@@ -19,9 +19,9 @@ class xPDOObjectVehicle extends \xPDOObjectVehicle
         if (isset ($element['class']) && isset ($element['object'])) {
             $vClass = $element['class'];
             if (!empty ($element['package'])) {
-                $pkgPrefix = $element['package'];
+                $pkgPrefix = strtolower($element['package']);
                 $pkgKeys = array_keys($transport->xpdo->packages);
-                if ($pkgFound = in_array(strtolower($pkgPrefix), $pkgKeys)) {
+                if ($pkgFound = in_array($pkgPrefix, $pkgKeys)) {
                     $pkgPrefix = '';
                 }
                 elseif ($pos = strpos($pkgPrefix, '.')) {
@@ -30,13 +30,13 @@ class xPDOObjectVehicle extends \xPDOObjectVehicle
                     foreach ($prefixParts as $prefixPart) {
                         $prefix .= $prefixPart;
                         $pkgPrefix = substr($pkgPrefix, $pos +1);
-                        if ($pkgFound = in_array(strtolower($prefix), $pkgKeys))
+                        if ($pkgFound = in_array($prefix, $pkgKeys))
                             break;
                         $prefix .= '.';
                         $pos = strpos($pkgPrefix, '.');
                     }
                     if (!$pkgFound)
-                        $pkgPrefix = $element['package'];
+                        $pkgPrefix = strtolower($element['package']);
                 }
                 $vClass = (!empty ($pkgPrefix) ? $pkgPrefix . '.' : '') . $vClass;
             }
