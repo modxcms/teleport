@@ -59,5 +59,8 @@ class xPDOObjectVehicle extends \xPDOObjectVehicle
         if (isset($this->payload['package'])) {
             $this->payload['package'] = strtolower($this->payload['package']);
         }
+        if (isset($this->payload['object']) && isset($this->payload['object']['package'])) {
+            $this->payload['object']['package'] = strtolower($this->payload['object']['package']);
+        }
     }
 }
