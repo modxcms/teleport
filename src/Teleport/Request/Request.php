@@ -15,7 +15,8 @@ use Teleport\Action\Action;
 /**
  * Provides common features for all Teleport Request classes.
  *
- * @property bool verbose
+ * @property string namespace
+ * @property bool   verbose
  *
  * @package Teleport\Request
  */
@@ -111,16 +112,6 @@ abstract class Request implements RequestInterface
     }
 
     /**
-     * Get the action requested.
-     *
-     * @return string The action requested.
-     */
-    public function getAction()
-    {
-        return $this->action;
-    }
-
-    /**
      * Get a reference to the results of this Request.
      *
      * @return array An array of results from this request.
@@ -140,7 +131,7 @@ abstract class Request implements RequestInterface
     {
         $this->parseArguments($arguments);
 
-        $actionClass = "\\Teleport\\Action\\" . str_replace('/', '\\', $this->action);
+        $actionClass = $this->getActionClass();
         if (class_exists($actionClass, true)) {
             try {
                 /** @var \Teleport\Action\Action $handler */
@@ -156,14 +147,37 @@ abstract class Request implements RequestInterface
         }
     }
 
-    public function beforeHandle(Action &$action)
+    /**
+     * Request-specific logic executed before an action is handled.
+     *
+     * @param Action &$action The action to be processed.
+     *
+     * @throws RequestException If an error occurs which should stop processing of
+     * the action.
+     */
+    public function beforeHandle(Action &$action) { }
+
+    /**
+     * Request-specific logic executed after an action is handled.
+     *
+     * @param Action &$action The action that was just processed.
+     *
+     * @throws RequestException If an error occurs.
+     */
+    public function afterHandle(Action &$action) { }
+
+    /**
+     * Handle an action through an APIRequest.
+     *
+     * @param array $arguments Arguments for an action request.
+     *
+     * @throws RequestException If an error occurs during processing of the action,
+     * or an unknown action is requested.
+     */
+    public function request(array $arguments)
     {
-
-    }
-
-    public function afterHandle(Action &$action)
-    {
-
+        $request = new APIRequest();
+        $request->handle($arguments);
     }
 
     /**
@@ -185,6 +199,16 @@ abstract class Request implements RequestInterface
     }
 
     /**
+     * Get the action requested.
+     *
+     * @return string The action requested.
+     */
+    public function getAction()
+    {
+        return $this->action;
+    }
+
+    /**
      * Parse the request arguments into a normalized format.
      *
      * @param array $args An array of arguments to parse.
@@ -193,4 +217,20 @@ abstract class Request implements RequestInterface
      * @throws RequestException If no valid action argument is specified.
      */
     abstract public function parseArguments(array $args);
+
+    /**
+     * Get the Action class to handle.
+     *
+     * Uses Teleport\Action as the default namespace to look for the action
+     * class in unless a namespace is specified in the arguments.
+     *
+     * @return string The fully-qualified class name of the Action.
+     */
+    private function getActionClass()
+    {
+        if (empty($this->namespace)) {
+            $this->namespace = 'Teleport\\Action';
+        }
+        return $this->namespace . '\\' . str_replace('/', '\\', $this->action);
+    }
 }

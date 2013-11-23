@@ -77,6 +77,16 @@ interface RequestInterface
     public function afterHandle(Action &$action);
 
     /**
+     * Handle an action through an APIRequest.
+     *
+     * @param array $arguments Arguments for an action request.
+     *
+     * @throws RequestException If an error occurs during processing of the action,
+     * or an unknown action is requested.
+     */
+    public function request(array $arguments);
+
+    /**
      * Log a result message and echo it if verbose is true.
      *
      * @param string $msg The result message.

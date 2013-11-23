@@ -1,3 +1,6 @@
+  * Add support for Actions from other namespaces via namespace argument
+  * Add RequestInterface::request() to call actions as sub-requests
+
 ### Teleport 1.0.0-alpha3 (2013-11-05)
 
   * Add teleport-tpl-update option to toggle update of tpl copies in projects using as library
