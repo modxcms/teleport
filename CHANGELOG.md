@@ -1,3 +1,5 @@
+  * Add Pull Action
+  * Remove dependency on MODX in Push Action
   * Add support for Actions from other namespaces via namespace argument
   * Add RequestInterface::request() to call actions as sub-requests
 

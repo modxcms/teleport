@@ -11,19 +11,18 @@
 namespace Teleport\Action;
 
 /**
- * Pushes a file to a target stream location.
+ * Pull a source stream to a target stream.
  *
  * @property string   source
  * @property string   target
- * @property bool     removeSource
  * @property bool     overwriteTarget
  *
  * @package Teleport\Action
  */
-class Push extends Action
+class Pull extends Action
 {
     /**
-     * @var array Defines the arguments required for the Push action.
+     * @var array Defines the arguments required for the Pull action.
      */
     protected $required = array('source', 'target');
 
@@ -31,19 +30,16 @@ class Push extends Action
     {
         parent::process();
         if (!$this->overwriteTarget && file_exists($this->target)) {
-            throw new ActionException($this, "{$this->target} exists; use --overwriteTarget to Push anyway");
+            throw new ActionException($this, "{$this->target} exists; use --overwriteTarget to Pull anyway");
         }
         try {
-            $pushed = copy($this->source, $this->target);
-            if (!$pushed) {
+            $pulled = copy($this->source, $this->target);
+            if (!$pulled) {
                 throw new ActionException($this, "copy failed");
             }
-            if ($this->removeSource) {
-                unlink($this->source);
-            }
-            $this->request->log("Successfully pushed {$this->source} to {$this->target}");
+            $this->request->log("Successfully pulled {$this->source} to {$this->target}");
         } catch (\Exception $e) {
-            throw new ActionException($this, "Error pushing {$this->source} to {$this->target}", $e);
+            throw new ActionException($this, "Error pulling {$this->source} to {$this->target}", $e);
         }
     }
 }
