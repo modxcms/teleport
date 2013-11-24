@@ -82,10 +82,6 @@ abstract class Action implements ActionInterface
     public function &getMODX()
     {
         if (!$this->modx instanceof \modX) {
-            define('MODX_CORE_PATH', $this->profile->properties->modx->core_path);
-            define('MODX_CONFIG_KEY', !empty($this->profile->properties->modx->config_key)
-                ? $this->profile->properties->modx->config_key : 'config');
-
             try {
                 require_once MODX_CORE_PATH . 'model/modx/modx.class.php';
                 $results = $this->request->getResults();

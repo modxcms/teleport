@@ -51,6 +51,10 @@ class Extract extends Action
             $this->profile = $this->loadProfile($this->profile);
             $this->tpl = $this->loadTpl($this->tpl);
 
+            define('MODX_CORE_PATH', $this->profile->properties->modx->core_path);
+            define('MODX_CONFIG_KEY', !empty($this->profile->properties->modx->config_key)
+                ? $this->profile->properties->modx->config_key : 'config');
+
             $this->getMODX();
 
             $this->prepareTpl();

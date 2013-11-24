@@ -43,6 +43,10 @@ class Inject extends Action
         try {
             $this->profile = $this->loadProfile($this->profile);
 
+            define('MODX_CORE_PATH', $this->profile->properties->modx->core_path);
+            define('MODX_CONFIG_KEY', !empty($this->profile->properties->modx->config_key)
+                ? $this->profile->properties->modx->config_key : 'config');
+
             $this->getMODX();
 
             $this->modx->setOption(\xPDO::OPT_SETUP, true);
