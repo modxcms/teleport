@@ -23,20 +23,20 @@ class Teleport
     /**
      * @var Teleport The Teleport singleton instance.
      */
-    private static $instance = null;
+    protected static $instance = null;
 
     /**
      * @var Config An object containing the Teleport configuration options.
      */
-    private $config;
+    protected $config;
     /**
      * @var Request A Request instance controlled by this Teleport instance.
      */
-    private $request;
+    protected $request;
     /**
      * @var resource The default stream context used by Teleport.
      */
-    private $streamContext;
+    protected $streamContext;
 
     /**
      * Get a singleton instance of Teleport.
@@ -48,7 +48,7 @@ class Teleport
      */
     public static function instance(array $options = array(), $forceNew = false)
     {
-        if (!self::$instance instanceof Teleport || $forceNew === true) {
+        if (self::$instance === null || $forceNew === true) {
             self::$instance = new Teleport($options);
         } else {
             self::$instance->setConfig($options);
@@ -145,7 +145,7 @@ class Teleport
      *
      * @param array $options An associative array of Teleport Config options.
      */
-    private function __construct(array $options = array())
+    protected function __construct(array $options = array())
     {
         $this->setConfig($options);
         $this->registerStreamHandlers();

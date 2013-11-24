@@ -10,34 +10,50 @@
 
 namespace Teleport;
 
-use React\EventLoop\Factory;
-use React\Http\Request;
-use React\Http\Response;
-use Teleport\Request\APIRequest;
+class Server extends Teleport {
+    /**
+     * Get a singleton instance of Teleport.
+     *
+     * @param array $options An associative array of Teleport Config options for the instance.
+     * @param bool  $forceNew If true, a new instance of Teleport is created and replaces the existing singleton.
+     *
+     * @return Server
+     */
+    public static function instance(array $options = array(), $forceNew = false)
+    {
+        if (self::$instance === null || $forceNew === true) {
+            self::$instance = new Server($options);
+        } else {
+            self::$instance->setConfig($options);
+        }
+        return self::$instance;
+    }
 
-class Server {
-    private $port;
-
-    public function __construct($port)
+    /**
+     * Run the Teleport Server on the specified port.
+     * 
+     * @param int $port A valid port to run the Teleport Server on.
+     *
+     * @throws \RuntimeException If an invalid port is specified.
+     */
+    public function run($port)
     {
         $port = (integer)$port;
         if ($port < 1) {
-            throw new \InvalidArgumentException('Invalid server port specified', E_USER_ERROR);
+            throw new \RuntimeException("Invalid port specified for Teleport Server", E_USER_ERROR);
         }
-        $this->port = $port;
-    }
 
-    public function run()
-    {
         /** @var \React\EventLoop\LibEventLoop $loop */
-        $loop = Factory::create();
+        $loop = \React\EventLoop\Factory::create();
         $socket = new \React\Socket\Server($loop);
         $http = new \React\Http\Server($socket);
+        
+        $server =& $this;
 
-        $http->on('request', function ($request, $response) {
-            /** @var Request $request */
-            /** @var Response $response */
-            
+        $http->on('request', function ($request, $response) use ($server) {
+            /** @var \React\Http\Request $request */
+            /** @var \React\Http\Response $response */
+
             $arguments = $request->getQuery();
             $arguments['action'] = trim($request->getPath(), '/');
 
@@ -45,10 +61,11 @@ class Server {
                 'Content-Type' => 'text/javascript'
             );
             try {
-                $teleportRequest = new APIRequest();
-                $teleportRequest->handle($arguments);
-                $results = $teleportRequest->getResults();
-                
+                /** @var \Teleport\Request\Request $request */
+                $request = $server->getRequest('Teleport\\Request\\APIRequest');
+                $request->handle($arguments);
+                $results = $request->getResults();
+
                 $response->writeHead(200, $headers);
                 $response->end(json_encode(array('success' => true, 'message' => $results)));
             } catch (\Exception $e) {
@@ -57,7 +74,7 @@ class Server {
             }
         });
 
-        $socket->listen($this->port);
+        $socket->listen($port);
         $loop->run();
     }
 }

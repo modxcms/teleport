@@ -82,37 +82,37 @@ abstract class Action implements ActionInterface
     public function &getMODX()
     {
         if (!$this->modx instanceof \modX) {
-            if (defined('MODX_CORE_PATH')) {
-                try {
-                    require MODX_CORE_PATH . 'model/modx/modx.class.php';
-                    $results = $this->request->getResults();
-                    $logTarget = $this->request->args('log_target') !== null ? $this->request->args('log_target')
-                        : array('target' => 'ARRAY', 'target_options' => array('var' => &$results));
-                    $logLevel = $this->request->args('log_level') !== null ? $this->request->args('log_level')
-                        : \modX::LOG_LEVEL_INFO;
-                    $config = array(
-                        'log_target' => $logTarget,
-                        'log_level' => $logLevel,
-                        'cache_db' => false,
-                    );
-                    $this->modx = new \modX('', $config);
-                    $this->modx->setLogLevel($config['log_level']);
-                    $this->modx->setLogTarget($config['log_target']);
-                    $this->modx->setOption('cache_db', $config['cache_db']);
-                    $this->modx->getVersionData();
-                    if (version_compare($this->modx->version['full_version'], '2.2.1-pl', '>=')) {
-                        $this->modx->initialize('mgr', $config);
-                    } else {
-                        $this->modx->initialize('mgr');
-                    }
-                    $this->modx->setLogLevel($config['log_level']);
-                    $this->modx->setLogTarget($config['log_target']);
-                    $this->modx->setOption('cache_db', $config['cache_db']);
-                } catch (\Exception $e) {
-                    throw new ActionException($this, "Error initializing MODX: " . $e->getMessage(), $e);
+            define('MODX_CORE_PATH', $this->profile->properties->modx->core_path);
+            define('MODX_CONFIG_KEY', !empty($this->profile->properties->modx->config_key)
+                ? $this->profile->properties->modx->config_key : 'config');
+
+            try {
+                require_once MODX_CORE_PATH . 'model/modx/modx.class.php';
+                $results = $this->request->getResults();
+                $logTarget = $this->request->args('log_target') !== null ? $this->request->args('log_target')
+                    : array('target' => 'ARRAY', 'target_options' => array('var' => &$results));
+                $logLevel = $this->request->args('log_level') !== null ? $this->request->args('log_level')
+                    : \modX::LOG_LEVEL_INFO;
+                $config = array(
+                    'log_target' => $logTarget,
+                    'log_level' => $logLevel,
+                    'cache_db' => false,
+                );
+                $this->modx = new \modX('', $config);
+                $this->modx->setLogLevel($config['log_level']);
+                $this->modx->setLogTarget($config['log_target']);
+                $this->modx->setOption('cache_db', $config['cache_db']);
+                $this->modx->getVersionData();
+                if (version_compare($this->modx->version['full_version'], '2.2.1-pl', '>=')) {
+                    $this->modx->initialize('mgr', $config);
+                } else {
+                    $this->modx->initialize('mgr');
                 }
-            } else {
-                throw new ActionException($this, "Could not initialize MODX: MODX_CORE_PATH not defined.");
+                $this->modx->setLogLevel($config['log_level']);
+                $this->modx->setLogTarget($config['log_target']);
+                $this->modx->setOption('cache_db', $config['cache_db']);
+            } catch (\Exception $e) {
+                throw new ActionException($this, "Error initializing MODX: " . $e->getMessage(), $e);
             }
         }
         return $this->modx;

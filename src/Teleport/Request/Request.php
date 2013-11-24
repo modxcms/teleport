@@ -195,7 +195,7 @@ abstract class Request implements RequestInterface
             $msg = "[{$timestamp}] {$msg}";
         }
         $this->addResult($msg);
-        if ($this->verbose) echo $msg;
+        if ($this->verbose) echo $msg . PHP_EOL;
     }
 
     /**

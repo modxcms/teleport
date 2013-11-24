@@ -1,3 +1,4 @@
+  * Run APIRequests in sub-process to avoid constant conflicts
   * Add HTTP server to handle teleport web requests 
   * Add Pull Action
   * Remove dependency on MODX in Push Action
