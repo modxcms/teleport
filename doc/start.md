@@ -7,7 +7,7 @@ Teleport is an extensible scripting toolkit for working with one or more local M
 
 There are various methods for installing Teleport so you can begin using it. Choose the one that best fits your needs:
 
-* [Phar](install/phar.md) - The easiest way to start using Teleport is to download the [latest `teleport.phar`](http://modx.s3.amazonaws.com/releases/teleport/teleport.phar) and put it in a directory where the application can do it's work. In this distribution, Teleport will attempt to create subdirectories called profile/ and workspace/ where it will store generated site Profiles and Extracted transport packages, respectively. The phar distribution includes all dependencies required to use Teleport.
+* [Phar](install/phar.md) - The easiest way to start using Teleport is to download the [latest `teleport.phar`](http://modx.s3.amazonaws.com/releases/teleport/teleport.phar) and put it in a directory where the application can do it's work. In this distribution, Teleport will attempt to create subdirectories called profile/ and workspace/ where it will store generated site Profiles and Extracted transport packages, respectively. The phar distribution includes all dependencies required to use Teleport. Note however that you cannot run the Teleport Server from the phar distribution; it is not included in the Phar.
 
 * [Releases](install/releases.md) - You can download zip and tar.gz formats of any Teleport release, extract them in an appropriate location, and run `composer install` in that location to download the required dependencies. GitHub releases of the project are available [here](https://github.com/modxcms/teleport/releases).
 
@@ -32,6 +32,13 @@ Currently, Teleport provides the following Actions:
 
 * [UserCreate](use/user-create.md) - Create a User in a MODX installation described by a specified profile.
 
+### CLI Requests
+
+The simplest way to use Teleport is by calling Teleport Actions on the command line. See documentation for an Action to discover the required and optional arguments for calling that specific Teleport Action.
+
+### Teleport Server
+
+Teleport comes with a [custom HTTP server](use/server.md), built with [ReactPHP](http://reactphp.org/) that can be run on any server port. This allows access to Teleport Actions over HTTP, bypassing timeout and other issues that can occur when attempting to execute long-running processes using your public web server configuration.
 
 ## Extend
 

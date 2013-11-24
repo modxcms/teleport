@@ -48,6 +48,8 @@ Extract a Snapshot from the MODX site you just profiled:
 
 Alternatively, you can install Teleport using the source and [Composer](http://getcomposer.org/). Learn more about using [git clone](doc/install/git-clone.md) or a [release archive](doc/install/releases.md).
 
+_IMPORTANT: If you want to use the Teleport HTTP Server you cannot use the Phar distribution. You MUST use one of the other installation methods._
+
 ### Teleport in your PATH
 
 With any of the installation methods you can create an executable symlink called teleport pointing to bin/teleport, or directly to the teleport.phar. You can then simply type `teleport` instead of `bin/teleport` or `php teleport.phar` to execute the teleport application.
