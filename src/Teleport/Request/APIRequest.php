@@ -22,7 +22,7 @@ class APIRequest extends Request
         $this->arguments = $args;
         return $this->arguments;
     }
-    
+
     public function handle(array $arguments)
     {
         $this->parseArguments($arguments);
@@ -33,26 +33,40 @@ class APIRequest extends Request
 
         $process = new \React\ChildProcess\Process($this->getCLICommand());
 
-        $request =& $this;
         $message = '';
-        $process->on('exit', function($exitCode, $termSignal) use ($request, $start, &$message) {
-            $request->results = $request->results + explode(PHP_EOL, rtrim($message, PHP_EOL));
+        $request =& $this;
+        $teleport = \Teleport\Teleport::instance();
+
+        $process->on('exit', function($exitCode, $termSignal) use ($teleport, $request, $start, &$message) {
+            $request->results = explode(PHP_EOL, rtrim($message, PHP_EOL));
             if ($request->args('debug') || $request->args('verbose')) {
                 array_push($request->results, sprintf("request finished with exit code {$exitCode} in %2.4f seconds" . PHP_EOL, microtime(true) - $start));
             }
+            if ($teleport->getConfig()->get('verbose', null, false) || $teleport->getConfig()->get('debug', null, false)) {
+                echo sprintf("process finished with exit code {$exitCode} in %2.4f seconds" . PHP_EOL, microtime(true) - $start);
+            }
         });
 
-        $loop->addTimer(0.001, function($timer) use ($request, $process, &$message) {
+        $loop->addTimer(0.001, function($timer) use ($teleport, $request, $process, &$message) {
+            if ($teleport->getConfig()->get('verbose', null, false) || $teleport->getConfig()->get('debug', null, false)) {
+                echo "process started using cmd: {$process->getCommand()}" . PHP_EOL;
+            }
             $process->start($timer->getLoop());
-            
-            $process->stdout->on('data', function($output) use ($request, &$message) {
+
+            $process->stdout->on('data', function($output) use ($teleport, $request, &$message) {
                 $message .= $output;
+                if ($teleport->getConfig()->get('verbose', null, false) || $teleport->getConfig()->get('debug', null, false)) {
+                    echo $output;
+                }
             });
-            $process->stderr->on('data', function($output) use ($request, &$message) {
+            $process->stderr->on('data', function($output) use ($teleport, $request, &$message) {
                 $message .= $output;
+                if ($teleport->getConfig()->get('verbose', null, false) || $teleport->getConfig()->get('debug', null, false)) {
+                    echo $output;
+                }
             });
         });
-        
+
         $loop->run();
     }
 

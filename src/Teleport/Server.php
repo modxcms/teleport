@@ -57,24 +57,40 @@ class Server extends Teleport {
             $arguments = $request->getQuery();
             $arguments['action'] = trim($request->getPath(), '/');
 
-            $headers = array(
-                'Content-Type' => 'text/javascript'
-            );
-            try {
-                /** @var \Teleport\Request\Request $request */
-                $request = $server->getRequest('Teleport\\Request\\APIRequest');
-                $request->handle($arguments);
-                $results = $request->getResults();
+            if (strpos($arguments['action'], '.') === false) {
+                $headers = array(
+                    'Content-Type' => 'text/javascript'
+                );
+                try {
+                    /** @var \Teleport\Request\Request $request */
+                    $request = $server->getRequest('Teleport\\Request\\APIRequest');
+                    $request->handle($arguments);
+                    $results = $request->getResults();
 
-                $response->writeHead(200, $headers);
-                $response->end(json_encode(array('success' => true, 'message' => $results)));
-            } catch (\Exception $e) {
-                $response->writeHead(500);
-                $response->end(json_encode(array('success' => false, 'message' => $e->getMessage())));
+                    $response->writeHead(200, $headers);
+                    $response->end(json_encode(array('success' => true, 'message' => $results)));
+                } catch (\Exception $e) {
+                    $response->writeHead(500);
+                    $response->end(json_encode(array('success' => false, 'message' => $e->getMessage())));
+                }
+            } else {
+                if (is_readable(__DIR__ . '/../../html') && is_readable(__DIR__ . '/../../html/' . $arguments['action'])) {
+                    $response->writeHead(200);
+                    $response->end(file_get_contents(__DIR__ . '/../../html/' . $arguments['action']));
+                } else {
+                    $response->writeHead(404);
+                    $response->end();
+                }
             }
         });
 
+        if ($this->getConfig()->get('verbose', null, false) || $this->getConfig()->get('debug', null, false)) {
+            echo "teleport server initializing" . PHP_EOL;
+        }
         $socket->listen($port);
+        if ($this->getConfig()->get('verbose', null, false) || $this->getConfig()->get('debug', null, false)) {
+            echo "teleport server listening on port {$port}" . PHP_EOL;
+        }
         $loop->run();
     }
 }

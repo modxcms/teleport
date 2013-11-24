@@ -90,10 +90,10 @@ try {
     $server = \Teleport\Server::instance($options);
     $server->run($arg(1, 1337));
 
-    printf("server stopped with exit code 0 in %2.4f seconds" . PHP_EOL, microtime(true) - $start);
+    printf("teleport server stopped with exit code 0 in %2.4f seconds" . PHP_EOL, microtime(true) - $start);
     exit(0);
 } catch (\Exception $e) {
     echo 'fatal: server error [' . get_class($e) . '] ' . $e->getMessage() . ' at ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
-    printf("server stopped with exit code {$e->getCode()} in %2.4f seconds" . PHP_EOL, microtime(true) - $start);
+    printf("teleport server stopped with exit code {$e->getCode()} in %2.4f seconds" . PHP_EOL, microtime(true) - $start);
     exit($e->getCode());
 }
