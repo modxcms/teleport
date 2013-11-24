@@ -1,3 +1,4 @@
+  * Add HTTP server to handle teleport web requests 
   * Add Pull Action
   * Remove dependency on MODX in Push Action
   * Add support for Actions from other namespaces via namespace argument
