@@ -21,6 +21,7 @@ use Teleport\Transport\Transport;
  * @property string    target
  * @property string    push
  * @property bool      preserveWorkspace
+ * @property string    tplBase
  *
  * @package Teleport\Action
  */
@@ -98,7 +99,7 @@ class Extract extends Action
      */
     protected function loadTpl($tpl)
     {
-        $this->tplBase = dirname($tpl);
+        $this->tplBase = $this->request->args('tplBase') ? $this->request->args('tplBase') : dirname($tpl);
         return json_decode(file_get_contents($tpl), true);
     }
 
