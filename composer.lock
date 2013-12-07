@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "aa123f4e6922dc878d3b9f3365bca098",
+    "hash": "33c031d7e721c89a74c97fa4ffd14465",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "2.4.10",
+            "version": "2.4.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "b494eb871d0aa3ba3b0a47a895fb18c6226edb88"
+                "reference": "e8421b7a9da3f0a6fddcc6ffb10e21b86348ba0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b494eb871d0aa3ba3b0a47a895fb18c6226edb88",
-                "reference": "b494eb871d0aa3ba3b0a47a895fb18c6226edb88",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e8421b7a9da3f0a6fddcc6ffb10e21b86348ba0d",
+                "reference": "e8421b7a9da3f0a6fddcc6ffb10e21b86348ba0d",
                 "shasum": ""
             },
             "require": {
@@ -59,17 +59,19 @@
                     "homepage": "http://aws.amazon.com"
                 }
             ],
-            "description": "AWS SDK for PHP",
-            "homepage": "http://aws.amazon.com/sdkforphp2",
+            "description": "AWS SDK for PHP - Use Amazon Web Services in your PHP project",
+            "homepage": "http://aws.amazon.com/sdkforphp",
             "keywords": [
                 "amazon",
                 "aws",
+                "cloud",
                 "dynamodb",
                 "ec2",
+                "glacier",
                 "s3",
                 "sdk"
             ],
-            "time": "2013-11-14 17:24:28"
+            "time": "2013-11-26 20:13:01"
         },
         {
             "name": "evenement/evenement",
@@ -252,12 +254,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/react.git",
-                "reference": "375071dbeacaba7712d2409c7123de3b5421cad8"
+                "reference": "489bf685a14eeb0e37f94d58269c2abe657044d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/react/zipball/375071dbeacaba7712d2409c7123de3b5421cad8",
-                "reference": "375071dbeacaba7712d2409c7123de3b5421cad8",
+                "url": "https://api.github.com/repos/reactphp/react/zipball/489bf685a14eeb0e37f94d58269c2abe657044d1",
+                "reference": "489bf685a14eeb0e37f94d58269c2abe657044d1",
                 "shasum": ""
             },
             "require": {
@@ -300,21 +302,21 @@
                 "event-loop",
                 "reactor"
             ],
-            "time": "2013-10-19 16:15:57"
+            "time": "2013-12-07 17:31:49"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.3.7",
+            "version": "v2.4.0",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "2d8ece3c610726a73d0c95c885134efea182610e"
+                "reference": "acd1707236f6eb96fbb8d58f63d289b72ebc2f6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/2d8ece3c610726a73d0c95c885134efea182610e",
-                "reference": "2d8ece3c610726a73d0c95c885134efea182610e",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/acd1707236f6eb96fbb8d58f63d289b72ebc2f6e",
+                "reference": "acd1707236f6eb96fbb8d58f63d289b72ebc2f6e",
                 "shasum": ""
             },
             "require": {
@@ -330,7 +332,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3-dev"
+                    "dev-master": "2.4-dev"
                 }
             },
             "autoload": {
@@ -354,23 +356,23 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2013-10-13 06:32:10"
+            "time": "2013-12-03 14:52:22"
         }
     ],
     "packages-dev": [
         {
             "name": "symfony/finder",
-            "version": "v2.3.7",
+            "version": "v2.4.0",
             "target-dir": "Symfony/Component/Finder",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "a175521f680b178e63c5d0ab87c6b046c0990c3f"
+                "reference": "72356bf0646b11af1bae666c28a639bd8ede459f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/a175521f680b178e63c5d0ab87c6b046c0990c3f",
-                "reference": "a175521f680b178e63c5d0ab87c6b046c0990c3f",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/72356bf0646b11af1bae666c28a639bd8ede459f",
+                "reference": "72356bf0646b11af1bae666c28a639bd8ede459f",
                 "shasum": ""
             },
             "require": {
@@ -379,7 +381,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3-dev"
+                    "dev-master": "2.4-dev"
                 }
             },
             "autoload": {
@@ -403,7 +405,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-19 09:45:20"
+            "time": "2013-11-26 16:40:27"
         },
         {
             "name": "symfony/process",
@@ -412,12 +414,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-                "reference": "ec874af2cabf69d9638fbdb9112c22846cdbae7b"
+                "reference": "4d0f32a1b595204f5c370b46f385d11a97b8d1f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/ec874af2cabf69d9638fbdb9112c22846cdbae7b",
-                "reference": "ec874af2cabf69d9638fbdb9112c22846cdbae7b",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/4d0f32a1b595204f5c370b46f385d11a97b8d1f9",
+                "reference": "4d0f32a1b595204f5c370b46f385d11a97b8d1f9",
                 "shasum": ""
             },
             "require": {
@@ -426,7 +428,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -450,7 +452,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2013-11-23 21:17:02"
+            "time": "2013-11-26 16:42:52"
         }
     ],
     "aliases": [

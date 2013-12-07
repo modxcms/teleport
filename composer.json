@@ -12,7 +12,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "aws/aws-sdk-php": "~2.4",
+        "aws/aws-sdk-php": "2.4.*",
         "react/react": "dev-master"
     },
     "require-dev": {
