@@ -12,7 +12,7 @@ You can remove outdated packages from a profiled MODX deployment using the follo
 
 ### Required Arguments
 
-* `--profile=path` - A valid stream path to a Teleport [Profile](profile.md). This defines the MODX instance the UserCreate is to be performed against.
+* `--profile=path` - A valid stream path to a Teleport [Profile](profile.md) defining the MODX instance this action is to be performed against.
 
 ### Optional Arguments
 
