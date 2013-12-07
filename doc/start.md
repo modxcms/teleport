@@ -32,6 +32,8 @@ Currently, Teleport provides the following Actions:
 
 * [UserCreate](use/user-create.md) - Create a User in a MODX installation described by a specified profile.
 
+* [Packages/GC](use/packages/gc.md) - Remove outdated versions of packages from a MODX installation described by a specified profile.
+
 ### CLI Requests
 
 The simplest way to use Teleport is by calling Teleport Actions on the command line. See documentation for an Action to discover the required and optional arguments for calling that specific Teleport Action.
