@@ -10,19 +10,19 @@
 
 namespace Teleport;
 
-class Server extends Teleport {
+class HttpServer extends Teleport {
     /**
      * Get a singleton instance of Teleport.
      *
      * @param array $options An associative array of Teleport Config options for the instance.
      * @param bool  $forceNew If true, a new instance of Teleport is created and replaces the existing singleton.
      *
-     * @return Server
+     * @return HttpServer
      */
     public static function instance(array $options = array(), $forceNew = false)
     {
         if (self::$instance === null || $forceNew === true) {
-            self::$instance = new Server($options);
+            self::$instance = new HttpServer($options);
         } else {
             self::$instance->setConfig($options);
         }
@@ -30,9 +30,9 @@ class Server extends Teleport {
     }
 
     /**
-     * Run the Teleport Server on the specified port.
+     * Run the Teleport HTTP Server on the specified port.
      * 
-     * @param int $port A valid port to run the Teleport Server on.
+     * @param int $port A valid port to run the Teleport HTTP Server on.
      *
      * @throws \RuntimeException If an invalid port is specified.
      */
@@ -40,7 +40,7 @@ class Server extends Teleport {
     {
         $port = (integer)$port;
         if ($port < 1) {
-            throw new \RuntimeException("Invalid port specified for Teleport Server", E_USER_ERROR);
+            throw new \RuntimeException("Invalid port specified for Teleport HTTP Server", E_USER_ERROR);
         }
 
         /** @var \React\EventLoop\LibEventLoop $loop */

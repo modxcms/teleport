@@ -87,7 +87,7 @@ try {
         }
     }
 
-    $server = \Teleport\Server::instance($options);
+    $server = \Teleport\HttpServer::instance($options);
     $server->run($arg(1, 1337));
 
     printf("teleport server stopped with exit code 0 in %2.4f seconds" . PHP_EOL, microtime(true) - $start);

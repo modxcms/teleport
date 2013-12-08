@@ -1,11 +1,11 @@
-# Teleport Server
+# Teleport HTTP Server
 
-The Teleport Server is an HTTP server you can run to listen to requests for Teleport Actions on a particular port.
+The Teleport HTTP Server is an HTTP server you can run to listen to requests for Teleport Actions on a particular port.
 
 
-## Running the Server
+## Running the HTTP Server
 
-You can run the Teleport Server very easily by executing the `bin/server.php` or `bin/server` scripts included with Teleport and specifying the port you want to run the server on.
+You can run the Teleport HTTP Server very easily by executing the `bin/server.php` or `bin/server` scripts included with Teleport and specifying the port you want to run the server on.
 
     bin/server 8082
 
