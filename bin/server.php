@@ -2,7 +2,7 @@
 $start = microtime(true);
 
 if (PHP_SAPI !== 'cli') {
-    echo 'fatal: the teleport server should be invoked via the CLI version of PHP; you are using the ' . PHP_SAPI . ' SAPI' . PHP_EOL;
+    echo 'fatal: the teleport HTTP server must be invoked via the CLI version of PHP; you are using the ' . PHP_SAPI . ' SAPI' . PHP_EOL;
     exit(E_USER_ERROR);
 }
 
@@ -87,13 +87,13 @@ try {
         }
     }
 
-    $server = \Teleport\HttpServer::instance($options);
+    $server = \Teleport\Beam\HttpServer::instance($options);
     $server->run($arg(1, 1337));
 
-    printf("teleport server stopped with exit code 0 in %2.4f seconds" . PHP_EOL, microtime(true) - $start);
+    printf("teleport HTTP server stopped with exit code 0 in %2.4f seconds" . PHP_EOL, microtime(true) - $start);
     exit(0);
 } catch (\Exception $e) {
     echo 'fatal: server error [' . get_class($e) . '] ' . $e->getMessage() . ' at ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
-    printf("teleport server stopped with exit code {$e->getCode()} in %2.4f seconds" . PHP_EOL, microtime(true) - $start);
+    printf("teleport HTTP server stopped with exit code {$e->getCode()} in %2.4f seconds" . PHP_EOL, microtime(true) - $start);
     exit($e->getCode());
 }

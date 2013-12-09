@@ -8,7 +8,10 @@
 * file that was distributed with this source code.
 */
 
-namespace Teleport;
+namespace Teleport\Beam;
+
+use Teleport\Request\InvalidRequestException;
+use Teleport\Teleport;
 
 class HttpServer extends Teleport {
     /**
@@ -57,10 +60,10 @@ class HttpServer extends Teleport {
             $arguments = $request->getQuery();
             $arguments['action'] = trim($request->getPath(), '/');
 
-            if (strpos($arguments['action'], '.') === false) {
-                $headers = array(
-                    'Content-Type' => 'text/javascript'
-                );
+            $headers = array(
+                'Content-Type' => 'text/javascript'
+            );
+            if (isset($arguments['action']) && !empty($arguments['action']) && strpos($arguments['action'], '.') === false) {
                 try {
                     /** @var \Teleport\Request\Request $request */
                     $request = $server->getRequest('Teleport\\Request\\APIRequest');
@@ -69,18 +72,16 @@ class HttpServer extends Teleport {
 
                     $response->writeHead(200, $headers);
                     $response->end(json_encode(array('success' => true, 'message' => $results)));
+                } catch (InvalidRequestException $e) {
+                    $response->writeHead(400, $headers);
+                    $response->end(json_encode(array('success' => false, 'message' => $e->getMessage())));
                 } catch (\Exception $e) {
-                    $response->writeHead(500);
+                    $response->writeHead(500, $headers);
                     $response->end(json_encode(array('success' => false, 'message' => $e->getMessage())));
                 }
             } else {
-                if (is_readable(__DIR__ . '/../../html') && is_readable(__DIR__ . '/../../html/' . $arguments['action'])) {
-                    $response->writeHead(200);
-                    $response->end(file_get_contents(__DIR__ . '/../../html/' . $arguments['action']));
-                } else {
-                    $response->writeHead(404);
-                    $response->end();
-                }
+                $response->writeHead(400, $headers);
+                $response->end(json_encode(array('success' => false, 'message' => 'no valid action was specified')));
             }
         });
 
