@@ -50,7 +50,6 @@ class Extract extends Action
         parent::process();
         try {
             $this->profile = $this->loadProfile($this->profile);
-            $this->tpl = $this->loadTpl($this->tpl);
 
             define('MODX_CORE_PATH', $this->profile->properties->modx->core_path);
             define('MODX_CONFIG_KEY', !empty($this->profile->properties->modx->config_key)
@@ -58,7 +57,7 @@ class Extract extends Action
 
             $this->getMODX();
 
-            $this->prepareTpl();
+            $this->tpl = $this->loadTpl($this->tpl);
 
             $this->package = $this->createPackage($this->profile->code . '_' . $this->tpl['name'], $this->getVersion(), $this->getSequence());
 
@@ -100,25 +99,23 @@ class Extract extends Action
     protected function loadTpl($tpl)
     {
         $this->tplBase = $this->request->args('tplBase') ? $this->request->args('tplBase') : dirname($tpl);
-        return json_decode(file_get_contents($tpl), true);
+        $content = file_get_contents($tpl);
+        $this->prepareTpl($content);
+        return json_decode($content, true);
     }
 
     /**
      * Parse the tpl replacing placeholders from the profile and request arguments.
+     *
+     * @param string $content The content of the tpl.
      */
-    protected function prepareTpl()
+    protected function prepareTpl(&$content)
     {
         $this->modx->loadClass('modParser', '', false, true);
         $parser = new Parser($this->modx);
         $this->modx->toPlaceholders($this->profile);
         $this->modx->toPlaceholders($this->request->args());
-        $tpl = $this->tpl;
-        array_walk_recursive($tpl, function (&$value, $key, Parser $parser) {
-            if (is_string($value)) {
-                $parser->processElementTags('', $value);
-            }
-        }, $parser);
-        $this->tpl = $tpl;
+        $parser->processElementTags('', $content);
     }
 
     /**
