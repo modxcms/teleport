@@ -1,3 +1,4 @@
+  * Add resource_children Extract tpl
   * Refactor tpl parsing to occur before json_decode
   * Add Packages/GC Action
   * Allow tplBase arg to override value for Extract
