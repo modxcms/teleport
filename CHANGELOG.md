@@ -1,3 +1,5 @@
+### Teleport 1.0.0-alpha4 (2013-12-10)
+
   * Add resource_children Extract tpl
   * Refactor tpl parsing to occur before json_decode
   * Add Packages/GC Action
