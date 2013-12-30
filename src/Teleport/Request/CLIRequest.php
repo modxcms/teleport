@@ -63,40 +63,40 @@ class CLIRequest extends Request
     /**
      * Switch the user executing the current process.
      *
-     * If username arg is provided and the current user does not match, attempt
-     * to switch to this user via posix_ functions.
+     * If user arg is provided and the current user does not match, attempt to
+     * switch to this user via posix_ functions.
      *
      * @return bool True if the user and group were successfully switched, the
-     * process is already running as the requested user, or no username arg was
+     * process is already running as the requested user, or no user arg was
      * provided.
      */
     private function switchUser()
     {
-        if (isset($this->username) && function_exists('posix_getpwnam')) {
+        if (isset($this->user) && function_exists('posix_getpwnam')) {
             $current_user = @posix_getpwuid(@posix_getuid());
             if (!is_array($current_user)) {
-                $this->log("user switch to {$this->username} failed: could not determine current username");
+                $this->log("user switch to {$this->user} failed: could not determine current username");
                 return false;
             }
-            if ($current_user['name'] !== $this->username) {
-                $u = @posix_getpwnam($this->username);
+            if ($current_user['name'] !== $this->user) {
+                $u = @posix_getpwnam($this->user);
                 if (!is_array($u)) {
-                    $this->log("user switch failed: could not find user {$this->username}");
+                    $this->log("user switch failed: could not find user {$this->user}");
                     return false;
                 }
                 if (!@posix_setuid($u['uid'])) {
-                    $this->log("user switch failed: could not switch to {$this->username} using uid {$u['uid']}");
+                    $this->log("user switch failed: could not switch to {$this->user} using uid {$u['uid']}");
                     return false;
                 }
                 if (!@posix_setgid($u['gid'])) {
-                    $this->log("warning: error switching group for {$this->username} to gid {$u['gid']}");
+                    $this->log("warning: error switching group for {$this->user} to gid {$u['gid']}");
                 }
                 $current_user = @posix_getpwuid(@posix_getuid());
-                if (is_array($current_user) && $current_user['name'] === $this->username) {
-                    $this->log("user switch successful: teleport running as {$this->username}");
+                if (is_array($current_user) && $current_user['name'] === $this->user) {
+                    $this->log("user switch successful: teleport running as {$this->user}");
                 }
             } else {
-                $this->log("teleport already running as user {$this->username}...");
+                $this->log("teleport already running as user {$this->user}...");
             }
         }
         return true;

@@ -1,3 +1,5 @@
+  * Refactor posix user switching to use user argument
+
 ### Teleport 1.0.0-alpha4 (2013-12-10)
 
   * Add resource_children Extract tpl
