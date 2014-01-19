@@ -20,7 +20,7 @@ use Teleport\Action\Action;
  *
  * @package Teleport\Request
  */
-abstract class Request implements RequestInterface
+class Request implements RequestInterface
 {
     /** @var string */
     protected $action;
@@ -216,7 +216,16 @@ abstract class Request implements RequestInterface
      * @return array The normalized array of parsed arguments.
      * @throws RequestException If no valid action argument is specified.
      */
-    abstract public function parseArguments(array $args);
+    public function parseArguments(array $args)
+    {
+        if (!isset($args['action']) || empty($args['action'])) {
+            throw new RequestException($this, "No valid action argument specified.");
+        }
+        $this->action = $args['action'];
+        unset($args['action']);
+        $this->arguments = $args;
+        return $this->arguments;
+    }
 
     /**
      * Get the Action class to handle.

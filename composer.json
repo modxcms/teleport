@@ -19,9 +19,15 @@
         "symfony/finder": "~2.2",
         "symfony/process": "~2.1@dev"
     },
+    "suggest": {
+        "ext-libevent": "It is critical to have this or ext-ev if you plan to use the server or endpoint listener.",
+        "ext-ev": "It is critical to have this or ext-libevent if you plan to use the server or endpoint listener."
+    },
     "bin": [
         "bin/compile",
         "bin/compile.php",
+        "bin/endpoint",
+        "bin/endpoint.php",
         "bin/server",
         "bin/server.php",
         "bin/teleport",

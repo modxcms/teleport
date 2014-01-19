@@ -10,6 +10,8 @@
 
 namespace Teleport\Action;
 
+use Teleport\Teleport;
+
 /**
  * Create a user in a MODX installation.
  *
@@ -35,7 +37,7 @@ class UserCreate extends Action
     {
         parent::process();
         try {
-            $this->profile = $this->loadProfile($this->profile);
+            $this->profile = Teleport::loadProfile($this->profile);
             if (empty($this->passwordnotifymethod)) {
                 $this->passwordnotifymethod = 's';
             }
@@ -46,11 +48,7 @@ class UserCreate extends Action
                 $this->confirmpassword = $this->password;
             }
 
-            define('MODX_CORE_PATH', $this->profile->properties->modx->core_path);
-            define('MODX_CONFIG_KEY', !empty($this->profile->properties->modx->config_key)
-                ? $this->profile->properties->modx->config_key : 'config');
-
-            $this->getMODX();
+            $this->getMODX($this->profile);
             $this->modx->getService('error', 'error.modError');
             $this->modx->error->message = '';
             $this->modx->setOption(\xPDO::OPT_SETUP, true);

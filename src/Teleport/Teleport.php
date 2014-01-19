@@ -26,6 +26,10 @@ class Teleport
     protected static $instance = null;
 
     /**
+     * @var \modX A MODX instance being operated on by this Teleport instance.
+     */
+    protected $modx;
+    /**
      * @var Config An object containing the Teleport configuration options.
      */
     protected $config;
@@ -54,6 +58,77 @@ class Teleport
             self::$instance->setConfig($options);
         }
         return self::$instance;
+    }
+
+    /**
+     * Load JSON profile data into a PHP stdObject instance.
+     *
+     * @param string $profile A valid stream or file location for the profile.
+     *
+     * @throws InvalidProfileException If a valid code cannot be found in the
+     * profile.
+     * @return \stdClass A stdObject representation of the JSON profile data.
+     */
+    public static function loadProfile($profile)
+    {
+        $decoded = json_decode(file_get_contents($profile));
+        if (!empty($decoded->code)) {
+            $decoded->code = str_replace(array('-', '.'), array('_', '_'), $decoded->code);
+        } else {
+            throw new InvalidProfileException("Error getting 'code' from profile {$profile}", E_USER_ERROR);
+        }
+        return $decoded;
+    }
+
+    /**
+     * Get a MODX reference for Teleport to operate on.
+     *
+     * IMPORTANT: Only one modX instance can be instantiated with Teleport in
+     * a single PHP execution cycle.
+     *
+     * @param \stdClass $profile An object of properties describing the modX instance.
+     * @param array     $options An array of initialization options.
+     * @param array     &$results An optional results array reference.
+     *
+     * @throws InvalidMODXException If the MODX instance could not be initialized.
+     * @return \modX A reference to a MODX instance.
+     */
+    public function &getMODX($profile, array $options = array(), array &$results = array())
+    {
+        if (!$this->modx instanceof \modX) {
+            try {
+                define('MODX_CORE_PATH', $profile->properties->modx->core_path);
+                define('MODX_CONFIG_KEY', !empty($profile->properties->modx->config_key)
+                    ? $profile->properties->modx->config_key : 'config');
+
+                require MODX_CORE_PATH . 'model/modx/modx.class.php';
+
+                $logTarget = $this->getConfig()->get('log_target', $options, array('target' => 'ARRAY', 'target_options' => array('var' => &$results)));
+                $logLevel = $this->getConfig()->get('log_level', $options, \modX::LOG_LEVEL_INFO);
+                $config = array(
+                    'log_target' => $logTarget,
+                    'log_level' => $logLevel,
+                    'cache_db' => false,
+                );
+
+                $this->modx = new \modX('', $config);
+                $this->modx->setLogLevel($config['log_level']);
+                $this->modx->setLogTarget($config['log_target']);
+                $this->modx->setOption('cache_db', $config['cache_db']);
+                $this->modx->getVersionData();
+                if (version_compare($this->modx->version['full_version'], '2.2.1-pl', '>=')) {
+                    $this->modx->initialize('mgr', $config);
+                } else {
+                    $this->modx->initialize('mgr');
+                }
+                $this->modx->setLogLevel($config['log_level']);
+                $this->modx->setLogTarget($config['log_target']);
+                $this->modx->setOption('cache_db', $config['cache_db']);
+            } catch (\Exception $e) {
+                throw new InvalidMODXException("Error initializing MODX: " . $e->getMessage(), $e->getCode(), $e);
+            }
+        }
+        return $this->modx;
     }
 
     /**

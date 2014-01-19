@@ -11,6 +11,7 @@
 namespace Teleport\Action;
 
 use Teleport\Request\Request;
+use Teleport\Teleport;
 
 /**
  * Provides baseline functionality for Teleport Actions.
@@ -76,40 +77,16 @@ abstract class Action implements ActionInterface
     /**
      * Get a MODX reference to operate on.
      *
-     * @throws ActionException If a MODX instance could not be initialized.
+     * @param \stdClass $profile An object describing properties of a MODX
+     * instance.
+     *
      * @return \modX A reference to a MODX instance.
      */
-    public function &getMODX()
+    public function &getMODX($profile)
     {
         if (!$this->modx instanceof \modX) {
-            try {
-                require_once MODX_CORE_PATH . 'model/modx/modx.class.php';
-                $results = $this->request->getResults();
-                $logTarget = $this->request->args('log_target') !== null ? $this->request->args('log_target')
-                    : array('target' => 'ARRAY', 'target_options' => array('var' => &$results));
-                $logLevel = $this->request->args('log_level') !== null ? $this->request->args('log_level')
-                    : \modX::LOG_LEVEL_INFO;
-                $config = array(
-                    'log_target' => $logTarget,
-                    'log_level' => $logLevel,
-                    'cache_db' => false,
-                );
-                $this->modx = new \modX('', $config);
-                $this->modx->setLogLevel($config['log_level']);
-                $this->modx->setLogTarget($config['log_target']);
-                $this->modx->setOption('cache_db', $config['cache_db']);
-                $this->modx->getVersionData();
-                if (version_compare($this->modx->version['full_version'], '2.2.1-pl', '>=')) {
-                    $this->modx->initialize('mgr', $config);
-                } else {
-                    $this->modx->initialize('mgr');
-                }
-                $this->modx->setLogLevel($config['log_level']);
-                $this->modx->setLogTarget($config['log_target']);
-                $this->modx->setOption('cache_db', $config['cache_db']);
-            } catch (\Exception $e) {
-                throw new ActionException($this, "Error initializing MODX: " . $e->getMessage(), $e);
-            }
+            $results = $this->request->getResults();
+            $this->modx = Teleport::instance()->getMODX($profile, $this->request->args(), $results);
         }
         return $this->modx;
     }
@@ -152,25 +129,6 @@ abstract class Action implements ActionInterface
                 throw new ActionException($this, "Required arguments " . implode(', ', $invalid) . " not specified.");
             }
         }
-    }
-
-    /**
-     * Load JSON profile data into a PHP stdObject instance.
-     *
-     * @param string $profile A valid stream or file location for the profile.
-     *
-     * @throws ActionException If a valid code cannot be found in the profile.
-     * @return \stdClass A stdObject representation of the JSON profile data.
-     */
-    protected function loadProfile($profile)
-    {
-        $decoded = json_decode(file_get_contents($profile));
-        if (!empty($decoded->code)) {
-            $decoded->code = str_replace(array('-', '.'), array('_', '_'), $decoded->code);
-        } else {
-            throw new ActionException($this, "Error getting 'code' from profile {$profile}");
-        }
-        return $decoded;
     }
 
     /**

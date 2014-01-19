@@ -22,9 +22,12 @@ interface ActionInterface
     /**
      * Get a MODX reference to operate on.
      *
+     * @param \stdClass $profile An object describing properties of a MODX
+     * instance.
+     *
      * @return \modX A reference to a MODX instance.
      */
-    public function &getMODX();
+    public function &getMODX($profile);
 
     /**
      * Get a reference to the Teleport request handler.

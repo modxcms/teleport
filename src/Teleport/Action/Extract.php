@@ -11,6 +11,7 @@
 namespace Teleport\Action;
 
 use Teleport\Parser\Parser;
+use Teleport\Teleport;
 use Teleport\Transport\Transport;
 
 /**
@@ -49,13 +50,9 @@ class Extract extends Action
     {
         parent::process();
         try {
-            $this->profile = $this->loadProfile($this->profile);
+            $this->profile = Teleport::loadProfile($this->profile);
 
-            define('MODX_CORE_PATH', $this->profile->properties->modx->core_path);
-            define('MODX_CONFIG_KEY', !empty($this->profile->properties->modx->config_key)
-                ? $this->profile->properties->modx->config_key : 'config');
-
-            $this->getMODX();
+            $this->getMODX($this->profile);
 
             $this->tpl = $this->loadTpl($this->tpl);
 

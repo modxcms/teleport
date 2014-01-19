@@ -43,10 +43,13 @@ class Profile extends Action
                 $this->code = str_replace(array('-', '.'), array('_', '_'), $this->name);
             }
 
-            define('MODX_CORE_PATH', $this->core_path);
-            define('MODX_CONFIG_KEY', $this->config_key);
+            $profile = new \stdClass();
+            $profile->properties = new \stdClass();
+            $profile->properties->modx = new \stdClass();
+            $profile->properties->modx->core_path = $this->core_path;
+            $profile->properties->modx->config_key = $this->config_key;
 
-            $this->getMODX();
+            $this->getMODX($profile);
 
             $profile = array(
                 'name' => $this->name,

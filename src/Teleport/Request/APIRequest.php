@@ -12,17 +12,6 @@ namespace Teleport\Request;
 
 class APIRequest extends Request
 {
-    public function parseArguments(array $args)
-    {
-        if (!isset($args['action']) || empty($args['action'])) {
-            throw new RequestException($this, "No valid action argument specified.");
-        }
-        $this->action = $args['action'];
-        unset($args['action']);
-        $this->arguments = $args;
-        return $this->arguments;
-    }
-
     public function handle(array $arguments)
     {
         $this->parseArguments($arguments);
