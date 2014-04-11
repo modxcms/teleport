@@ -73,6 +73,10 @@ class Transport extends \xPDOTransport
         $vehiclePackage = isset($options['vehicle_package']) ? $options['vehicle_package'] : 'transport';
         $vehiclePackagePath = isset($options['vehicle_package_path']) ? $options['vehicle_package_path'] : '';
         $vehicleClass = isset($options['vehicle_class']) ? $options['vehicle_class'] : '';
+        $vehicleParentClass = isset($options['vehicle_parent_class']) ? $options['vehicle_parent_class'] : '';
+        if (!empty($vehicleParentClass)) {
+            $this->xpdo->loadClass('transport.' . $vehicleParentClass, '', true, true);
+        }
         if (empty($vehicleClass)) $vehicleClass = $options['vehicle_class'] = 'xPDOObjectVehicle';
         if (!empty($vehiclePackage)) {
             $vehicleClass = "{$vehiclePackage}.{$vehicleClass}";
@@ -101,6 +105,10 @@ class Transport extends \xPDOTransport
             $vehiclePackage = isset($attributes['vehicle_package']) ? $attributes['vehicle_package'] : 'transport';
             $vehiclePackagePath = isset($attributes['vehicle_package_path']) ? $attributes['vehicle_package_path'] : '';
             $vehicleClass = isset($attributes['vehicle_class']) ? $attributes['vehicle_class'] : '';
+            $vehicleParentClass = isset($attributes['vehicle_parent_class']) ? $attributes['vehicle_parent_class'] : '';
+            if (!empty($vehicleParentClass)) {
+                $this->xpdo->loadClass('transport.' . $vehicleParentClass, '', true, true);
+            }
             if (empty($vehicleClass)) $vehicleClass = $options['vehicle_class'] = 'xPDOObjectVehicle';
             if (!empty($vehiclePackage)) {
                 $vehicleClass = "{$vehiclePackage}.{$vehicleClass}";
@@ -211,4 +219,4 @@ class Transport extends \xPDOTransport
         $object->set('value', $this->xpdo->getOption('base_url', null, MODX_BASE_URL));
         $object->save(false);
     }
-} 
+}
