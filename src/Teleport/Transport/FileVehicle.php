@@ -43,7 +43,7 @@ class FileVehicle extends \xPDOFileVehicle {
         } else {
             $finder = new Finder();
 
-            $finder->files()->in($object['in']);
+            $finder->in($object['in']);
 
             foreach($object as $method => $data) {
                 if (in_array($method, $this->skipObjectParams)) continue;
@@ -80,11 +80,17 @@ class FileVehicle extends \xPDOFileVehicle {
             $this->payload['object']['name'] = $rootFolder;
             $this->payload['object']['source'] = $transport->signature . '/' . $this->payload['class'] . '/' . $this->payload['signature'];
 
-            $filePath = $transport->path . $transport->signature . '/' . $this->payload['class'] . '/' . $this->payload['signature'] . '/' . $rootFolder . '/';
+            $filePath = $transport->path . $transport->signature . '/' . $this->payload['class'] . '/' . $this->payload['signature'] . '/' . $rootFolder;
             
+            $fs->mkdir($filePath);
+
             /** @var SplFileInfo $file */
             foreach ($this->payload['object']['files'] as $file) {
-                $fs->copy($file->getRealpath(), $filePath . $file->getRelativePathname());
+                if ($file->isDir()) {
+                    $fs->mkdir($filePath . '/' . $file->getRelativePathname());
+                } else {
+                    $fs->copy($file->getRealpath(), $filePath . '/' . $file->getRelativePathname());
+                }
             }
 
             unset($this->payload['object']['files']);
