@@ -1,3 +1,5 @@
+  * Add Teleport\Transport\FileVehicle using Finder and Filesystem
+  * Add vehicle_parent_class support to Teleport\Transport\Transport
   * Refactor posix user switching to use user argument
 
 ### Teleport 1.0.0-alpha4 (2013-12-10)
@@ -7,7 +9,7 @@
   * Add Packages/GC Action
   * Allow tplBase arg to override value for Extract
   * Run APIRequests in sub-process to avoid constant conflicts
-  * Add HTTP server to handle teleport web requests 
+  * Add HTTP server to handle teleport web requests
   * Add Pull Action
   * Remove dependency on MODX in Push Action
   * Add support for Actions from other namespaces via namespace argument

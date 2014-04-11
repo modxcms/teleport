@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1ba0c427afc751798da6594976a93120",
+    "hash": "c70298c6c39cd9b64ddc2b42e946c743",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -121,16 +121,16 @@
         },
         {
             "name": "guzzle/guzzle",
-            "version": "v3.8.0",
+            "version": "v3.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "b4a3ce8c05e777fa18b802956d5d0e38ad338a69"
+                "reference": "4de0618a01b34aa1c8c33a3f13f396dcd3882eba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b4a3ce8c05e777fa18b802956d5d0e38ad338a69",
-                "reference": "b4a3ce8c05e777fa18b802956d5d0e38ad338a69",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/4de0618a01b34aa1c8c33a3f13f396dcd3882eba",
+                "reference": "4de0618a01b34aa1c8c33a3f13f396dcd3882eba",
                 "shasum": ""
             },
             "require": {
@@ -168,8 +168,8 @@
                 "phpunit/phpunit": "3.7.*",
                 "psr/log": "1.0.*",
                 "symfony/class-loader": "*",
-                "zendframework/zend-cache": "2.0.*",
-                "zendframework/zend-log": "2.0.*"
+                "zendframework/zend-cache": "<2.3",
+                "zendframework/zend-log": "<2.3"
             },
             "type": "library",
             "extra": {
@@ -179,8 +179,8 @@
             },
             "autoload": {
                 "psr-0": {
-                    "Guzzle\\Tests": "tests/",
-                    "Guzzle": "src/"
+                    "Guzzle": "src/",
+                    "Guzzle\\Tests": "tests/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -209,7 +209,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2013-12-05 23:39:20"
+            "time": "2014-01-28 22:29:15"
         },
         {
             "name": "react/promise",
@@ -263,12 +263,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/react.git",
-                "reference": "9d927565beb1948ac6c898372b920d5e239f0869"
+                "reference": "fb15cab25c244e33c7e2d2027f895efe94523d2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/react/zipball/9d927565beb1948ac6c898372b920d5e239f0869",
-                "reference": "9d927565beb1948ac6c898372b920d5e239f0869",
+                "url": "https://api.github.com/repos/reactphp/react/zipball/fb15cab25c244e33c7e2d2027f895efe94523d2c",
+                "reference": "fb15cab25c244e33c7e2d2027f895efe94523d2c",
                 "shasum": ""
             },
             "require": {
@@ -291,18 +291,19 @@
                 "phpunit/phpunit": "3.7.*"
             },
             "suggest": {
-                "ext-libev": "*",
-                "ext-libevent": "*"
+                "ext-event": "Allows for use of a more performant event-loop implementation.",
+                "ext-libev": "Allows for use of a more performant event-loop implementation.",
+                "ext-libevent": "Allows for use of a more performant event-loop implementation."
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.4-dev"
+                    "dev-master": "0.5-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "React": "src"
+                "psr-4": {
+                    "React\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -314,21 +315,21 @@
                 "event-loop",
                 "reactor"
             ],
-            "time": "2014-01-09 19:33:29"
+            "time": "2014-03-10 23:19:46"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.4.1",
+            "version": "v2.4.3",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "e3ba42f6a70554ed05749e61b829550f6ac33601"
+                "reference": "4708b8cd41984a5ba29fe7dd40716f7f761ac501"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/e3ba42f6a70554ed05749e61b829550f6ac33601",
-                "reference": "e3ba42f6a70554ed05749e61b829550f6ac33601",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/4708b8cd41984a5ba29fe7dd40716f7f761ac501",
+                "reference": "4708b8cd41984a5ba29fe7dd40716f7f761ac501",
                 "shasum": ""
             },
             "require": {
@@ -359,7 +360,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 },
                 {
                     "name": "Symfony Community",
@@ -368,23 +371,72 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2013-12-28 08:12:03"
+            "time": "2014-02-11 13:52:09"
         }
     ],
     "packages-dev": [
         {
+            "name": "symfony/filesystem",
+            "version": "v2.4.3",
+            "target-dir": "Symfony/Component/Filesystem",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Filesystem.git",
+                "reference": "b717952487176a993e9b12a08b87beae25ae419c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/b717952487176a993e9b12a08b87beae25ae419c",
+                "reference": "b717952487176a993e9b12a08b87beae25ae419c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Filesystem Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-03-26 11:55:03"
+        },
+        {
             "name": "symfony/finder",
-            "version": "v2.4.1",
+            "version": "v2.4.3",
             "target-dir": "Symfony/Component/Finder",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "6904345cf2b3bbab1f6d6e4ce1724cb99df9f00a"
+                "reference": "ab301c7d21f536c34ab6c2c79dba8d465104c518"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/6904345cf2b3bbab1f6d6e4ce1724cb99df9f00a",
-                "reference": "6904345cf2b3bbab1f6d6e4ce1724cb99df9f00a",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/ab301c7d21f536c34ab6c2c79dba8d465104c518",
+                "reference": "ab301c7d21f536c34ab6c2c79dba8d465104c518",
                 "shasum": ""
             },
             "require": {
@@ -408,7 +460,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 },
                 {
                     "name": "Symfony Community",
@@ -417,7 +471,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "http://symfony.com",
-            "time": "2014-01-01 08:14:50"
+            "time": "2014-03-01 17:35:04"
         },
         {
             "name": "symfony/process",
@@ -426,12 +480,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-                "reference": "d4b086ca4d6e192d8c2c64fe011159c8bc4c9daa"
+                "reference": "10767aeb15bd6fc0c7cf18fa6883e5237ea7cf29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/d4b086ca4d6e192d8c2c64fe011159c8bc4c9daa",
-                "reference": "d4b086ca4d6e192d8c2c64fe011159c8bc4c9daa",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/10767aeb15bd6fc0c7cf18fa6883e5237ea7cf29",
+                "reference": "10767aeb15bd6fc0c7cf18fa6883e5237ea7cf29",
                 "shasum": ""
             },
             "require": {
@@ -455,7 +509,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 },
                 {
                     "name": "Symfony Community",
@@ -464,7 +520,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2014-01-07 13:29:57"
+            "time": "2014-04-03 05:23:50"
         }
     ],
     "aliases": [
