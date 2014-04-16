@@ -51,6 +51,7 @@ class Inject extends Action
             $this->modx->loadClass('transport.xPDOTransport', XPDO_CORE_PATH, true, true);
             $this->modx->loadClass('transport.xPDOVehicle', XPDO_CORE_PATH, true, true);
             $this->modx->loadClass('transport.xPDOObjectVehicle', XPDO_CORE_PATH, true, true);
+            $this->modx->loadClass('transport.xPDOFileVehicle', XPDO_CORE_PATH, true, true);
 
             $transportName = basename($this->source);
             if (TELEPORT_BASE_PATH . 'workspace/' . $transportName !== realpath($this->source)) {
