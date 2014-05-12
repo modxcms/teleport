@@ -227,7 +227,9 @@ class Compiler
             $this->addFile($phar, $file);
         }
         $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/guzzle/guzzle/src/Guzzle/Http/Resources/cacert.pem'), false);
-        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/guzzle/guzzle/src/Guzzle/Http/Resources/cacert.pem.md5'), false);
+        if (is_readable($this->path . '/vendor/guzzle/guzzle/src/Guzzle/Http/Resources/cacert.pem.md5')) {
+            $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/guzzle/guzzle/src/Guzzle/Http/Resources/cacert.pem.md5'), false);
+        }
 
         /* add symfony/event-dispatcher (guzzle requirement) */
         $eventDispatcher = new Finder();
