@@ -26,3 +26,6 @@ test-*.json
 
 # ignore phar archives
 *.phar
+
+# ignore composer.lock
+composer.lock
