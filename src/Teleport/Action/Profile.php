@@ -68,7 +68,7 @@ class Profile extends Action
                 ),
             );
 
-            $profileFilename = TELEPORT_BASE_PATH . 'profile/' . $this->code . '.profile.json';
+            $profileFilename = TELEPORT_BASE_PATH . 'profile' . DIRECTORY_SEPARATOR . $this->code . '.profile.json';
             $written = $this->modx->getCacheManager()->writeFile($profileFilename, $this->modx->toJSON($profile));
 
             if ($written === false) {

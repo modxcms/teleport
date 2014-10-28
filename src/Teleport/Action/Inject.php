@@ -54,17 +54,17 @@ class Inject extends Action
             $this->modx->loadClass('transport.xPDOFileVehicle', XPDO_CORE_PATH, true, true);
 
             $transportName = basename($this->source);
-            if (TELEPORT_BASE_PATH . 'workspace/' . $transportName !== realpath($this->source)) {
-                if (!$this->pull($this->source, TELEPORT_BASE_PATH . 'workspace/' . $transportName)) {
+            if (TELEPORT_BASE_PATH . 'workspace' . DIRECTORY_SEPARATOR . $transportName !== realpath($this->source)) {
+                if (!$this->pull($this->source, TELEPORT_BASE_PATH . 'workspace' . DIRECTORY_SEPARATOR . $transportName)) {
                     throw new ActionException($this, "Error pulling {$this->source}");
                 }
             } else {
                 $this->preserveWorkspace = true;
             }
 
-            $this->package = Transport::retrieve($this->modx, TELEPORT_BASE_PATH . 'workspace/' . $transportName, TELEPORT_BASE_PATH . 'workspace/');
+            $this->package = Transport::retrieve($this->modx, TELEPORT_BASE_PATH . 'workspace' . DIRECTORY_SEPARATOR . $transportName, TELEPORT_BASE_PATH . 'workspace' . DIRECTORY_SEPARATOR);
             if (!$this->package instanceof Transport) {
-                throw new ActionException($this, "Error extracting {$transportName} in workspace/");
+                throw new ActionException($this, "Error extracting {$transportName} in workspace" . DIRECTORY_SEPARATOR);
             }
 
             $this->package->preInstall();
