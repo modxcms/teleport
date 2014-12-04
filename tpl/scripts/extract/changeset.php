@@ -13,6 +13,8 @@ $object = $vehicle['object'];
 if (isset($object['changeset'])) {
     $changeSet = $object['changeset'];
     $removeRead = (isset($object['remove_read']) && !empty($object['remove_read'])) ? true : false;
+
+    $GLOBALS['modx'] =& $this->modx;
     $this->modx->getService('registry', 'registry.modRegistry');
     $this->modx->registry->getRegister('changes', 'registry.modDbRegister', array('directory' => 'changes'));
 
