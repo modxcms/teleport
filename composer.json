@@ -12,8 +12,8 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "aws/aws-sdk-php": "2.4.*",
-        "react/react": "dev-master"
+        "aws/aws-sdk-php": "2.*",
+        "react/react": "0.4.*"
     },
     "require-dev": {
         "symfony/finder": "~2.2",
