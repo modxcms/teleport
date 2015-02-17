@@ -1,3 +1,5 @@
+### Teleport 1.0.0 (2015-02-17)
+
   * Ensure MODX available in changeset callback functions
   * Use DIRECTORY_SEPARATOR for Windows compatibility
   * Add Teleport\Transport\FileVehicle using Finder and Filesystem
