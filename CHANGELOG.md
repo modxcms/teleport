@@ -1,3 +1,4 @@
+  * Use DIRECTORY_SEPARATOR for Windows compatibility
   * Add Teleport\Transport\FileVehicle using Finder and Filesystem
   * Add vehicle_parent_class support to Teleport\Transport\Transport
   * Refactor posix user switching to use user argument

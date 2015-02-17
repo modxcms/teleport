@@ -144,7 +144,7 @@ class Extract extends Action
         $filename = $signature . '.transport.zip';
 
         /* remove the package if it's already been made */
-        $directory = TELEPORT_BASE_PATH . 'workspace/';
+        $directory = TELEPORT_BASE_PATH . 'workspace' . DIRECTORY_SEPARATOR;
         if (file_exists($directory . $filename)) {
             unlink($directory . $filename);
         }
