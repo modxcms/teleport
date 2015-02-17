@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "2.7.14",
+            "version": "2.7.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "1ec3fb885a891d337540dcd26e33d01ed7f82f1a"
+                "reference": "470ca90e2d511f64f082c569864f22f2c18fdc38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1ec3fb885a891d337540dcd26e33d01ed7f82f1a",
-                "reference": "1ec3fb885a891d337540dcd26e33d01ed7f82f1a",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/470ca90e2d511f64f082c569864f22f2c18fdc38",
+                "reference": "470ca90e2d511f64f082c569864f22f2c18fdc38",
                 "shasum": ""
             },
             "require": {
@@ -71,7 +71,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2015-01-09 19:31:57"
+            "time": "2015-02-12 20:56:39"
         },
         {
             "name": "evenement/evenement",
@@ -690,17 +690,17 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.6.3",
+            "version": "v2.6.4",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "40ff70cadea3785d83cac1c8309514b36113064e"
+                "reference": "f75989f3ab2743a82fe0b03ded2598a2b1546813"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/40ff70cadea3785d83cac1c8309514b36113064e",
-                "reference": "40ff70cadea3785d83cac1c8309514b36113064e",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/f75989f3ab2743a82fe0b03ded2598a2b1546813",
+                "reference": "f75989f3ab2743a82fe0b03ded2598a2b1546813",
                 "shasum": ""
             },
             "require": {
@@ -744,13 +744,13 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-05 14:28:40"
+            "time": "2015-02-01 16:10:57"
         }
     ],
     "packages-dev": [
         {
             "name": "symfony/filesystem",
-            "version": "v2.6.3",
+            "version": "v2.6.4",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
@@ -797,7 +797,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v2.6.3",
+            "version": "v2.6.4",
             "target-dir": "Symfony/Component/Finder",
             "source": {
                 "type": "git",
@@ -849,12 +849,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-                "reference": "eb512e3b08841f1e0e39960d69109e47c729988b"
+                "reference": "b2afcf65b787d1550bc0cc8ad2991a1b04650f70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/eb512e3b08841f1e0e39960d69109e47c729988b",
-                "reference": "eb512e3b08841f1e0e39960d69109e47c729988b",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/b2afcf65b787d1550bc0cc8ad2991a1b04650f70",
+                "reference": "b2afcf65b787d1550bc0cc8ad2991a1b04650f70",
                 "shasum": ""
             },
             "require": {
@@ -887,7 +887,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-09 06:51:41"
+            "time": "2015-02-11 12:46:36"
         }
     ],
     "aliases": [],
@@ -896,6 +896,7 @@
         "symfony/process": 20
     },
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.3"
     },
