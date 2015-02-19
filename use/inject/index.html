@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+        <title>Inject - Teleport for MODX</title>
+
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="../../css/prettify-1.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">Teleport for MODX</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Installation <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../../install/releases">Install from Release</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../install/git-clone">Install from Git</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../install/phar">Install Phar</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">User Guide <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../profile">Profile</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../extract">Extract</a>
+                        </li>
+                    
+                        <li class="active">
+                            <a href=".">Inject</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../push">Push</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../user-create">User Create</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../packages/gc">Garbage Collection</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../server">Server</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extract Tpls <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../extract/tpl">Intro to Extract Tpls</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../extract/tpl/resource_children">resource_children.tpl</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../../extend/custom-actions">Custom Actions</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../extend/custom-extract-tpls">Custom Extract Tpls</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../../contribute">Contributing</a>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li >
+                    <a rel="next" href="../extract">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="../push">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="https://github.com/modxcms/teleport/">
+                        
+                            <i class="fa fa-github"></i>
+                        
+                        GitHub
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#inject">Inject</a></li>
+        
+            <li><a href="#inject-a-teleport-package">Inject a Teleport Package</a></li>
+        
+            <li><a href="#the-inject-action">The Inject Action</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<h1 id="inject">Inject</h1>
+<h2 id="inject-a-teleport-package">Inject a Teleport Package</h2>
+<p>You can Inject a Teleport package from any valid stream source into a MODX site using the following command:</p>
+<pre><code>php teleport.phar --action=Inject --profile=profile/mysite.profile.json --source=workspace/mysite_develop-120315.1106.30-2.2.1-dev.transport.zip
+</code></pre>
+<p><em>NOTE: If the source is not within the workspace/ directory a copy will be pulled to that location and then removed after the Inject completes unless --preserveWorkspace is passed.</em></p>
+<h3 id="how-inject-manipulates-snapshots">How Inject Manipulates Snapshots</h3>
+<p>To prevent some data from corrupting a target MODX deployment when it is injected, the Inject action takes the following measures:</p>
+<ul>
+<li>Before Injection<ul>
+<li>modSystemSetting vehicles with the following keys are removed from the manifest:<ul>
+<li><code>session_cookie_domain</code></li>
+<li><code>session_cookie_path</code></li>
+<li><code>new_file_permissions</code></li>
+<li><code>new_folder_permissions</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>After Injection<ul>
+<li>modSystemSetting <code>settings_version</code> is set to the actual target version.</li>
+<li>modSystemSetting <code>session_cookie_domain</code> is set to empty.</li>
+<li>modSystemSetting <code>session_cookie_path</code> is set to <code>MODX_BASE_PATH</code>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="the-inject-action">The Inject Action</h2>
+<h3 id="required-arguments">Required Arguments</h3>
+<ul>
+<li><code>--profile=path</code> - A valid stream path to a Teleport <a href="../profile">Profile</a>. This defines the MODX instance the Inject is to be performed against.</li>
+<li><code>--source=path</code> - A valid stream path to a Teleport package to Inject into the MODX instance described by the specified Profile.</li>
+</ul>
+<h3 id="optional-arguments">Optional Arguments</h3>
+<ul>
+<li><code>--preserveWorkspace</code> - Indicates if the workspace/ copy of the package should be removed after being pushed to a target.</li>
+</ul>
+</div>
+        </div>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/prettify-1.0.min.js"></script>
+        <script src="../../js/base.js"></script>
+    </body>
+</html>

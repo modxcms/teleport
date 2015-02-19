@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="./img/favicon.ico">
+
+        <title>Teleport for MODX</title>
+
+        <link href="./css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="./css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="./css/prettify-1.0.css" rel="stylesheet">
+        <link href="./css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href=".">Teleport for MODX</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Installation <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="install/releases/">Install from Release</a>
+                        </li>
+                    
+                        <li >
+                            <a href="install/git-clone/">Install from Git</a>
+                        </li>
+                    
+                        <li >
+                            <a href="install/phar/">Install Phar</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">User Guide <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="use/profile/">Profile</a>
+                        </li>
+                    
+                        <li >
+                            <a href="use/extract/">Extract</a>
+                        </li>
+                    
+                        <li >
+                            <a href="use/inject/">Inject</a>
+                        </li>
+                    
+                        <li >
+                            <a href="use/push/">Push</a>
+                        </li>
+                    
+                        <li >
+                            <a href="use/user-create/">User Create</a>
+                        </li>
+                    
+                        <li >
+                            <a href="use/packages/gc/">Garbage Collection</a>
+                        </li>
+                    
+                        <li >
+                            <a href="use/server/">Server</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extract Tpls <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="use/extract/tpl/">Intro to Extract Tpls</a>
+                        </li>
+                    
+                        <li >
+                            <a href="use/extract/tpl/resource_children/">resource_children.tpl</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="extend/custom-actions/">Custom Actions</a>
+                        </li>
+                    
+                        <li >
+                            <a href="extend/custom-extract-tpls/">Custom Extract Tpls</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="contribute/">Contributing</a>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li class="disabled">
+                    <a rel="next" >
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="install/releases/">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="https://github.com/modxcms/teleport/">
+                        
+                            <i class="fa fa-github"></i>
+                        
+                        GitHub
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#introduction">Introduction</a></li>
+        
+            <li><a href="#install">Install</a></li>
+        
+            <li><a href="#use">Use</a></li>
+        
+            <li><a href="#extend">Extend</a></li>
+        
+            <li><a href="#contribute">Contribute</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<h1 id="introduction">Introduction</h1>
+<p>Teleport is an extensible scripting toolkit for working with one or more local MODX Revolution installations. It currently functions primarily as a packaging toolkit which extends the MODX Transport APIs and provides commands for extracting and injecting customizable snapshots of MODX deployments. But it can be extended easily to perform an infinite variety of actions related to MODX.</p>
+<h2 id="install">Install</h2>
+<p>There are various methods for installing Teleport so you can begin using it. Choose the one that best fits your needs:</p>
+<ul>
+<li>
+<p><a href="install/phar/">Phar</a> - The easiest way to start using Teleport is to download the <a href="http://modx.s3.amazonaws.com/releases/teleport/teleport.phar">latest <code>teleport.phar</code></a> and put it in a directory where the application can do it's work. In this distribution, Teleport will attempt to create subdirectories called profile/ and workspace/ where it will store generated site Profiles and Extracted transport packages, respectively. The phar distribution includes all dependencies required to use Teleport. Note however that you cannot run the Teleport HTTP Server from the phar distribution; it is not included in the Phar.</p>
+</li>
+<li>
+<p><a href="install/releases/">Releases</a> - You can download zip and tar.gz formats of any Teleport release, extract them in an appropriate location, and run <code>composer install</code> in that location to download the required dependencies. GitHub releases of the project are available <a href="https://github.com/modxcms/teleport/releases">here</a>.</p>
+</li>
+<li>
+<p><a href="install/git-clone/">Git Clone</a> - Contributors can clone the teleport repository or their own fork of it from GitHub, and run <code>composer install --dev</code> in that location to download the required dependencies, including those specified in the require-dev section of the <a href="./../composer.json"><code>composer.json</code></a>.</p>
+</li>
+</ul>
+<h2 id="use">Use</h2>
+<h3 id="actions">Actions</h3>
+<p>At the most basic level, you interact with the Teleport application by calling a specific Teleport action with any number of arguments.</p>
+<p>Currently, Teleport provides the following Actions:</p>
+<ul>
+<li>
+<p><a href="use/profile/">Profile</a> - Generate a JSON profile of a MODX installation that can be used by other Actions to interact with it.</p>
+</li>
+<li>
+<p><a href="use/extract/">Extract</a> - Extract files, data, and/or other artifacts described by a specified <a href="use/extract/tpl/">extract tpl</a>, from a MODX installation described by a specified profile, and package them into a transport that can later be Injected into any other MODX installation.</p>
+</li>
+<li>
+<p><a href="use/inject/">Inject</a> - Inject a specified transport package generated by a Teleport Extract, into a MODX installation described by a specified profile.</p>
+</li>
+<li>
+<p><a href="use/push/">Push</a> - Push a specified source file to a specified target location.</p>
+</li>
+<li>
+<p><a href="use/user-create/">UserCreate</a> - Create a User in a MODX installation described by a specified profile.</p>
+</li>
+<li>
+<p><a href="use/packages/gc/">Packages/GC</a> - Remove outdated versions of packages from a MODX installation described by a specified profile.</p>
+</li>
+</ul>
+<h3 id="cli-requests">CLI Requests</h3>
+<p>The simplest way to use Teleport is by calling Teleport Actions on the command line. See documentation for an Action to discover the required and optional arguments for calling that specific Teleport Action.</p>
+<h3 id="teleport-http-server">Teleport HTTP Server</h3>
+<p>Teleport comes with a <a href="use/server/">custom HTTP server</a>, built with <a href="http://reactphp.org/">ReactPHP</a> that can be run on any server port. This allows access to Teleport Actions over HTTP, bypassing timeout and other issues that can occur when attempting to execute long-running processes using your public web server configuration.</p>
+<h2 id="extend">Extend</h2>
+<p>Teleport is intended to be easily extensible in a couple of ways. For best results, it is recommended you create your own project using Teleport as a library where you can track your custom additions to the application in the VCS of your choice. The easiest way to get started with a custom Teleport project is by using Composer's create-project command from the modxcms/teleport-project boilerplate package.</p>
+<pre><code>php composer.phar create-project --prefer-source --stability=dev modxcms/teleport-project teleport-opengeek/
+</code></pre>
+<p>You can find more information about using the boilerplate package at the <a href="https://github.com/modxcms/teleport-project" title="Teleport boilerplate project">GitHub project</a>.</p>
+<h3 id="custom-extracts">Custom Extracts</h3>
+<p>The Teleport <a href="use/extract/">Extract Action</a> uses a JSON <a href="use/extract/tpl/">extract tpl</a> to describe how a transport package is created from a variety of MODX site resources. You can easily create your own tpls to quickly build custom packages for an infinite variety of purposes from backing up sites, to building extras, to creating custom deployment workflows. See <a href="extend/custom-extract-tpls/">Creating Custom Extract Tpls</a> for more information.</p>
+<h3 id="custom-teleport-actions">Custom Teleport Actions</h3>
+<p>Coming soon: the ability to define <a href="extend/custom-actions/">Custom Actions</a> when using Teleport as a library in your application.</p>
+<h2 id="contribute">Contribute</h2>
+<p>We welcome all contributions to the Teleport application and library. <a href="contribute/">Learn more</a> about the variety of ways you can contribute and how.</p>
+</div>
+        </div>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="./js/bootstrap-3.0.3.min.js"></script>
+        <script src="./js/prettify-1.0.min.js"></script>
+        <script src="./js/base.js"></script>
+    </body>
+</html>
