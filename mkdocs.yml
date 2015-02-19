@@ -1,0 +1,21 @@
+site_name: Teleport for MODX
+docs_dir: doc
+pages:
+- [index.md, Introduction]
+- [install/releases.md, Installation, Install from Release]
+- [install/git-clone.md, Installation, Install from Git]
+- [install/phar.md, Installation, Install Phar]
+- [use/profile.md, User Guide, Profile]
+- [use/extract.md, User Guide, Extract]
+- [use/inject.md, User Guide, Inject]
+- [use/push.md, User Guide, Push]
+- [use/user-create.md, User Guide, User Create]
+- [use/packages/gc.md, User Guide, Garbage Collection]
+- [use/server.md, User Guide, Server]
+- [use/extract/tpl.md, Extract Tpls, Intro to Extract Tpls]
+- [use/extract/tpl/resource_children.md, Extract Tpls, resource_children.tpl]
+- [extend/custom-actions.md, Extend, Custom Actions]
+- [extend/custom-extract-tpls.md, Extend, Custom Extract Tpls]
+- [contribute.md, Contributing]
+theme: slate
+repo_url: https://github.com/modxcms/teleport/

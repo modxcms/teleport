@@ -29,3 +29,6 @@ test-*.json
 
 # ignore composer.lock
 composer.lock
+
+# ignore /site/ for generated documentation
+/site/

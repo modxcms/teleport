@@ -112,7 +112,7 @@ Learn more about the [Teleport UserCreate](doc/use/user-create.md) Action.
 
 ## Get Started
 
-Learn more about Teleport in the [documentation](doc/start.md).
+Learn more about Teleport in the [documentation](doc/index.md).
 
 ## License
 
