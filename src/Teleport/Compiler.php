@@ -188,13 +188,22 @@ class Compiler
     private function addAutoload($phar)
     {
         $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/autoload.php'));
-        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_namespaces.php'));
         $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_classmap.php'));
+        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_files.php'));
+        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_namespaces.php'));
+        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_psr4.php'));
         $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_real.php'));
         if (file_exists($this->path . '/vendor/composer/include_paths.php')) {
             $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/include_paths.php'));
         }
         $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/ClassLoader.php'));
+
+        /* add react/promise */
+        $react = new Finder();
+        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/promise/src');
+        foreach ($react as $file) {
+            $this->addFile($phar, $file);
+        }
     }
 
     /**
