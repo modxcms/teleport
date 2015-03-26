@@ -246,6 +246,78 @@ class Compiler
         foreach ($eventDispatcher as $file) {
             $this->addFile($phar, $file);
         }
+
+        /* add symfony/filesystem */
+        $filesystem = new Finder();
+        $filesystem->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/symfony/filesystem');
+        foreach ($filesystem as $file) {
+            $this->addFile($phar, $file);
+        }
+
+        /* add symfony/finder */
+        $finder = new Finder();
+        $finder->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/symfony/finder');
+        foreach ($finder as $file) {
+            $this->addFile($phar, $file);
+        }
+
+        /* add react libs */
+        $react = new Finder();
+        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/cache');
+        foreach ($react as $file) {
+            $this->addFile($phar, $file);
+        }
+        $react = new Finder();
+        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/child-process');
+        foreach ($react as $file) {
+            $this->addFile($phar, $file);
+        }
+        $react = new Finder();
+        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/dns');
+        foreach ($react as $file) {
+            $this->addFile($phar, $file);
+        }
+        $react = new Finder();
+        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/event-loop');
+        foreach ($react as $file) {
+            $this->addFile($phar, $file);
+        }
+        $react = new Finder();
+        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/http');
+        foreach ($react as $file) {
+            $this->addFile($phar, $file);
+        }
+        $react = new Finder();
+        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/http-client/src');
+        foreach ($react as $file) {
+            $this->addFile($phar, $file);
+        }
+        $react = new Finder();
+        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/promise/src');
+        foreach ($react as $file) {
+            $this->addFile($phar, $file);
+        }
+        $react = new Finder();
+        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/socket/src');
+        foreach ($react as $file) {
+            $this->addFile($phar, $file);
+        }
+        $react = new Finder();
+        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/socket-client/src');
+        foreach ($react as $file) {
+            $this->addFile($phar, $file);
+        }
+        $react = new Finder();
+        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/stream/src');
+        foreach ($react as $file) {
+            $this->addFile($phar, $file);
+        }
+
+        $evenement = new Finder();
+        $evenement->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/evenement/evenement/src');
+        foreach ($evenement as $file) {
+            $this->addFile($phar, $file);
+        }
     }
 
     /**
