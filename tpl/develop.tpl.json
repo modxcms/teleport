@@ -939,6 +939,44 @@
     {
         "vehicle_class":"xPDOObjectVehicle",
         "object":{
+            "class":"modAccessNamespace",
+            "criteria":["1 = 1"],
+            "graph":{
+                "Context":[],
+                "Target":[]
+            },
+            "package":"modx"
+        },
+        "attributes":{
+            "preserve_keys":false,
+            "update_object":true,
+            "unique_key":["context_key", "target", "principal_class", "principal", "authority", "policy"],
+            "related_objects":true,
+            "related_object_attributes":{
+                "Context":{
+                    "preserve_keys":true,
+                    "update_object":true
+                },
+                "Target":{
+                    "preserve_keys":true,
+                    "update_object":true
+                },
+                "modUserGroup":{
+                    "preserve_keys":false,
+                    "update_object":true,
+                    "unique_key":"name"
+                },
+                "modUser":{
+                    "preserve_keys":false,
+                    "update_object":true,
+                    "unique_key":"username"
+                }
+            }
+        }
+    },
+    {
+        "vehicle_class":"xPDOObjectVehicle",
+        "object":{
             "class":"modAccessResourceGroup",
             "criteria":["1 = 1"],
             "graph":{
