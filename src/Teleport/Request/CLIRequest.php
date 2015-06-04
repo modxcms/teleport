@@ -94,12 +94,12 @@ class CLIRequest extends Request
                     $this->log("user switch failed: could not find user {$this->user}");
                     return false;
                 }
+                if (!@posix_setgid($u['gid'])) {
+                    $this->log("warning: error switching group for {$this->user} to gid {$u['gid']}");
+                }
                 if (!@posix_setuid($u['uid'])) {
                     $this->log("user switch failed: could not switch to {$this->user} using uid {$u['uid']}");
                     return false;
-                }
-                if (!@posix_setgid($u['gid'])) {
-                    $this->log("warning: error switching group for {$this->user} to gid {$u['gid']}");
                 }
                 $current_user = @posix_getpwuid(@posix_getuid());
                 if (is_array($current_user) && $current_user['name'] === $this->user) {
