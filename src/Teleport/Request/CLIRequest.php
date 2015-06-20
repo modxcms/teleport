@@ -45,6 +45,16 @@ class CLIRequest extends Request
             $argument = next($args);
         }
         if (!isset($parsed['action']) || empty($parsed['action'])) {
+            if (isset($parsed['version']) ||  isset($parsed['V'])) {
+                $this->action = 'Version';
+                $this->arguments = $parsed;
+                return $this->arguments;
+            }
+            if (isset($parsed['help']) || isset($parsed['h'])) {
+                $this->action = 'Help';
+                $this->arguments = $parsed;
+                return $this->arguments;
+            }
             throw new RequestException($this, "No valid action argument specified.");
         }
         $this->action = $parsed['action'];

@@ -124,8 +124,8 @@ class Request implements RequestInterface
     /**
      * Handle the requested action.
      *
-     * @throws RequestException If an error occurs during processing of the action,
-     * or an unknown action is requested.
+     * @param array $arguments An array of arguments for the request.
+     * @throws RequestException If an error occurs handling the request.
      */
     public function handle(array $arguments)
     {
@@ -219,6 +219,16 @@ class Request implements RequestInterface
     public function parseArguments(array $args)
     {
         if (!isset($args['action']) || empty($args['action'])) {
+            if (isset($args['version']) ||  isset($args['V'])) {
+                $this->action = 'Version';
+                $this->arguments = $args;
+                return $this->arguments;
+            }
+            if (isset($args['help']) || isset($args['h'])) {
+                $this->action = 'Help';
+                $this->arguments = $args;
+                return $this->arguments;
+            }
             throw new RequestException($this, "No valid action argument specified.");
         }
         $this->action = $args['action'];
