@@ -157,6 +157,22 @@
         "vehicle_package": "",
         "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
         "object": {
+            "class": "modAccessNamespace",
+            "criteria": ["1 = 1"],
+            "limit": 500,
+            "package": "modx"
+        },
+        "attributes": {
+            "preserve_keys": true,
+            "update_object": true,
+            "vehicle_package": "",
+            "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle"
+        }
+    },
+    {
+        "vehicle_package": "",
+        "vehicle_class": "\\Teleport\\Transport\\xPDOCollectionVehicle",
+        "object": {
             "class": "modAccessPermission",
             "criteria": ["1 = 1"],
             "limit": 500,
