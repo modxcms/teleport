@@ -214,6 +214,10 @@ class Extract extends Action
             case '\\Teleport\\Transport\\xPDOObjectVehicle':
             case 'xPDOObjectVehicle':
                 $realClass = $this->modx->loadClass($vehicle['object']['class']);
+                if ($realClass === false) {
+                    $this->request->log("Invalid class {$vehicle['object']['class']} specified; skipping vehicle");
+                    break;
+                }
                 $graph = isset($vehicle['object']['graph']) && is_array($vehicle['object']['graph'])
                     ? $vehicle['object']['graph'] : array();
                 $graphCriteria = isset($vehicle['object']['graphCriteria']) && is_array($vehicle['object']['graphCriteria'])
