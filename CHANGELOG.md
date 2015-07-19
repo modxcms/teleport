@@ -1,3 +1,6 @@
+### Teleport 1.1.0 (2015-07-19)
+
+  * Skip vehicles referencing classes not available in specific MODX releases
   * Add promote Extract tpl
 
 ### Teleport 1.0.0 (2015-02-17)
