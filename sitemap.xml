@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    
+    <url>
+     <loc>None/</loc>
+     <lastmod>2015-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+        
+    <url>
+     <loc>None/install/releases/</loc>
+     <lastmod>2015-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/install/git-clone/</loc>
+     <lastmod>2015-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/install/phar/</loc>
+     <lastmod>2015-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>None/use/profile/</loc>
+     <lastmod>2015-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/use/extract/</loc>
+     <lastmod>2015-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/use/inject/</loc>
+     <lastmod>2015-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/use/push/</loc>
+     <lastmod>2015-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/use/user-create/</loc>
+     <lastmod>2015-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/use/packages/gc/</loc>
+     <lastmod>2015-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/use/server/</loc>
+     <lastmod>2015-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>None/use/extract/tpl/</loc>
+     <lastmod>2015-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/use/extract/tpl/resource_children/</loc>
+     <lastmod>2015-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>None/extend/custom-actions/</loc>
+     <lastmod>2015-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/extend/custom-extract-tpls/</loc>
+     <lastmod>2015-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+    <url>
+     <loc>None/contribute/</loc>
+     <lastmod>2015-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+</urlset>
