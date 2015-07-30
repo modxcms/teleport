@@ -17,5 +17,5 @@ pages:
 - [extend/custom-actions.md, Extend, Custom Actions]
 - [extend/custom-extract-tpls.md, Extend, Custom Extract Tpls]
 - [contribute.md, Contributing]
-theme: slate
+theme: readthedocs
 repo_url: https://github.com/modxcms/teleport/
