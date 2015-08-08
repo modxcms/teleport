@@ -18,7 +18,7 @@
         "symfony/filesystem": "~2.4"
     },
     "require-dev": {
-        "symfony/process": "~2.1@dev"
+        "symfony/process": "~2.1"
     },
     "suggest": {
         "ext-libevent": "It is critical to have this or ext-ev if you plan to use the server or endpoint listener.",
