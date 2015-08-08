@@ -13,12 +13,12 @@
     "require": {
         "php": ">=5.3.3",
         "aws/aws-sdk-php": "2.*",
-        "react/react": "0.4.*",
-        "symfony/finder": "~2.2",
-        "symfony/filesystem": "~2.4"
+        "react/react": "^0.4",
+        "symfony/finder": "^2.2.0",
+        "symfony/filesystem": "^2.4.0"
     },
     "require-dev": {
-        "symfony/process": "~2.1"
+        "symfony/process": "^2.1"
     },
     "suggest": {
         "ext-libevent": "It is critical to have this or ext-ev if you plan to use the server or endpoint listener.",

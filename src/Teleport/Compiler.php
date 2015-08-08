@@ -287,6 +287,11 @@ class Compiler
         foreach ($react as $file) {
             $this->addFile($phar, $file);
         }
+        $psr7 = new Finder();
+        $psr7->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/guzzlehttp/psr7/src');
+        foreach ($psr7 as $file) {
+            $this->addFile($phar, $file);
+        }
         $react = new Finder();
         $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/http-client/src');
         foreach ($react as $file) {
