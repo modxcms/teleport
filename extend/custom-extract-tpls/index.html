@@ -184,6 +184,8 @@
             
                 <li class="toctree-l3"><a href="#custom-extract-tpls">Custom Extract tpls</a></li>
                 
+                    <li><a class="toctree-l4" href="#defining-a-tpl">Defining a tpl</a></li>
+                
             
             </ul>
         
@@ -241,6 +243,80 @@
             <div class="section">
               
                 <h1 id="custom-extract-tpls">Custom Extract tpls</h1>
+<p>NOTE: If you want to maintain a custom Teleport project with your own templates so that you can compile your own custom phar or track your project in version control, you should start a new project using the <a href="https://github.com/modxcms/teleport-project">Teleport boilerplate project</a>. This will allow you to maintain your own custom code and update the core Teleport code and artifacts as dictated by your own project requirements.</p>
+<h2 id="defining-a-tpl">Defining a tpl</h2>
+<p>An Extract tpl is a JSON file that describes how to build a Teleport transport package. It consists of three main properties: a <code>name</code>, some package <code>attributes</code>, and a collection of one or more <code>vehicles</code>.</p>
+<h3 id="naming-the-tpl">Naming the tpl</h3>
+<p>An Extract tpl's <code>name</code> is used when producing the file name of an Extracted transport package. For this reason, you should avoid the <code>-</code> or other special characters in the tpl <code>name</code>. Use <code>_</code> for word separators if you need them.</p>
+<h3 id="attributes-for-the-package">Attributes for the package</h3>
+<p><em>available in teleport &gt;=1.2.0</em></p>
+<p>The <code>attributes</code> property provides a way to set the attributes of the transport package that is produced by the Extract. For instance, this can be used to set package attributes used by package management when installing Extras, allowing you to use Teleport as an easy way to create installable transport packages for use within any MODX installation. NOTE however that when producing packages to be used as MODX Extras, you must avoid the use of Teleport-specific transport vehicle classes. Limit the vehicles you define for these packages to those available in xPDO itself (<code>xPDOObjectVehicle</code>, <code>xPDOFileVehicle</code>, <code>xPDOScriptVehicle</code>, or <code>xPDOTransportVehicle</code>).</p>
+<p>Here is an example use of the <code>attributes</code> property that could be used to create an installable Extras package which. This theoretical <code>test</code> component located in the MODX <code>core/components/</code> directory specifies a dependency on the collections extra at version 3.x (for MODX 2.4 package dependency features) and includes the content of a changelog.txt file located within the component's directory as the <code>changelog</code> attribute:</p>
+<pre><code>"attributes": {
+    "changelog": {
+        "sourceType": "fileContent",
+        "source": "{+properties.modx.core_path}components/test/changelog.txt"
+    },
+    "requires": {
+        "collections": "~3.0"
+    }
+},
+</code></pre>
+<p>As you can see in this example, individual attributes can get their content from a file available to the Extract by setting the value of the attribute to an object with the properties <code>sourceType</code> and <code>source</code> where the <code>sourceType</code> value is set to <code>fileContent</code> and the <code>source</code> is the full path to the file to use the content from. Other <code>sourceType</code>'s may be supported in the future.</p>
+<h3 id="describing-the-vehicles">Describing the Vehicles</h3>
+<p>The <code>vehicles</code> property describes a collection of xPDO transport vehicles that will be included in the package in the order they are described. The vehicles can be core xPDOVehicle derivatives, Teleport-specific derivatives, or even custom derivatives.</p>
+<p>A simple example from the <code>settings.tpl.json</code> included with Teleport describes two xPDOObject vehicles that will package all System and Context Settings from a MODX installation:</p>
+<pre><code>"vehicles": [
+    {
+        "vehicle_class": "xPDOObjectVehicle",
+        "object": {
+            "class": "modSystemSetting",
+            "criteria": [
+                "1 = 1"
+            ],
+            "package": "modx"
+        },
+        "attributes": {
+            "preserve_keys": true,
+            "update_object": true
+        }
+    },
+    {
+        "vehicle_class": "xPDOObjectVehicle",
+        "object": {
+            "class": "modContextSetting",
+            "criteria": [
+                "1 = 1"
+            ],
+            "package": "modx"
+        },
+        "attributes": {
+            "preserve_keys": true,
+            "update_object": true
+        }
+    }
+]
+</code></pre>
+<p>When <a href="../../use/inject/">Inject</a>ed, the packaged object vehicles will preserve their payload's primary keys and update existing objects in the injection target that match by primary key, as described in the attributes provided for each vehicle in the collection.</p>
+<p>Each vehicle consists of an optional <code>vehicle_package</code>, a <code>vehicle_class</code>, an <code>object</code> defining the vehicle payload, and optional <code>attributes</code> of the vehicle. The <code>vehicle_package</code> should be omitted when using the core xPDOVehicle implementations. The <code>object</code> will be unique to each <code>vehicle_class</code> implementation.</p>
+<h4 id="xpdofilevehicle">xPDOFileVehicle</h4>
+<ul>
+<li><code>source</code>: the absolute path to a file or directory to be packaged</li>
+<li><code>target</code>: a PHP expression that will be <code>eval()</code>'d during installation to determine where the file/directory is unpacked</li>
+</ul>
+<h4 id="xpdoobjectvehicle">xPDOObjectVehicle</h4>
+<ul>
+<li><code>class</code>: defines the xPDOObject class to be packaged by the vehicle</li>
+<li><code>criteria</code>: an array or object describing the criteria that will be used to select instances of the specified <code>class</code></li>
+<li><code>graph</code>: defines an object graph to use to package related xPDOObjects</li>
+<li><code>graphCriteria</code>: defines the criteria for filtering related xPDOObjects selected by a <code>graph</code></li>
+<li><code>script</code>: an optional script to be used to create the vehicle or vehicles for this vehicle definition</li>
+<li><code>package</code>: the xPDO package name for the specified <code>class</code></li>
+</ul>
+<h4 id="xpdoscriptvehicle">xPDOScriptVehicle</h4>
+<ul>
+<li><code>source</code>: a script to be executed during installation of the vehicle</li>
+</ul>
               
             </div>
           </div>

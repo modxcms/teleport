@@ -155,6 +155,8 @@
             
                 <li class="toctree-l3"><a href="#extract-tpls">Extract tpls</a></li>
                 
+                    <li><a class="toctree-l4" href="#the-properties-of-an-extract-tpl">The properties of an Extract tpl</a></li>
+                
                     <li><a class="toctree-l4" href="#included-tpls">Included tpls</a></li>
                 
                     <li><a class="toctree-l4" href="#custom-tpls">Custom tpls</a></li>
@@ -246,6 +248,70 @@
               
                 <h1 id="extract-tpls">Extract tpls</h1>
 <p>Extract tpls are JSON templates defining what, when, and how various objects, scripts, or file artifacts are to be extracted and packaged into a Teleport transport package.</p>
+<h2 id="the-properties-of-an-extract-tpl">The properties of an Extract tpl</h2>
+<p>Each Extract tpl defines the attributes and vehicles that make up the manifest of a Teleport transport package. The manifest defines what is packaged and in what order.</p>
+<h3 id="name">name</h3>
+<p>Every tpl has a name property which helps identify the tpl used to create a transport package. This name is included in the generated package filename.</p>
+<h3 id="attributes">attributes</h3>
+<p>The attributes of a Teleport transport package can be set to make distributable packages that can be installed from within the MODX package management interface. You can set readme, changelog, and license attributes, as well as the <code>requires</code> attribute supported in MODX &gt;=2.4 to specify package dependencies.</p>
+<p>Note that you can also define an attribute as an object with the properties <code>sourceType</code> and <code>source</code>. For now, <code>fileContent</code> is the only supported <code>sourceType</code>, which uses the <code>source</code> attribute value as a file path or stream URL from which to read the value of the attribute.</p>
+<pre><code>"attributes": {
+    "changelog": {
+        "sourceType": "fileContent",
+        "source": "{+properties.modx.core_path}components/test/changelog.txt"
+    },
+    "requires": {
+        "collections": "~3.0"
+    }
+}
+</code></pre>
+<p>This makes it possible to use Teleport to create Extras packages that are ready to install from within MODX. Care will just need to be taken not to use any Teleport-specific <code>vehicle</code> classes in the packages created for this purpose.</p>
+<h3 id="vehicles">vehicles</h3>
+<p>Teleport transport vehicles define artifacts that are to be packaged when the tpl is used in an Extract action. They can be core xPDOVehicle classes or they can be Teleport-specific or even custom implementations which extend any of the core xPDOVehicle classes.</p>
+<p>For example, the following defines a single vehicle that packages files from a specified source into a specified target:</p>
+<pre><code>"vehicles": [
+    {
+        "vehicle_class": "xPDOFileVehicle",
+        "object": {
+            "source": "{+properties.modx.core_path}components/test",
+            "target": "return MODX_CORE_PATH . 'components';"
+        },
+        "attributes": {"vehicle_class": "xPDOFileVehicle"}
+    }
+]
+</code></pre>
+<p>Or here is a more complex definition that packages all system and context settings from the MODX database:</p>
+<pre><code>"vehicles": [
+    {
+        "vehicle_class": "xPDOObjectVehicle",
+        "object": {
+            "class": "modSystemSetting",
+            "criteria": [
+                "1 = 1"
+            ],
+            "package": "modx"
+        },
+        "attributes": {
+            "preserve_keys": true,
+            "update_object": true
+        }
+    },
+    {
+        "vehicle_class": "xPDOObjectVehicle",
+        "object": {
+            "class": "modContextSetting",
+            "criteria": [
+                "1 = 1"
+            ],
+            "package": "modx"
+        },
+        "attributes": {
+            "preserve_keys": true,
+            "update_object": true
+        }
+    }
+]
+</code></pre>
 <h2 id="included-tpls">Included tpls</h2>
 <ul>
 <li><code>changeset.tpl.json</code> - Extract a defined set of changes being recorded by callback functions in the MODX configuration.</li>
@@ -262,6 +328,7 @@
 <li><code>users.tpl.json</code> - Extract all Users from a MODX deployment to inject into another deployment, updating and supplementing existing Users.</li>
 </ul>
 <h2 id="custom-tpls">Custom tpls</h2>
+<p>You can create and use your own custom tpls with Teleport. See <a href="../../../extend/custom-extract-tpls/">Extending Teleport with Custom Extract Tpls</a> to get started.</p>
               
             </div>
           </div>
