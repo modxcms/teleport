@@ -1,3 +1,7 @@
+### Teleport 1.2.0 (2015-08-09)
+
+  * Add ability to include package attributes in an Extract tpl
+
 ### Teleport 1.1.0 (2015-07-19)
 
   * Skip vehicles referencing classes not available in specific MODX releases
