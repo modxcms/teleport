@@ -1,1 +1,33 @@
-{"name":"settings","vehicles":[{"vehicle_class":"xPDOObjectVehicle","object":{"class":"modSystemSetting","criteria":["1 = 1"],"package":"modx"},"attributes":{"preserve_keys":true,"update_object":true}},{"vehicle_class":"xPDOObjectVehicle","object":{"class":"modContextSetting","criteria":["1 = 1"],"package":"modx"},"attributes":{"preserve_keys":true,"update_object":true}}]}
+{
+    "name": "settings",
+    "vehicles": [
+        {
+            "vehicle_class": "xPDOObjectVehicle",
+            "object": {
+                "class": "modSystemSetting",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true
+            }
+        },
+        {
+            "vehicle_class": "xPDOObjectVehicle",
+            "object": {
+                "class": "modContextSetting",
+                "criteria": [
+                    "1 = 1"
+                ],
+                "package": "modx"
+            },
+            "attributes": {
+                "preserve_keys": true,
+                "update_object": true
+            }
+        }
+    ]
+}
