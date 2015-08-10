@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.4",
         "aws/aws-sdk-php": "2.*",
         "react/react": "^0.4",
         "symfony/finder": "^2.2.0",

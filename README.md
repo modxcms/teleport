@@ -9,7 +9,7 @@ Teleport currently functions primarily as a packaging toolkit which extends the 
 
 In order to use Teleport, your environment must at least meet the following requirements:
 
-* PHP >= 5.3.3
+* PHP >= 5.4
 * MODX Revolution >= 2.1 (MySQL)
 
 You must also be able to run PHP using the CLI SAPI.
