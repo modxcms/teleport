@@ -1,3 +1,7 @@
+### Teleport 1.2.1 (TBD)
+
+  * Switch order of posix user and group switching attempts
+
 ### Teleport 1.2.0 (2015-08-09)
 
   * Add ability to include package attributes in an Extract tpl
