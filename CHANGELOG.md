@@ -1,5 +1,6 @@
 ### Teleport 1.3.0 (TBD)
 
+  * Make AWS a suggested package and include only needed react packages
   * Allow a MODX instance to be explicitly set on the Teleport instance
   * Switch order of posix user and group switching attempts
 

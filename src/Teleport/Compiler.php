@@ -222,31 +222,6 @@ class Compiler
             }
         }
 
-        /* add aws */
-        $aws = new Finder();
-        $aws->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/aws/aws-sdk-php/src');
-        foreach ($aws as $file) {
-            $this->addFile($phar, $file);
-        }
-
-        /* add guzzle (aws requirement) */
-        $guzzle = new Finder();
-        $guzzle->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/guzzle/guzzle/src');
-        foreach ($guzzle as $file) {
-            $this->addFile($phar, $file);
-        }
-        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/guzzle/guzzle/src/Guzzle/Http/Resources/cacert.pem'), false);
-        if (is_readable($this->path . '/vendor/guzzle/guzzle/src/Guzzle/Http/Resources/cacert.pem.md5')) {
-            $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/guzzle/guzzle/src/Guzzle/Http/Resources/cacert.pem.md5'), false);
-        }
-
-        /* add symfony/event-dispatcher (guzzle requirement) */
-        $eventDispatcher = new Finder();
-        $eventDispatcher->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/symfony/event-dispatcher');
-        foreach ($eventDispatcher as $file) {
-            $this->addFile($phar, $file);
-        }
-
         /* add symfony/filesystem */
         $filesystem = new Finder();
         $filesystem->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/symfony/filesystem');
@@ -263,17 +238,7 @@ class Compiler
 
         /* add react libs */
         $react = new Finder();
-        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/cache');
-        foreach ($react as $file) {
-            $this->addFile($phar, $file);
-        }
-        $react = new Finder();
         $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/child-process');
-        foreach ($react as $file) {
-            $this->addFile($phar, $file);
-        }
-        $react = new Finder();
-        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/dns');
         foreach ($react as $file) {
             $this->addFile($phar, $file);
         }
@@ -293,22 +258,12 @@ class Compiler
             $this->addFile($phar, $file);
         }
         $react = new Finder();
-        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/http-client/src');
-        foreach ($react as $file) {
-            $this->addFile($phar, $file);
-        }
-        $react = new Finder();
         $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/promise/src');
         foreach ($react as $file) {
             $this->addFile($phar, $file);
         }
         $react = new Finder();
         $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/socket/src');
-        foreach ($react as $file) {
-            $this->addFile($phar, $file);
-        }
-        $react = new Finder();
-        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/socket-client/src');
         foreach ($react as $file) {
             $this->addFile($phar, $file);
         }
