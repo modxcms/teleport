@@ -1,4 +1,4 @@
-### Teleport 1.3.0 (TBD)
+### Teleport 1.3.0 (2015-08-10)
 
   * Fix Extract warnings when no attributes exist in the tpl
   * Make AWS a suggested package and include only needed react packages
