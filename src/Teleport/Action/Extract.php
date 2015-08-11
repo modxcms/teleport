@@ -58,15 +58,17 @@ class Extract extends Action
 
             $this->package = $this->createPackage($this->profile->code . '_' . $this->tpl['name'], $this->getVersion(), $this->getSequence());
 
-            foreach ($this->tpl['attributes'] as $attribute => $attributeValue) {
-                if (is_array($attributeValue) && isset($attributeValue['sourceType']) && isset($attributeValue['source'])) {
-                    switch ($attributeValue['sourceType']) {
-                        case 'fileContent':
-                            $attributeValue = file_get_contents($attributeValue['source']);
-                            break;
+            if (isset($this->tpl['attributes'])) {
+                foreach ($this->tpl['attributes'] as $attribute => $attributeValue) {
+                    if (is_array($attributeValue) && isset($attributeValue['sourceType']) && isset($attributeValue['source'])) {
+                        switch ($attributeValue['sourceType']) {
+                            case 'fileContent':
+                                $attributeValue = file_get_contents($attributeValue['source']);
+                                break;
+                        }
                     }
+                    $this->package->setAttribute($attribute, $attributeValue);
                 }
-                $this->package->setAttribute($attribute, $attributeValue);
             }
 
             foreach ($this->tpl['vehicles'] as $vehicle) {
