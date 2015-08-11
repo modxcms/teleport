@@ -86,15 +86,18 @@ class Teleport
      * IMPORTANT: Only one modX instance can be instantiated with Teleport in
      * a single PHP execution cycle.
      *
-     * @param \stdClass $profile An object of properties describing the modX instance.
-     * @param array     $options An array of initialization options.
-     * @param array     &$results An optional results array reference.
+     * @param \stdClass|null $profile An object of properties describing the modX instance.
+     * @param array          $options An array of initialization options.
+     * @param array          &$results An optional results array reference.
      *
      * @throws InvalidMODXException If the MODX instance could not be initialized.
-     * @return \modX A reference to a MODX instance.
+     * @return \modX A MODX instance.
      */
-    public function &getMODX($profile, array $options = array(), array &$results = array())
+    public function getMODX($profile = null, array $options = array(), array &$results = array())
     {
+        if ($profile === null && !$this->modx instanceof \modX) {
+            throw new InvalidMODXException("No profile or MODX instance was provided");
+        }
         if (!$this->modx instanceof \modX) {
             try {
                 define('MODX_CORE_PATH', $profile->properties->modx->core_path);
@@ -132,6 +135,48 @@ class Teleport
     }
 
     /**
+     * Set a MODX instance to use with Teleport explicitly.
+     *
+     * @param \modX $modx A MODX instance to attach to the Teleport instance.
+     * @param array $options An array of options to override the profile.
+     *
+     * @throws InvalidMODXException
+     * @return resource A stream resource containing the profile ready for reading.
+     */
+    public function setMODX(\modX $modx, array $options = array())
+    {
+        if ($this->modx instanceof \modX) {
+            throw new InvalidMODXException('MODX already set; you cannot set another MODX instance');
+        }
+        if (!$modx instanceof \modX) {
+            throw new InvalidMODXException('Attempt to set an invalid MODX instance');
+        }
+        $this->modx = $modx;
+
+        $profileName = $this->getConfig()->get('profile_name', $options, $this->modx->getOption('site_name'));
+        $profileCode = $this->getConfig()->get('profile_code', $options, $this->modx->getOption('host'));
+
+        $profile = array(
+            'name' => $profileName,
+            'code' => $profileCode,
+            'properties' => array(
+                'modx' => array(
+                    'core_path' => $this->modx->getOption('core_path', null, MODX_CORE_PATH),
+                    'config_key' => $this->modx->getOption('config_key', null, MODX_CONFIG_KEY),
+                    'context_mgr_path' => $this->modx->getOption('manager_path', null, MODX_MANAGER_PATH),
+                    'context_mgr_url' => $this->modx->getOption('manager_url', null, MODX_MANAGER_URL),
+                    'context_connectors_path' => $this->modx->getOption('connectors_path', null, MODX_CONNECTORS_PATH),
+                    'context_connectors_url' => $this->modx->getOption('connectors_url', null, MODX_CONNECTORS_URL),
+                    'context_web_path' => $this->modx->getOption('base_path', null, MODX_BASE_PATH),
+                    'context_web_url' => $this->modx->getOption('base_url', null, MODX_BASE_URL),
+                ),
+            ),
+        );
+
+        return 'data://text/plain;base64,' . base64_encode(json_encode($profile, JSON_PRETTY_PRINT));
+    }
+
+    /**
      * Get the Teleport Config object.
      *
      * @return Config
@@ -164,7 +209,7 @@ class Teleport
     public function &getRequest($requestClass = '')
     {
         if (!is_string($requestClass) || $requestClass === '') {
-            $requestClass = $this->getConfig()->get('Request.class', null, 'Teleport\\Request\\CLIRequest');
+            $requestClass = $this->getConfig()->get('Request.class', null, 'Teleport\Request\CLIRequest');
         }
         if (!$this->request instanceof $requestClass) {
             $this->request = new $requestClass();
