@@ -1,5 +1,6 @@
-### Teleport 1.2.1 (TBD)
+### Teleport 1.3.0 (TBD)
 
+  * Allow a MODX instance to be explicitly set on the Teleport instance
   * Switch order of posix user and group switching attempts
 
 ### Teleport 1.2.0 (2015-08-09)
