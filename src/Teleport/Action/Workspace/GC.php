@@ -42,9 +42,12 @@ class GC extends Action
             ),
             \RecursiveIteratorIterator::CHILD_FIRST
         );
+        /** @var \SplFileInfo $fileInfo */
         foreach ($iterator as $filename => $fileInfo) {
             if ($fileInfo->isDir()) {
                 rmdir($filename);
+            } elseif ($fileInfo->getPath() === $dir && $fileInfo->getBasename() === '.gitignore') {
+                continue;
             } else {
                 unlink($filename);
             }

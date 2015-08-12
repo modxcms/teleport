@@ -34,6 +34,8 @@ Currently, Teleport provides the following Actions:
 
 * [Packages/GC](use/packages/gc.md) - Remove outdated versions of packages from a MODX installation described by a specified profile.
 
+* [Workspace/GC](use/workspace/gc.md) - Empty the contents of the Teleport workspace.
+
 ### CLI Requests
 
 The simplest way to use Teleport is by calling Teleport Actions on the command line. See documentation for an Action to discover the required and optional arguments for calling that specific Teleport Action.
