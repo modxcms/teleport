@@ -1,3 +1,7 @@
+### Teleport 1.4.0 (TBD)
+
+  * Add Workspace/GC Action for cleaning up workspace/ directory
+
 ### Teleport 1.3.0 (2015-08-10)
 
   * Fix Extract warnings when no attributes exist in the tpl
