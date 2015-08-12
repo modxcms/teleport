@@ -5,28 +5,28 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Push - Teleport for MODX</title>
+  <title>Workspace Garbage Collection - Teleport for MODX</title>
   
 
-  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <link rel="shortcut icon" href="../../../img/favicon.ico">
 
   
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="../../css/highlight.css">
+  <link rel="stylesheet" href="../../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/highlight.css">
 
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Push";
+    var mkdocs_page_name = "Workspace Garbage Collection";
   </script>
   
-  <script src="../../js/jquery-2.1.1.min.js"></script>
-  <script src="../../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
-  <script src="../../js/theme.js"></script> 
+  <script src="../../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../../js/highlight.pack.js"></script>
+  <script src="../../../js/theme.js"></script> 
 
   
 </head>
@@ -38,9 +38,9 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href="../.." class="icon icon-home"> Teleport for MODX</a>
+        <a href="../../.." class="icon icon-home"> Teleport for MODX</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
   </form>
 </div>
@@ -51,7 +51,7 @@
           
             <li>
     <li class="toctree-l1 ">
-        <a class="" href="../..">Introduction</a>
+        <a class="" href="../../..">Introduction</a>
         
     </li>
 <li>
@@ -63,21 +63,21 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../install/releases/">Install from Release</a>
+        <a class="" href="../../../install/releases/">Install from Release</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../install/git-clone/">Install from Git</a>
+        <a class="" href="../../../install/git-clone/">Install from Git</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../install/phar/">Install Phar</a>
+        <a class="" href="../../../install/phar/">Install Phar</a>
         
     </li>
 
@@ -92,32 +92,57 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../profile/">Profile</a>
+        <a class="" href="../../profile/">Profile</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../extract/">Extract</a>
+        <a class="" href="../../extract/">Extract</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../inject/">Inject</a>
+        <a class="" href="../../inject/">Inject</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../push/">Push</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../user-create/">User Create</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../packages/gc/">Package Garbage Collection</a>
         
     </li>
 
         
             
     <li class="toctree-l1 current">
-        <a class="current" href="./">Push</a>
+        <a class="current" href="./">Workspace Garbage Collection</a>
         
             <ul>
             
-                <li class="toctree-l3"><a href="#push">Push</a></li>
+                <li class="toctree-l3"><a href="#workspacegc">Workspace/GC</a></li>
+                
+                    <li><a class="toctree-l4" href="#workspace-garbage-collection">Workspace Garbage Collection</a></li>
+                
+                    <li><a class="toctree-l4" href="#garbage-collection-for-the-teleport-workspace">Garbage Collection for the Teleport Workspace</a></li>
                 
             
             </ul>
@@ -127,28 +152,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../user-create/">User Create</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../packages/gc/">Package Garbage Collection</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../workspace/gc/">Workspace Garbage Collection</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../server/">Server</a>
+        <a class="" href="../../server/">Server</a>
         
     </li>
 
@@ -163,14 +167,14 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../extract/tpl/">Intro to Extract Tpls</a>
+        <a class="" href="../../extract/tpl/">Intro to Extract Tpls</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../extract/tpl/resource_children/">resource_children.tpl</a>
+        <a class="" href="../../extract/tpl/resource_children/">resource_children.tpl</a>
         
     </li>
 
@@ -185,14 +189,14 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../extend/custom-actions/">Custom Actions</a>
+        <a class="" href="../../../extend/custom-actions/">Custom Actions</a>
         
     </li>
 
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../extend/custom-extract-tpls/">Custom Extract Tpls</a>
+        <a class="" href="../../../extend/custom-extract-tpls/">Custom Extract Tpls</a>
         
     </li>
 
@@ -202,7 +206,7 @@
           
             <li>
     <li class="toctree-l1 ">
-        <a class="" href="../../contribute/">Contributing</a>
+        <a class="" href="../../../contribute/">Contributing</a>
         
     </li>
 <li>
@@ -217,7 +221,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../..">Teleport for MODX</a>
+        <a href="../../..">Teleport for MODX</a>
       </nav>
 
       
@@ -225,7 +229,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../..">Docs</a> &raquo;</li>
+    <li><a href="../../..">Docs</a> &raquo;</li>
     
       
         
@@ -233,7 +237,7 @@
         
       
     
-    <li>Push</li>
+    <li>Workspace Garbage Collection</li>
     <li class="wy-breadcrumbs-aside">
       
         
@@ -247,7 +251,17 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="push">Push</h1>
+                <h1 id="workspacegc">Workspace/GC</h1>
+<h2 id="workspace-garbage-collection">Workspace Garbage Collection</h2>
+<p>You can empty the contents of the Teleport workspace with the command:</p>
+<pre><code>php teleport.phar --action=Workspace/GC
+</code></pre>
+<p><em>WARNING: this will delete <strong>everything</strong> in the <code>workspace/</code> directory!</em></p>
+<h2 id="garbage-collection-for-the-teleport-workspace">Garbage Collection for the Teleport Workspace</h2>
+<h3 id="required-arguments">Required Arguments</h3>
+<p>None required.</p>
+<h3 id="optional-arguments">Optional Arguments</h3>
+<p>No optional arguments.</p>
               
             </div>
           </div>
@@ -255,10 +269,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../user-create/" class="btn btn-neutral float-right" title="User Create"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../server/" class="btn btn-neutral float-right" title="Server"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../inject/" class="btn btn-neutral" title="Inject"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../packages/gc/" class="btn btn-neutral" title="Package Garbage Collection"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -286,10 +300,10 @@
           <a class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../inject/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../../packages/gc/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../user-create/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../../server/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
