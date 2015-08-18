@@ -56,7 +56,7 @@ class Extract extends Action
 
             $this->tpl = $this->loadTpl($this->tpl);
 
-            $this->package = $this->createPackage($this->profile->code . '_' . $this->tpl['name'], $this->getVersion(), $this->getSequence());
+            $this->package = $this->createPackage($this->getName(), $this->getVersion(), $this->getSequence());
 
             if (isset($this->tpl['attributes'])) {
                 foreach ($this->tpl['attributes'] as $attribute => $attributeValue) {
@@ -175,6 +175,16 @@ class Extract extends Action
         return $this->package;
     }
 
+    /**
+     * Get the base Name of the Package, typically for creation of the filename.
+     * 
+     * return string The base name of the Package
+     */
+    protected function getName()
+    {
+        return $this->profile->code . '_' . $this->tpl['name'];
+    }
+    
     /**
      * Get a package version for this snapshot.
      *
