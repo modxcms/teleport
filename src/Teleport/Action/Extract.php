@@ -56,7 +56,7 @@ class Extract extends Action
 
             $this->tpl = $this->loadTpl($this->tpl);
 
-            $this->package = $this->createPackage($this->profile->code . '_' . $this->tpl['name'], $this->getVersion(), $this->getSequence());
+            $this->package = $this->createPackage($this->getName(), $this->getVersion(), $this->getSequence());
 
             if (isset($this->tpl['attributes'])) {
                 foreach ($this->tpl['attributes'] as $attribute => $attributeValue) {
@@ -148,10 +148,10 @@ class Extract extends Action
         $s['version'] = $version;
         $s['release'] = $release;
         $signature = $s['name'];
-        if (!empty ($s['version'])) {
+        if (!empty($s['version']) || $s['version'] === '0') {
             $signature .= '-' . $s['version'];
         }
-        if (!empty ($s['release'])) {
+        if (!empty($s['release']) || $s['release'] === '0') {
             $signature .= '-' . $s['release'];
         }
         $filename = $signature . '.transport.zip';
@@ -176,13 +176,23 @@ class Extract extends Action
     }
 
     /**
+     * Get a package name for this snapshot.
+     *
+     * @return string The package name.
+     */
+    protected function getName()
+    {
+        return $this->getRequest()->args('name') ?: $this->profile->code . '_' . $this->tpl['name'];
+    }
+
+    /**
      * Get a package version for this snapshot.
      *
      * @return string The package version string.
      */
     protected function getVersion()
     {
-        return strftime('%y%m%d.%H%M.%S');
+        return $this->getRequest()->args('version') ?: strftime('%y%m%d.%H%M.%S');
     }
 
     /**
@@ -192,7 +202,11 @@ class Extract extends Action
      */
     protected function getSequence()
     {
-        return $this->modx->version['full_version'];
+        return $this->getRequest()->args('version') || $this->getRequest()->args('release')
+            ? ($this->getRequest()->args('release') === null
+                ? ''
+                : $this->getRequest()->args('release'))
+            : $this->modx->version['full_version'];
     }
 
     /**

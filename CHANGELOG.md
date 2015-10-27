@@ -1,5 +1,6 @@
 ### Teleport 1.4.0 (TBD)
 
+  * Add ability to provide signature for package created by Extract
   * Add Workspace/GC Action for cleaning up workspace/ directory
 
 ### Teleport 1.3.0 (2015-08-10)

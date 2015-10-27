@@ -29,6 +29,9 @@ _NOTE: The workspace copy is removed after it is pushed unless you pass --preser
 
 ### Optional Arguments
 
+* `--name=name` - Override the name of the created Teleport package signature. By default the profile `code` and tpl `name` are concatenated with an `_` to form the package name.
+* `--version=version` - A valid version string (not including the release data) for the created Teleport package signature. By default the current time is used in the format `%y%m%d.%H%M.%S`.
+* `--release=release` - A valid release string for the created Teleport package signature. By default the `full_version` of the site identified by the profile is used. If a `version` is provided, but no release is, no release is added to the package signature.
 * `--target=path` - A valid stream path to a folder where the extracted package should be pushed.
 * `--push` - Indicates if the extracted package should be pushed to the target.
 * `--preserveWorkspace` - Indicates if the workspace/ copy of the package should be removed after being pushed to a target.
