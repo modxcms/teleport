@@ -1,5 +1,6 @@
 ### Teleport 1.4.0 (TBD)
 
+  * Add template Extract tpl to package a Template by templatename
   * Add ability to provide signature for package created by Extract
   * Add Workspace/GC Action for cleaning up workspace/ directory
 

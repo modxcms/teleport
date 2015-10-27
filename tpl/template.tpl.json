@@ -1,0 +1,48 @@
+{
+    "name":"template",
+    "description":"Package a single Template, along with it's related Category and PropertySets, by templatename. Will overwrite a Template in the target with the same templatename.",
+    "vehicles":[
+        {
+            "vehicle_class":"xPDOObjectVehicle",
+            "object":{
+                "class":"modTemplate",
+                "criteria":{
+                    "templatename":"{+templatename}"
+                },
+                "graph":{
+                    "Category":[],
+                    "PropertySets":{
+                        "PropertySet":[]
+                    }
+                },
+                "package":"modx"
+            },
+            "attributes":{
+                "preserve_keys":false,
+                "update_object":true,
+                "unique_key":"templatename",
+                "related_objects":true,
+                "related_object_attributes":{
+                    "Category":{
+                        "preserve_keys":false,
+                        "update_object":true,
+                        "unique_key":"category"
+                    },
+                    "PropertySets":{
+                        "preserve_keys":true,
+                        "update_object":true,
+                        "unique_key":["element", "element_class", "property_set"],
+                        "related_objects":true,
+                        "related_object_attributes":{
+                            "PropertySet":{
+                                "preserve_keys":false,
+                                "update_object":false,
+                                "unique_key":"name"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
