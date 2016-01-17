@@ -271,6 +271,9 @@
 </ul>
 <h3 id="optional-arguments">Optional Arguments</h3>
 <ul>
+<li><code>--name=name</code> - Override the name of the created Teleport package signature. By default the profile <code>code</code> and tpl <code>name</code> are concatenated with an <code>_</code> to form the package name.</li>
+<li><code>--version=version</code> - A valid version string (not including the release data) for the created Teleport package signature. By default the current time is used in the format <code>%y%m%d.%H%M.%S</code>.</li>
+<li><code>--release=release</code> - A valid release string for the created Teleport package signature. By default the <code>full_version</code> of the site identified by the profile is used. If a <code>version</code> is provided, but no release is, no release is added to the package signature.</li>
 <li><code>--target=path</code> - A valid stream path to a folder where the extracted package should be pushed.</li>
 <li><code>--push</code> - Indicates if the extracted package should be pushed to the target.</li>
 <li><code>--preserveWorkspace</code> - Indicates if the workspace/ copy of the package should be removed after being pushed to a target.</li>

@@ -4,7 +4,7 @@
     
     <url>
      <loc>None/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -13,19 +13,19 @@
         
     <url>
      <loc>None/install/releases/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/install/git-clone/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/install/phar/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -35,49 +35,49 @@
         
     <url>
      <loc>None/use/profile/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/use/extract/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/use/inject/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/use/push/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/use/user-create/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/use/packages/gc/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/use/workspace/gc/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/use/server/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -87,13 +87,13 @@
         
     <url>
      <loc>None/use/extract/tpl/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/use/extract/tpl/resource_children/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -103,13 +103,13 @@
         
     <url>
      <loc>None/extend/custom-actions/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/extend/custom-extract-tpls/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -118,7 +118,7 @@
     
     <url>
      <loc>None/contribute/</loc>
-     <lastmod>2015-08-12</lastmod>
+     <lastmod>2016-01-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
