@@ -1,4 +1,4 @@
-### Teleport 1.4.0 (TBD)
+### Teleport 1.4.0 (2016-01-17)
 
   * Add template Extract tpl to package a Template by templatename
   * Add ability to provide signature for package created by Extract
