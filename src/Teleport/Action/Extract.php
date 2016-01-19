@@ -368,6 +368,10 @@ class Extract extends Action
                             /* collect the rows and generate INSERT statements */
                             $object['data'] = array();
                             $stmt = $this->modx->query("SELECT * FROM {$this->modx->escape($extraTable)}");
+                            if (!$stmt) {
+                                $this->request->log("Skipping table {$extraTable} as SELECT query failed");
+                                break;
+                            }
                             while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
                                 if ($instances === 0) {
                                     $fields = implode(', ', array_map(array($this->modx, 'escape'), array_keys($row)));
