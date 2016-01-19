@@ -1,3 +1,7 @@
+### Teleport 1.4.1 (TBD)
+
+  * Fix invalid paths in promote.tpl.json
+
 ### Teleport 1.4.0 (2016-01-17)
 
   * Add template Extract tpl to package a Template by templatename
