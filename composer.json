@@ -1,6 +1,6 @@
 {
     "name": "modxcms/teleport",
-    "description": "A Packaging Toolkit for MODX Revolution",
+    "description": "An extensible scripting and packaging toolkit for MODX Revolution",
     "license": "MIT",
     "authors": [
         {
@@ -40,6 +40,11 @@
     "autoload": {
         "psr-0": {
             "Teleport": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
         }
     }
 }
