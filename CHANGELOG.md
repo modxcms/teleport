@@ -1,5 +1,6 @@
 ### Teleport 1.4.1 (TBD)
 
+  * Add missing modAccessNamespace to promote.tpl.json
   * Fix invalid paths in promote.tpl.json
 
 ### Teleport 1.4.0 (2016-01-17)
