@@ -1,5 +1,6 @@
-### Teleport 1.4.1 (TBD)
+### Teleport 1.5.0 (TBD)
 
+  * Add form_customizations Extract tpl
   * Skip MySQLVehicle if SELECT stmt fails on Extract
   * Add missing modAccessNamespace to promote.tpl.json
   * Fix invalid paths in promote.tpl.json

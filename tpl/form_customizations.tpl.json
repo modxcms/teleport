@@ -1,0 +1,77 @@
+{
+    "name": "form_customizations",
+    "vehicles": [
+        {
+            "vehicle_class":"xPDOObjectVehicle",
+            "object":{
+                "class":"modFormCustomizationProfile",
+                "criteria":["1 = 1"],
+                "graph":{
+                    "Sets":{
+                        "Action":[],
+                        "Template":[],
+                        "Rules":{
+                            "Action":[]
+                        }
+                    },
+                    "UserGroups":{
+                        "UserGroup":[]
+                    }
+                },
+                "package":"modx"
+            },
+            "attributes":{
+                "preserve_keys":false,
+                "update_object":true,
+                "unique_key":"name",
+                "related_objects":true,
+                "related_object_attributes":{
+                    "Sets":{
+                        "preserve_keys":false,
+                        "update_object":true,
+                        "unique_key":["profile", "action", "template", "constraint", "constraint_field", "constraint_class"],
+                        "related_objects":true,
+                        "related_object_attributes":{
+                            "Action":{
+                                "preserve_keys":false,
+                                "update_object":true,
+                                "unique_key":["namespace", "controller"]
+                            },
+                            "Template":{
+                                "preserve_keys":false,
+                                "update_object":true,
+                                "unique_key":"templatename"
+                            },
+                            "Rules":{
+                                "preserve_keys":false,
+                                "update_object":true,
+                                "unique_key":["set", "action", "name"],
+                                "related_objects":true,
+                                "related_object_attributes":{
+                                    "Action":{
+                                        "preserve_keys":false,
+                                        "update_object":true,
+                                        "unique_key":["namespace", "controller"]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "UserGroups":{
+                        "preserve_keys":false,
+                        "update_object":true,
+                        "unique_key":["usergroup", "profile"],
+                        "related_objects":true,
+                        "related_object_attributes":{
+                            "UserGroup":{
+                                "preserve_keys":false,
+                                "update_object":true,
+                                "unique_key":"name"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
