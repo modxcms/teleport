@@ -1,4 +1,4 @@
-### Teleport 1.5.0 (TBD)
+### Teleport 1.5.0 (2016-03-01)
 
   * Make sure xPDOObjectCollection sets are ordered
   * Add form_customizations Extract tpl
