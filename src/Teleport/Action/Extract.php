@@ -290,6 +290,18 @@ class Extract extends Action
                     }
                     $offset = 0;
                     $criteria = $this->modx->newQuery($vehicle['object']['class'], (array)$vehicle['object']['criteria'], false);
+                    if (!isset($vehicle['object']['orderBy']) || !is_array($vehicle['object']['orderBy'])) {
+                        $pk = (array)$this->modx->getPK($realClass);
+                        foreach ($pk as &$primaryKey) {
+                            $primaryKey = $this->modx->escape($primaryKey);
+                        }
+                        $orderBy = array_fill_keys($pk, 'ASC');
+                    } else {
+                        $orderBy = $vehicle['object']['orderBy'];
+                    }
+                    foreach ($orderBy as $by => $direction) {
+                        $criteria->sortby($by, $direction);
+                    }
                     $set = $this->modx->getCollection($vehicle['object']['class'], $criteria->limit($limit, $offset), false);
                     while (!empty($set)) {
                         foreach ($set as &$object) {

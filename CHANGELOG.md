@@ -1,5 +1,6 @@
 ### Teleport 1.5.0 (TBD)
 
+  * Make sure xPDOObjectCollection sets are ordered
   * Add form_customizations Extract tpl
   * Skip MySQLVehicle if SELECT stmt fails on Extract
   * Add missing modAccessNamespace to promote.tpl.json
