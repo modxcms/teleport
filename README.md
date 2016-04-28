@@ -46,7 +46,7 @@ Extract a Snapshot from the MODX site you just profiled:
 
 ### Other Installation Methods
 
-Alternatively, you can install Teleport using the source and [Composer](http://getcomposer.org/). Learn more about using [git clone](doc/install/git-clone.md) or a [release archive](doc/install/releases.md).
+Alternatively, you can install Teleport using the source and [Composer](http://getcomposer.org/). Learn more about using [git clone](http://modxcms.github.io/teleport/install/git-clone.md) or a [release archive](http://modxcms.github.io/teleport/install/releases.md).
 
 _IMPORTANT: If you want to use the Teleport HTTP Server you cannot use the Phar distribution. You MUST use one of the other installation methods._
 
@@ -69,7 +69,7 @@ You can create a Teleport Profile of an existing MODX site using the following c
 
 The resulting file would be located at profile/mysite.profile.json and could then be used for Extract or Inject commands to be run against the site represented in the profile.
 
-Learn more about [Teleport Profiles](doc/use/profile.md).
+Learn more about [Teleport Profiles](http://modxcms.github.io/teleport/use/profile.md).
 
 ### Extract a Snapshot of a MODX Site
 
@@ -87,7 +87,7 @@ In either case, the absolute path to the snapshot is returned by the process as 
 
 _NOTE: The workspace copy is removed after it is pushed unless you pass --preserveWorkspace to the CLI command._
 
-Learn more about the [Teleport Extract](doc/use/extract.md) Action.
+Learn more about the [Teleport Extract](http://modxcms.github.io/teleport/use/extract.md) Action.
 
 ### Inject a Snapshot into a MODX Site
 
@@ -97,7 +97,7 @@ You can Inject a Teleport snapshot from any valid stream source into a MODX site
 
 _NOTE: If the source is not within the workspace/ directory a copy will be pulled to that location and then removed after the Inject completes unless --preserveWorkspace is passed._
 
-Learn more about the [Teleport Inject](doc/use/inject.md) Action.
+Learn more about the [Teleport Inject](http://modxcms.github.io/teleport/use/inject.md) Action.
 
 ### UserCreate
 
@@ -107,12 +107,12 @@ You can create a user in a profiled MODX site using the following command:
 
 _NOTE: This uses the security/user/create processor from the site in the specified profile to create a user, and the action accepts any properties the processor does._
 
-Learn more about the [Teleport UserCreate](doc/use/user-create.md) Action.
+Learn more about the [Teleport UserCreate](http://modxcms.github.io/teleport/use/user-create/) Action.
 
 
 ## Get Started
 
-Learn more about Teleport in the [documentation](doc/index.md).
+Learn more about Teleport in the [documentation](http://modxcms.github.io/teleport/).
 
 ## License
 
