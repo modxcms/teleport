@@ -193,6 +193,7 @@ class Compiler
         $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_namespaces.php'));
         $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_psr4.php'));
         $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_real.php'));
+        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_static.php'));
         if (file_exists($this->path . '/vendor/composer/include_paths.php')) {
             $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/include_paths.php'));
         }
