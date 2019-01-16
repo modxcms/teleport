@@ -80,7 +80,7 @@ Each vehicle consists of an optional `vehicle_package`, a `vehicle_class`, an `o
 #### xPDOObjectVehicle
 
 * `class`: defines the xPDOObject class to be packaged by the vehicle
-* `criteria`: an array or object describing the criteria that will be used to select instances of the specified `class`
+* `criteria`: an array or object describing the criteria that will be used to select instances of the specified `class`. The default value of `["1 = 1"]` is used to return true for all objects, but can be replaced with other statements like `["id:!=":2]`.
 * `graph`: defines an object graph to use to package related xPDOObjects
 * `graphCriteria`: defines the criteria for filtering related xPDOObjects selected by a `graph`
 * `script`: an optional script to be used to create the vehicle or vehicles for this vehicle definition
