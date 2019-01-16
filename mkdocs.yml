@@ -1,6 +1,6 @@
 site_name: Teleport for MODX
 docs_dir: doc
-mav:
+nav:
 - Introduction: index.md
 - Installation Install from Release: install/releases.md
 - Installation Install from Git: install/git-clone.md
