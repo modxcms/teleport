@@ -74,8 +74,6 @@ if (function_exists('ini_set')) {
 try {
     require_once __DIR__ . '/../src/bootstrap.php';
 
-    define('TELEPORT_BASE_PATH', rtrim(getcwd(), '/') . '/');
-
     $options = array(
         'debug' => $opt('debug'),
         'verbose' => $opt('verbose', true)
@@ -86,6 +84,8 @@ try {
             $options = array_merge($config, $options);
         }
     }
+
+    define('TELEPORT_BASE_PATH', rtrim($opt('base', getcwd()), '/') . '/');
 
     $server = \Teleport\Beam\HttpServer::instance($options);
     $server->run($arg(1, 1337));
