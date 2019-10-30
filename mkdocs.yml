@@ -2,21 +2,25 @@ site_name: Teleport for MODX
 docs_dir: doc
 nav:
 - Introduction: index.md
-- Installation Install from Release: install/releases.md
-- Installation Install from Git: install/git-clone.md
-- Installation Install Phar: install/phar.md
-- User Guide Profile: use/profile.md
-- User Guide Extract: use/extract.md
-- User Guide Inject: use/inject.md
-- User Guide Push: use/push.md
-- User Guide User Create: use/user-create.md
-- User Guide Package Garbage Collection: use/packages/gc.md
-- User Guide Workspace Garbage Collection: use/workspace/gc.md
-- User Guide Server: use/server.md
-- Extract Tpls Intro to Extract Tpls: use/extract/tpl.md
-- Extract Tpls resource_children.tpl: use/extract/tpl/resource_children.md
-- Extend Custom Actions: extend/custom-actions.md
-- Extend Custom Extract Tpls: extend/custom-extract-tpls.md
+- Installation:
+  - Install from Release: install/releases.md
+  - Install from Git: install/git-clone.md
+  - Install Phar: install/phar.md
+- Actions:
+  - Profile: use/profile.md
+  - Extract: use/extract.md
+  - Inject: use/inject.md
+  - Push: use/push.md
+  - User Create: use/user-create.md
+  - Package Garbage Collection: use/packages/gc.md
+  - Workspace Garbage Collection: use/workspace/gc.md
+- Extract Tpls:
+  - Intro to Extract Tpls: use/extract/tpl.md
+  - resource_children.tpl: use/extract/tpl/resource_children.md
+- Server: use/server.md
+- Extend:
+  - Custom Actions: extend/custom-actions.md
+  - Custom Extract Tpls: extend/custom-extract-tpls.md
 - Contributing: contribute.md
 theme: readthedocs
 repo_name: modxcms/teleport

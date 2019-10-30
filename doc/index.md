@@ -11,7 +11,7 @@ There are various methods for installing Teleport so you can begin using it. Cho
 
 * [Releases](install/releases.md) - You can download zip and tar.gz formats of any Teleport release, extract them in an appropriate location, and run `composer install` in that location to download the required dependencies. GitHub releases of the project are available [here](https://github.com/modxcms/teleport/releases).
 
-* [Git Clone](install/git-clone.md) - Contributors can clone the teleport repository or their own fork of it from GitHub, and run `composer install --dev` in that location to download the required dependencies, including those specified in the require-dev section of the [`composer.json`](../composer.json).
+* [Git Clone](install/git-clone.md) - Contributors can clone the teleport repository or their own fork of it from GitHub, and run `composer install --dev` in that location to download the required dependencies, including those specified in the require-dev section of the `composer.json`.
 
 
 ## Use
