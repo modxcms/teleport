@@ -1,10 +1,9 @@
 {"name":"users", "vehicles":[
     {
-        "vehicle_class":"xPDOObjectVehicle",
+        "vehicle_class":"xPDO\\Transport\\xPDOObjectVehicle",
         "object":{
-            "class":"modUserGroup",
-            "criteria":["1 = 1"],
-            "package":"modx"
+            "class":"MODX\\Revolution\\modUserGroup",
+            "criteria":["1 = 1"]
         },
         "attributes":{
             "preserve_keys":false,
@@ -13,11 +12,10 @@
         }
     },
     {
-        "vehicle_class":"xPDOObjectVehicle",
+        "vehicle_class":"xPDO\\Transport\\xPDOObjectVehicle",
         "object":{
-            "class":"modUserGroupRole",
-            "criteria":["1 = 1"],
-            "package":"modx"
+            "class":"MODX\\Revolution\\modUserGroupRole",
+            "criteria":["1 = 1"]
         },
         "attributes":{
             "preserve_keys":false,
@@ -26,9 +24,9 @@
         }
     },
     {
-        "vehicle_class":"xPDOObjectVehicle",
+        "vehicle_class":"xPDO\\Transport\\xPDOObjectVehicle",
         "object":{
-            "class":"modUser",
+            "class":"MODX\\Revolution\\modUser",
             "criteria":["1 = 1"],
             "graph":{
                 "Profile":[],
@@ -38,8 +36,7 @@
                     "UserGroupRole":[]
                 },
                 "PrimaryGroup":[]
-            },
-            "package":"modx"
+            }
         },
         "attributes":{
             "preserve_keys":false,

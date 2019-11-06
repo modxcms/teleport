@@ -3,9 +3,9 @@
     "description": "Package a single User by id with Profile, Settings, UserGroup Memberships, UserGroups, UserGroup Roles, and Primary UserGroup. WARNING: This looks up existing users by id and overwrites them in the target, not by username.",
     "vehicles": [
         {
-            "vehicle_class": "xPDOObjectVehicle",
+            "vehicle_class": "xPDO\\Transport\\xPDOObjectVehicle",
             "object": {
-                "class": "modUser",
+                "class": "MODX\\Revolution\\modUser",
                 "criteria": {
                     "id": "{+user-id}"
                 },
@@ -17,8 +17,7 @@
                         "UserGroupRole": []
                     },
                     "PrimaryGroup": []
-                },
-                "package": "modx"
+                }
             },
             "attributes": {
                 "preserve_keys": true,

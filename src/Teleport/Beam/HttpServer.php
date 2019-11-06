@@ -10,6 +10,15 @@
 
 namespace Teleport\Beam;
 
+use Exception;
+use React\EventLoop\Factory;
+use React\EventLoop\LibEventLoop;
+use React\Http\Request;
+use React\Http\Response;
+use React\Http\Server as Server;
+use React\Socket\Server as Socket;
+use RuntimeException;
+use Teleport\ConfigException;
 use Teleport\Request\InvalidRequestException;
 use Teleport\Teleport;
 
@@ -18,9 +27,10 @@ class HttpServer extends Teleport {
      * Get a singleton instance of Teleport.
      *
      * @param array $options An associative array of Teleport Config options for the instance.
-     * @param bool  $forceNew If true, a new instance of Teleport is created and replaces the existing singleton.
+     * @param bool $forceNew If true, a new instance of Teleport is created and replaces the existing singleton.
      *
      * @return HttpServer
+     * @throws ConfigException
      */
     public static function instance(array $options = array(), $forceNew = false)
     {
@@ -29,33 +39,34 @@ class HttpServer extends Teleport {
         } else {
             self::$instance->setConfig($options);
         }
+
         return self::$instance;
     }
 
     /**
      * Run the Teleport HTTP Server on the specified port.
-     * 
+     *
      * @param int $port A valid port to run the Teleport HTTP Server on.
      *
-     * @throws \RuntimeException If an invalid port is specified.
+     * @throws RuntimeException If an invalid port is specified.
      */
     public function run($port)
     {
         $port = (integer)$port;
         if ($port < 1) {
-            throw new \RuntimeException("Invalid port specified for Teleport HTTP Server", E_USER_ERROR);
+            throw new RuntimeException("Invalid port specified for Teleport HTTP Server", E_USER_ERROR);
         }
 
-        /** @var \React\EventLoop\LibEventLoop $loop */
-        $loop = \React\EventLoop\Factory::create();
-        $socket = new \React\Socket\Server($loop);
-        $http = new \React\Http\Server($socket);
-        
+        /** @var LibEventLoop $loop */
+        $loop = Factory::create();
+        $socket = new Socket($loop);
+        $http = new Server($socket);
+
         $server =& $this;
 
         $http->on('request', function ($request, $response) use ($server) {
-            /** @var \React\Http\Request $request */
-            /** @var \React\Http\Response $response */
+            /** @var Request $request */
+            /** @var Response $response */
 
             $arguments = $request->getQuery();
             $arguments['action'] = trim($request->getPath(), '/');
@@ -75,7 +86,7 @@ class HttpServer extends Teleport {
                 } catch (InvalidRequestException $e) {
                     $response->writeHead(400, $headers);
                     $response->end(json_encode(array('success' => false, 'message' => $e->getMessage())));
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     $response->writeHead(500, $headers);
                     $response->end(json_encode(array('success' => false, 'message' => $e->getMessage())));
                 }

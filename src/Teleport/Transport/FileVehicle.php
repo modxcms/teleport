@@ -13,16 +13,19 @@ namespace Teleport\Transport;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
+use xPDO\Transport\xPDOFileVehicle;
+use xPDO\Transport\xPDOVehicle;
+use xPDO\xPDO;
 
 /**
  * A custom \xPDOFileVehicle implementation that uses symfony/finder and symfony/filesystem
  *
  * @package Teleport\Transport
  */
-class FileVehicle extends \xPDOFileVehicle {
+class FileVehicle extends xPDOFileVehicle {
 
+    public $class = self::class;
     protected $skipObjectParams = array('in', 'target');
-    public $class = 'FileVehicle';
 
     /**
      * Put a representation of a MySQL table and it's data into this vehicle.
@@ -37,7 +40,7 @@ class FileVehicle extends \xPDOFileVehicle {
         }
         if (!isset($object['in']) || !isset($object['target'])) {
 
-            $transport->xpdo->log(\xPDO::LOG_LEVEL_ERROR, "Processing FileVehicle failed. You have to specify all required Object parameters: in, target");
+            $transport->xpdo->log(xPDO::LOG_LEVEL_ERROR, "Processing FileVehicle failed. You have to specify all required Object parameters: in, target");
             $object = null;
             $this->payload['object'] = $object;
         } else {
@@ -62,15 +65,15 @@ class FileVehicle extends \xPDOFileVehicle {
             $object['files'] = iterator_to_array($finder);
             $this->payload['object'] = $object;
         }
-        
-        \xPDOVehicle :: put($transport, $object, $attributes);
+
+        xPDOVehicle :: put($transport, $object, $attributes);
     }
 
     /**
      * Copies the files into the vehicle and transforms the payload for storage.
      */
     protected function _compilePayload(& $transport) {
-        \xPDOVehicle :: _compilePayload($transport);
+        xPDOVehicle :: _compilePayload($transport);
 
         if (isset($this->payload['object']['in']) && isset($this->payload['object']['target'])) {
             $fs = new Filesystem();
@@ -81,7 +84,7 @@ class FileVehicle extends \xPDOFileVehicle {
             $this->payload['object']['source'] = $transport->signature . '/' . $this->payload['class'] . '/' . $this->payload['signature'];
 
             $filePath = $transport->path . $transport->signature . '/' . $this->payload['class'] . '/' . $this->payload['signature'] . '/' . $rootFolder;
-            
+
             $fs->mkdir($filePath);
 
             /** @var SplFileInfo $file */

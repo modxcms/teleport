@@ -7,14 +7,14 @@
  * @var integer $vehicleCount
  */
 $criteria = isset($vehicle['object']['criteria']) ? $vehicle['object']['criteria'] : null;
-$object = $this->modx->getObject('modSystemSetting', $criteria);
+$object = $this->modx->getObject(\MODX\Revolution\modSystemSetting::class, $criteria);
 if ($object) {
     $extPackages = $object->get('value');
     $extPackages = $this->modx->fromJSON($extPackages);
     if (is_array($extPackages) && !empty($extPackages)) {
         $extUserPackages = array();
-        $extUsers = $this->modx->getIterator('modUser', array('class_key:!=' => 'modUser'));
-        /** @var modUser $user */
+        $extUsers = $this->modx->getIterator(\MODX\Revolution\modUser::class, array('class_key:!=' => \MODX\Revolution\modUser::class));
+        /** @var \MODX\Revolution\modUser $user */
         foreach ($extUsers as $user) {
             $extUserClass = $user->_class;
             $extUserPkg = $user->_package;

@@ -7,11 +7,10 @@
  * @var integer $vehicleCount
  */
 $criteria = isset($vehicle['object']['criteria']) ? $vehicle['object']['criteria'] : null;
-$this->modx->loadClass('transport.modTransportPackage');
-foreach ($this->modx->getIterator('modWorkspace') as $workspace) {
+foreach ($this->modx->getIterator(\MODX\Revolution\modWorkspace::class) as $workspace) {
     $packagesDir = $workspace->get('path') . 'packages/';
     $this->request->log("Packaging transport packages for workspace {$workspace->get('name')} using dir {$packagesDir}");
-    $response = $this->modx->call('modTransportPackage', 'listPackages', array(&$this->modx, $workspace->get('id')));
+    $response = $this->modx->call(\MODX\Revolution\Transport\modTransportPackage::class, 'listPackages', array(&$this->modx, $workspace->get('id')));
     if (isset($response['collection'])) {
         foreach ($response['collection'] as $object) {
             $attributes = $vehicle['attributes'];

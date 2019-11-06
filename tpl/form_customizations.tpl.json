@@ -2,9 +2,9 @@
     "name": "form_customizations",
     "vehicles": [
         {
-            "vehicle_class":"xPDOObjectVehicle",
+            "vehicle_class":"xPDO\\Transport\\xPDOObjectVehicle",
             "object":{
-                "class":"modFormCustomizationProfile",
+                "class":"MODX\\Revolution\\modFormCustomizationProfile",
                 "criteria":["1 = 1"],
                 "graph":{
                     "Sets":{
@@ -17,8 +17,7 @@
                     "UserGroups":{
                         "UserGroup":[]
                     }
-                },
-                "package":"modx"
+                }
             },
             "attributes":{
                 "preserve_keys":false,

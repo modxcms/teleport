@@ -11,13 +11,15 @@
         }
     ],
     "require": {
-        "php": ">=5.4",
+        "php": ">=7.0",
         "symfony/finder": "^2.2.0",
         "symfony/filesystem": "^2.4.0",
         "react/event-loop": "^0.4",
         "react/http": "^0.4",
         "react/promise": "^2.1",
-        "react/child-process": "^0.4"
+        "react/child-process": "^0.4",
+        "ext-json": "*",
+        "ext-pdo": "*"
     },
     "require-dev": {
         "symfony/process": "^2.1"
@@ -25,8 +27,11 @@
     "suggest": {
         "aws/aws-sdk-php": "Require this with ^2.0 version constraint to enable registration of an S3 stream wrapper.",
         "ext-libevent": "It is critical to have this or ext-ev if you plan to use the server or endpoint listener.",
-        "ext-ev": "It is critical to have this or ext-libevent if you plan to use the server or endpoint listener."
+        "ext-ev": "It is critical to have this or ext-libevent if you plan to use the server or endpoint listener.",
+        "ext-posix": "If running teleport from a user different from the php process, it will need to switch to that user."
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "bin": [
         "bin/compile",
         "bin/compile.php",
@@ -40,11 +45,6 @@
     "autoload": {
         "psr-0": {
             "Teleport": "src/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.x-dev"
         }
     }
 }

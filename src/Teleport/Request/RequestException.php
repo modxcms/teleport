@@ -10,12 +10,14 @@
 
 namespace Teleport\Request;
 
+use Exception;
+
 /**
  * Represents an Exception in a Teleport Request
  *
  * @package Teleport\Request
  */
-class RequestException extends \Exception
+class RequestException extends Exception
 {
     /** @var Request */
     protected $request;
@@ -25,13 +27,13 @@ class RequestException extends \Exception
      *
      * @param Request         &$request The request triggering this exception.
      * @param string          $message The exception message.
-     * @param \Exception|null $previous The previous Exception.
+     * @param Exception|null $previous The previous Exception.
      */
     public function __construct(Request &$request, $message = '', $previous = null)
     {
         $this->request = & $request;
         $code = E_USER_ERROR;
-        if ($previous instanceof \Exception) {
+        if ($previous instanceof Exception) {
             if (!is_string($message) || $message === '') {
                 $message = $previous->getMessage();
             }

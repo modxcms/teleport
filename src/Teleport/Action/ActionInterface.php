@@ -10,6 +10,8 @@
 
 namespace Teleport\Action;
 
+use MODX\Revolution\modX;
+use stdClass;
 use Teleport\Request\RequestInterface;
 
 /**
@@ -22,10 +24,10 @@ interface ActionInterface
     /**
      * Get a MODX reference to operate on.
      *
-     * @param \stdClass $profile An object describing properties of a MODX
+     * @param stdClass $profile An object describing properties of a MODX
      * instance.
      *
-     * @return \modX A reference to a MODX instance.
+     * @return modX A reference to a MODX instance.
      */
     public function &getMODX($profile);
 

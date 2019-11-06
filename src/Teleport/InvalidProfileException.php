@@ -11,7 +11,9 @@
 namespace Teleport;
 
 
-class InvalidProfileException extends \Exception
+use Exception;
+
+class InvalidProfileException extends Exception
 {
 
-} 
+}

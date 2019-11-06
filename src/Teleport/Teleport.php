@@ -8,6 +8,8 @@
 
 namespace Teleport;
 
+use Exception;
+use MODX\Revolution\modX;
 use Teleport\Request\Request;
 
 /**
@@ -26,7 +28,7 @@ class Teleport
     protected static $instance = null;
 
     /**
-     * @var \modX A MODX instance being operated on by this Teleport instance.
+     * @var modX A MODX instance being operated on by this Teleport instance.
      */
     protected $modx;
     /**
@@ -46,9 +48,10 @@ class Teleport
      * Get a singleton instance of Teleport.
      *
      * @param array $options An associative array of Teleport Config options for the instance.
-     * @param bool  $forceNew If true, a new instance of Teleport is created and replaces the existing singleton.
+     * @param bool $forceNew If true, a new instance of Teleport is created and replaces the existing singleton.
      *
      * @return Teleport
+     * @throws ConfigException
      */
     public static function instance(array $options = array(), $forceNew = false)
     {
@@ -91,43 +94,39 @@ class Teleport
      * @param array          &$results An optional results array reference.
      *
      * @throws InvalidMODXException If the MODX instance could not be initialized.
-     * @return \modX A MODX instance.
+     * @return modX A MODX instance.
      */
     public function getMODX($profile = null, array $options = array(), array &$results = array())
     {
-        if ($profile === null && !$this->modx instanceof \modX) {
+        if ($profile === null && !$this->modx instanceof modX) {
             throw new InvalidMODXException("No profile or MODX instance was provided");
         }
-        if (!$this->modx instanceof \modX) {
+        if (!$this->modx instanceof modX) {
             try {
                 define('MODX_CORE_PATH', $profile->properties->modx->core_path);
                 define('MODX_CONFIG_KEY', !empty($profile->properties->modx->config_key)
                     ? $profile->properties->modx->config_key : 'config');
 
-                require MODX_CORE_PATH . 'model/modx/modx.class.php';
+                require MODX_CORE_PATH . 'vendor/autoload.php';
 
                 $logTarget = $this->getConfig()->get('log_target', $options, array('target' => 'ARRAY', 'target_options' => array('var' => &$results)));
-                $logLevel = $this->getConfig()->get('log_level', $options, \modX::LOG_LEVEL_INFO);
+                $logLevel = $this->getConfig()->get('log_level', $options, modX::LOG_LEVEL_INFO);
                 $config = array(
                     'log_target' => $logTarget,
                     'log_level' => $logLevel,
                     'cache_db' => false,
                 );
 
-                $this->modx = new \modX('', $config);
+                $this->modx = new modX('', $config);
                 $this->modx->setLogLevel($config['log_level']);
                 $this->modx->setLogTarget($config['log_target']);
                 $this->modx->setOption('cache_db', $config['cache_db']);
                 $this->modx->getVersionData();
-                if (version_compare($this->modx->version['full_version'], '2.2.1-pl', '>=')) {
-                    $this->modx->initialize('mgr', $config);
-                } else {
-                    $this->modx->initialize('mgr');
-                }
+                $this->modx->initialize('mgr', $config);
                 $this->modx->setLogLevel($config['log_level']);
                 $this->modx->setLogTarget($config['log_target']);
                 $this->modx->setOption('cache_db', $config['cache_db']);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 throw new InvalidMODXException("Error initializing MODX: " . $e->getMessage(), $e->getCode(), $e);
             }
         }
@@ -137,18 +136,18 @@ class Teleport
     /**
      * Set a MODX instance to use with Teleport explicitly.
      *
-     * @param \modX $modx A MODX instance to attach to the Teleport instance.
+     * @param modX $modx A MODX instance to attach to the Teleport instance.
      * @param array $options An array of options to override the profile.
      *
      * @throws InvalidMODXException
      * @return resource A stream resource containing the profile ready for reading.
      */
-    public function setMODX(\modX $modx, array $options = array())
+    public function setMODX(modX $modx, array $options = array())
     {
-        if ($this->modx instanceof \modX) {
+        if ($this->modx instanceof modX) {
             throw new InvalidMODXException('MODX already set; you cannot set another MODX instance');
         }
-        if (!$modx instanceof \modX) {
+        if (!$modx instanceof modX) {
             throw new InvalidMODXException('Attempt to set an invalid MODX instance');
         }
         $this->modx = $modx;
@@ -246,7 +245,7 @@ class Teleport
                     if (isset($handler['options']) && is_array($handler['options'])) {
                         $defaultStreamContext[$protocol] = $handler['options'];
                     }
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     throw new ConfigException("Error registering stream_handler {$handler['class']} ({$protocol}://)", E_USER_ERROR, $e);
                 }
                 if (!$registered) {
@@ -264,6 +263,7 @@ class Teleport
      * Construct an instance of Teleport.
      *
      * @param array $options An associative array of Teleport Config options.
+     * @throws ConfigException
      */
     protected function __construct(array $options = array())
     {

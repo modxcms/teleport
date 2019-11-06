@@ -3,9 +3,9 @@
     "description": "Package all children of a specified parent Resource. Requires --parent=(int) argument.",
     "vehicles": [
         {
-            "vehicle_class": "xPDOObjectVehicle",
+            "vehicle_class": "xPDO\\Transport\\xPDOObjectVehicle",
             "object": {
-                "class": "modResource",
+                "class": "MODX\\Revolution\\modResource",
                 "criteria": {
                     "parent": {+parent}
                 },
@@ -32,7 +32,6 @@
                         ]
                     }
                 },
-                "package": "modx",
                 "script": "extract\/modresourcechildren.php"
             },
             "attributes": {

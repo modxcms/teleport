@@ -3,9 +3,9 @@
     "description":"Package a single Template, along with it's related Category and PropertySets, by templatename. Will overwrite a Template in the target with the same templatename.",
     "vehicles":[
         {
-            "vehicle_class":"xPDOObjectVehicle",
+            "vehicle_class":"xPDO\\Transport\\xPDOObjectVehicle",
             "object":{
-                "class":"modTemplate",
+                "class":"MODX\\Revolution\\modTemplate",
                 "criteria":{
                     "templatename":"{+templatename}"
                 },
@@ -14,8 +14,7 @@
                     "PropertySets":{
                         "PropertySet":[]
                     }
-                },
-                "package":"modx"
+                }
             },
             "attributes":{
                 "preserve_keys":false,

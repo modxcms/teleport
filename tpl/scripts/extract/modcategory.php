@@ -7,20 +7,21 @@
  * @var integer $vehicleCount
  */
 $criteria = isset($vehicle['object']['criteria']) ? $vehicle['object']['criteria'] : null;
-$query = $this->modx->newQuery('modCategory', $criteria, false);
+$query = $this->modx->newQuery(\MODX\Revolution\modCategory::class, $criteria, false);
 
-$iterator = $this->modx->getIterator('modCategory', $query, false);
+$iterator = $this->modx->getIterator(\MODX\Revolution\modCategory::class, $query, false);
 foreach ($iterator as $object) {
-    /** @var modCategory $object */
+    /** @var \MODX\Revolution\modCategory $object */
     modcategory_populate_category_children($object);
     if ($this->package->put($object, $vehicle['attributes'])) {
         $vehicleCount++;
     }
 }
 
-function modcategory_populate_category_children(modCategory &$object) {
+function modcategory_populate_category_children(\MODX\Revolution\modCategory &$object) {
     $children = $object->getMany('Children', null, false);
     if ($children) {
+        /** @var \MODX\Revolution\modCategory $child */
         foreach ($children as &$child) {
             if ($child->get('id') == $object->get('id')) continue;
             modcategory_populate_category_children($child);

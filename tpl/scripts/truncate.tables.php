@@ -6,5 +6,5 @@ if (isset($object['classes'])) {
         $results[$class] = $transport->xpdo->exec('TRUNCATE TABLE ' . $transport->xpdo->getTableName($class));
     }
 }
-$transport->xpdo->log(xPDO::LOG_LEVEL_INFO, "Table truncation results: " . print_r($results, true));
+$transport->xpdo->log(\xPDO\xPDO::LOG_LEVEL_INFO, "Table truncation results: " . print_r($results, true));
 return !array_search(false, $results, true);

@@ -11,7 +11,10 @@
 namespace Teleport\Transport;
 
 
-class xPDOObjectVehicle extends \xPDOObjectVehicle
+use xPDO\Om\xPDOObject;
+use xPDO\Transport\xPDOTransport;
+
+class xPDOObjectVehicle extends \xPDO\Transport\xPDOObjectVehicle
 {
     public function get(& $transport, $options = array (), $element = null) {
         $object = null;
@@ -41,11 +44,11 @@ class xPDOObjectVehicle extends \xPDOObjectVehicle
                 $vClass = (!empty ($pkgPrefix) ? $pkgPrefix . '.' : '') . $vClass;
             }
             $object = $transport->xpdo->newObject($vClass);
-            if (is_object($object) && $object instanceof \xPDOObject) {
+            if (is_object($object) && $object instanceof xPDOObject) {
                 $options = array_merge($options, $element);
                 $setKeys = false;
-                if (isset ($options[\xPDOTransport::PRESERVE_KEYS])) {
-                    $setKeys = (boolean) $options[\xPDOTransport::PRESERVE_KEYS];
+                if (isset ($options[xPDOTransport::PRESERVE_KEYS])) {
+                    $setKeys = (boolean) $options[xPDOTransport::PRESERVE_KEYS];
                 }
                 $object->fromJSON($element['object'], '', $setKeys, true);
             }

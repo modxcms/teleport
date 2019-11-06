@@ -10,7 +10,12 @@
 
 namespace Teleport\Action;
 
+use Exception;
+use MODX\Revolution\Error\modError;
+use MODX\Revolution\modProcessorResponse;
+use MODX\Revolution\Processors\Security\User\Create;
 use Teleport\Teleport;
+use xPDO\xPDO;
 
 /**
  * Create a user in a MODX installation.
@@ -49,19 +54,19 @@ class UserCreate extends Action
             }
 
             $this->getMODX($this->profile);
-            $this->modx->getService('error', 'error.modError');
+            $this->modx->getService('error', modError::class);
             $this->modx->error->message = '';
-            $this->modx->setOption(\xPDO::OPT_SETUP, true);
+            $this->modx->setOption(xPDO::OPT_SETUP, true);
 
-            /** @var \modProcessorResponse $response */
-            $response = $this->modx->runProcessor('security/user/create', $this->request->args());
+            /** @var modProcessorResponse $response */
+            $response = $this->modx->runProcessor(Create::class, $this->request->args());
             if ($response->isError()) {
                 throw new ActionException($this, implode("\n", $response->getAllErrors()) . "\n0");
             } else {
                 $this->request->log("Created user for {$this->profile->name} with username {$this->username}: {$response->getMessage()}");
             }
             $this->request->log('1', false);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new ActionException($this, "Error creating MODX user: {$e->getMessage()}", $e);
         }
     }

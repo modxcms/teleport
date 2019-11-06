@@ -10,6 +10,8 @@
 
 namespace Teleport\Action;
 
+use Exception;
+
 /**
  * Pushes a file to a target stream location.
  *
@@ -42,7 +44,7 @@ class Push extends Action
                 unlink($this->source);
             }
             $this->request->log("Successfully pushed {$this->source} to {$this->target}");
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new ActionException($this, "Error pushing {$this->source} to {$this->target}", $e);
         }
     }

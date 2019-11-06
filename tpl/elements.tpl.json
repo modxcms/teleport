@@ -1,28 +1,28 @@
 {"name":"elements", "vehicles":[
     {
-        "vehicle_class":"xPDOFileVehicle",
+        "vehicle_class":"xPDO\\Transport\\xPDOFileVehicle",
         "object":{
             "source":"{+properties.modx.core_path}components",
             "target":"return MODX_CORE_PATH;"
         },
         "attributes":{
-            "vehicle_class":"xPDOFileVehicle"
+            "vehicle_class":"xPDO\\Transport\\xPDOFileVehicle"
         }
     },
     {
-        "vehicle_class":"xPDOFileVehicle",
+        "vehicle_class":"xPDO\\Transport\\xPDOFileVehicle",
         "object":{
             "source":"{+properties.modx.context_web_path}assets",
             "target":"return MODX_BASE_PATH;"
         },
         "attributes":{
-            "vehicle_class":"xPDOFileVehicle"
+            "vehicle_class":"xPDO\\Transport\\xPDOFileVehicle"
         }
     },
     {
-        "vehicle_class":"xPDOObjectVehicle",
+        "vehicle_class":"xPDO\\Transport\\xPDOObjectVehicle",
         "object":{
-            "class":"modSystemSetting",
+            "class":"MODX\\Revolution\\modSystemSetting",
             "criteria":{
                 "key":"extension_packages"
             }
@@ -39,14 +39,13 @@
         }
     },
     {
-        "vehicle_class":"xPDOObjectVehicle",
+        "vehicle_class":"xPDO\\Transport\\xPDOObjectVehicle",
         "object":{
-            "class":"modCategory",
+            "class":"MODX\\Revolution\\modCategory",
             "criteria":{
                 "parent":0
             },
-            "script":"extract\/modcategory.php",
-            "package":"modx"
+            "script":"extract\/modcategory.php"
         },
         "attributes":{
             "preserve_keys":false,
@@ -63,14 +62,13 @@
         }
     },
     {
-        "vehicle_class":"xPDOObjectVehicle",
+        "vehicle_class":"xPDO\\Transport\\xPDOObjectVehicle",
         "object":{
-            "class":"modPropertySet",
+            "class":"MODX\\Revolution\\modPropertySet",
             "criteria":["1 = 1"],
             "graph":{
                 "Category":[]
-            },
-            "package":"modx"
+            }
         },
         "attributes":{
             "preserve_keys":false,
@@ -87,17 +85,16 @@
         }
     },
     {
-        "vehicle_class":"xPDOObjectVehicle",
+        "vehicle_class":"xPDO\\Transport\\xPDOObjectVehicle",
         "object":{
-            "class":"modChunk",
+            "class":"MODX\\Revolution\\modChunk",
             "criteria":["1 = 1"],
             "graph":{
                 "Category":[],
                 "PropertySets":{
                     "PropertySet":[]
                 }
-            },
-            "package":"modx"
+            }
         },
         "attributes":{
             "preserve_keys":false,
@@ -127,9 +124,9 @@
         }
     },
     {
-        "vehicle_class":"xPDOObjectVehicle",
+        "vehicle_class":"xPDO\\Transport\\xPDOObjectVehicle",
         "object":{
-            "class":"modPlugin",
+            "class":"MODX\\Revolution\\modPlugin",
             "criteria":["1 = 1"],
             "graph":{
                 "Category":[],
@@ -139,8 +136,7 @@
                 "PluginEvents":{
                     "PropertySet":[]
                 }
-            },
-            "package":"modx"
+            }
         },
         "attributes":{
             "preserve_keys":false,
@@ -187,17 +183,16 @@
         }
     },
     {
-        "vehicle_class":"xPDOObjectVehicle",
+        "vehicle_class":"xPDO\\Transport\\xPDOObjectVehicle",
         "object":{
-            "class":"modSnippet",
+            "class":"MODX\\Revolution\\modSnippet",
             "criteria":["1 = 1"],
             "graph":{
                 "Category":[],
                 "PropertySets":{
                     "PropertySet":[]
                 }
-            },
-            "package":"modx"
+            }
         },
         "attributes":{
             "preserve_keys":false,
@@ -227,9 +222,9 @@
         }
     },
     {
-        "vehicle_class":"xPDOObjectVehicle",
+        "vehicle_class":"xPDO\\Transport\\xPDOObjectVehicle",
         "object":{
-            "class":"modTemplateVar",
+            "class":"MODX\\Revolution\\modTemplateVar",
             "criteria":["1 = 1"],
             "graph":{
                 "Category":[],
@@ -239,8 +234,7 @@
                 "TemplateVarTemplates":{
                     "Template":[]
                 }
-            },
-            "package":"modx"
+            }
         },
         "attributes":{
             "preserve_keys":false,
@@ -283,17 +277,16 @@
         }
     },
     {
-        "vehicle_class":"xPDOObjectVehicle",
+        "vehicle_class":"xPDO\\Transport\\xPDOObjectVehicle",
         "object":{
-            "class":"modTemplate",
+            "class":"MODX\\Revolution\\modTemplate",
             "criteria":["1 = 1"],
             "graph":{
                 "Category":[],
                 "PropertySets":{
                     "PropertySet":[]
                 }
-            },
-            "package":"modx"
+            }
         },
         "attributes":{
             "preserve_keys":false,

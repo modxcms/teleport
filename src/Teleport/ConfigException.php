@@ -10,12 +10,14 @@
 
 namespace Teleport;
 
+use Exception;
+
 /**
  * An Exception raised due to problems related to Config elements.
  *
  * @package Teleport
  */
-class ConfigException extends \Exception
+class ConfigException extends Exception
 {
 
-} 
+}

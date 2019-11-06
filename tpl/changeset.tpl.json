@@ -2,9 +2,9 @@
     "name": "changeset",
     "vehicles": [
         {
-            "vehicle_class": "xPDOObjectVehicle",
+            "vehicle_class": "xPDO\\Transport\\xPDOObjectVehicle",
             "object": {
-                "class": "xPDOObject",
+                "class": "xPDO\\Om\\xPDOObject",
                 "criteria": [],
                 "script": "extract\/changeset.php",
                 "changeset": "{+changeSet}",

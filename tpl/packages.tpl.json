@@ -1,10 +1,9 @@
 {"name":"packages", "vehicles":[
     {
-        "vehicle_class":"xPDOObjectVehicle",
+        "vehicle_class":"xPDO\\Transport\\xPDOObjectVehicle",
         "object":{
-            "class":"transport.modTransportProvider",
-            "criteria":["1 = 1"],
-            "package":"modx"
+            "class":"MODX\\Revolution\\Transport\\modTransportProvider",
+            "criteria":["1 = 1"]
         },
         "attributes":{
             "preserve_keys":true,
@@ -12,12 +11,11 @@
         }
     },
     {
-        "vehicle_class":"xPDOObjectVehicle",
+        "vehicle_class":"xPDO\\Transport\\xPDOObjectVehicle",
         "object":{
-            "class":"transport.modTransportPackage",
+            "class":"MODX\\Revolution\\Transport\\modTransportPackage",
             "criteria":["1 = 1"],
             "script":"extract\/modtransportpackage.php",
-            "package":"modx",
             "install":true
         },
         "attributes":{

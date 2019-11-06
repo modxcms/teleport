@@ -9,16 +9,16 @@
 $criteria = isset($vehicle['object']['criteria']) ? $vehicle['object']['criteria'] : null;
 $graph = isset($vehicle['object']['graph']) ? $vehicle['object']['graph'] : array();
 $graphCriteria = isset($vehicle['object']['graphCriteria']) ? $vehicle['object']['graphCriteria'] : null;
-$query = $this->modx->newQuery('modAction', $criteria, false);
+$query = $this->modx->newQuery(\MODX\Revolution\modAction::class, $criteria, false);
 
 $where = array(
-    "NOT EXISTS (SELECT 1 FROM {$this->modx->getTableName('modMenu')} menu WHERE menu.action = modAction.id)"
+    "NOT EXISTS (SELECT 1 FROM {$this->modx->getTableName(\MODX\Revolution\modMenu::class)} menu WHERE menu.action = modAction.id)"
 );
 $query->where($where);
 
-$iterator = $this->modx->getIterator('modAction', $query, false);
+$iterator = $this->modx->getIterator(\MODX\Revolution\modAction::class, $query, false);
 foreach ($iterator as $object) {
-    /** @var xPDOObject $object */
+    /** @var \xPDO\Om\xPDOObject $object */
     if (!empty($graph)) {
         $object->getGraph($graph, $graphCriteria, false);
     }

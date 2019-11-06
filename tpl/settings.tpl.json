@@ -2,13 +2,12 @@
     "name": "settings",
     "vehicles": [
         {
-            "vehicle_class": "xPDOObjectVehicle",
+            "vehicle_class": "xPDO\\Transport\\xPDOObjectVehicle",
             "object": {
-                "class": "modSystemSetting",
+                "class": "MODX\\Revolution\\modSystemSetting",
                 "criteria": [
                     "1 = 1"
-                ],
-                "package": "modx"
+                ]
             },
             "attributes": {
                 "preserve_keys": true,
@@ -16,13 +15,12 @@
             }
         },
         {
-            "vehicle_class": "xPDOObjectVehicle",
+            "vehicle_class": "xPDO\\Transport\\xPDOObjectVehicle",
             "object": {
-                "class": "modContextSetting",
+                "class": "MODX\\Revolution\\modContextSetting",
                 "criteria": [
                     "1 = 1"
-                ],
-                "package": "modx"
+                ]
             },
             "attributes": {
                 "preserve_keys": true,

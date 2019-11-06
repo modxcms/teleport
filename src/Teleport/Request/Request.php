@@ -10,6 +10,7 @@
 
 namespace Teleport\Request;
 
+use Exception;
 use Teleport\Action\Action;
 
 /**
@@ -139,7 +140,7 @@ class Request implements RequestInterface
                 $this->beforeHandle($handler);
                 $handler->process();
                 $this->afterHandle($handler);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 throw new RequestException($this, "Error handling {$this->action} Teleport request: " . $e->getMessage(), $e);
             }
         } else {

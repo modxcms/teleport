@@ -10,19 +10,23 @@
 
 namespace Teleport\Transport;
 
+use xPDO\Transport\xPDOTransport;
+use xPDO\Transport\xPDOVehicle;
+use xPDO\xPDO;
+
 /**
- * A custom \xPDOVehicle implementation for generic MySQL tables and data.
+ * A custom xPDOVehicle implementation for generic MySQL tables and data.
  *
  * @package Teleport\Transport
  */
-class MySQLVehicle extends \xPDOVehicle
+class MySQLVehicle extends xPDOVehicle
 {
-    public $class = 'MySQLVehicle';
+    public $class = self::class;
 
     /**
      * Put a representation of a MySQL table and it's data into this vehicle.
      *
-     * @param \xPDOTransport $transport The transport package hosting the vehicle.
+     * @param xPDOTransport $transport The transport package hosting the vehicle.
      * @param mixed          &$object A reference to the artifact this vehicle will represent.
      * @param array          $attributes Additional attributes represented in the vehicle.
      */
@@ -38,7 +42,7 @@ class MySQLVehicle extends \xPDOVehicle
     /**
      * Install the vehicle artifact into a transport host.
      *
-     * @param \xPDOTransport &$transport A reference to the transport.
+     * @param xPDOTransport &$transport A reference to the transport.
      * @param array          $options An array of options for altering the installation of the artifact.
      *
      * @return boolean True if the installation of the vehicle artifact was successful.
@@ -55,7 +59,7 @@ class MySQLVehicle extends \xPDOVehicle
                 : "DROP TABLE IF EXISTS {$transport->xpdo->escape('[[++table_prefix]]' . $tableName)}";
             $tableDropped = $transport->xpdo->exec(str_replace("[[++table_prefix]]", $transport->xpdo->getOption('table_prefix', $options, ''), $dropTableQuery));
             if ($tableDropped === false) {
-                $transport->xpdo->log(\xPDO::LOG_LEVEL_WARN, "Error executing drop table script for table {$tableName}:\n{$dropTableQuery}");
+                $transport->xpdo->log(xPDO::LOG_LEVEL_WARN, "Error executing drop table script for table {$tableName}:\n{$dropTableQuery}");
             }
             /* attempt to execute the table creation script */
             $tableCreationQuery = str_replace("[[++table_prefix]]", $transport->xpdo->getOption('table_prefix', $options, ''), $vOptions['object']['table']);
@@ -72,10 +76,10 @@ class MySQLVehicle extends \xPDOVehicle
                             $rowsCreated++;
                         }
                     }
-                    $transport->xpdo->log(\xPDO::LOG_LEVEL_INFO, "Inserted {$rowsCreated} rows into table {$tableName}");
+                    $transport->xpdo->log(xPDO::LOG_LEVEL_INFO, "Inserted {$rowsCreated} rows into table {$tableName}");
                 }
             } else {
-                $transport->xpdo->log(\xPDO::LOG_LEVEL_ERROR, "Could not create table {$tableName}: " . print_r($transport->xpdo->errorInfo(), true));
+                $transport->xpdo->log(xPDO::LOG_LEVEL_ERROR, "Could not create table {$tableName}: " . print_r($transport->xpdo->errorInfo(), true));
             }
         }
         return $installed;
@@ -84,7 +88,7 @@ class MySQLVehicle extends \xPDOVehicle
     /**
      * This vehicle implementation does not support uninstall.
      *
-     * @param \xPDOTransport &$transport A reference to the transport.
+     * @param xPDOTransport &$transport A reference to the transport.
      * @param array          $options An array of options for altering the uninstallation of the artifact.
      *
      * @return boolean True, always.

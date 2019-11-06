@@ -14,7 +14,7 @@ $query = $this->modx->newQuery($class, $criteria, false);
 
 $iterator = $this->modx->getIterator($class, $query, false);
 foreach ($iterator as $object) {
-    /** @var xPDOObject $object */
+    /** @var \xPDO\Om\xPDOObject $object */
     $principal = $this->modx->getObject($object->get('principal_class'), $object->get('principal'), false);
     $object->_relatedObjects['Principal'] = $principal;
     if (!empty($graph)) {

@@ -1,10 +1,10 @@
 <?php
 /**
  * @var \Teleport\Transport\Transport $transport
- * @var \modSystemSetting $object
+ * @var \MODX\Revolution\modSystemSetting $object
  * @var array $options
  */
-if ($object instanceof modSystemSetting && $object->get('key') === 'extension_packages') {
+if ($object instanceof \MODX\Revolution\modSystemSetting && $object->get('key') === 'extension_packages') {
     $extPackages = $object->get('value');
     $extPackages = $transport->xpdo->fromJSON($extPackages);
     if (!is_array($extPackages)) $extPackages = array();

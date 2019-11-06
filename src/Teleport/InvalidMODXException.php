@@ -11,7 +11,9 @@
 namespace Teleport;
 
 
-class InvalidMODXException extends \Exception
+use Exception;
+
+class InvalidMODXException extends Exception
 {
 
 }

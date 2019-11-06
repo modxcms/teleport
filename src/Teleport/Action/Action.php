@@ -10,6 +10,7 @@
 
 namespace Teleport\Action;
 
+use MODX\Revolution\modX;
 use Teleport\Request\Request;
 use Teleport\Teleport;
 
@@ -24,7 +25,7 @@ abstract class Action implements ActionInterface
     protected $required = array();
     /** @var \Teleport\Request\Request */
     protected $request;
-    /** @var \modX */
+    /** @var modX */
     protected $modx;
 
     /**
@@ -81,6 +82,8 @@ abstract class Action implements ActionInterface
      * instance.
      *
      * @return \modX A reference to a MODX instance.
+     * @throws \Teleport\ConfigException
+     * @throws \Teleport\InvalidMODXException
      */
     public function &getMODX($profile)
     {
@@ -129,6 +132,8 @@ abstract class Action implements ActionInterface
                 throw new ActionException($this, "Required arguments " . implode(', ', $invalid) . " not specified.");
             }
         }
+
+        return true;
     }
 
     /**

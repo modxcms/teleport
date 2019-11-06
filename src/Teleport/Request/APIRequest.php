@@ -10,21 +10,31 @@
 
 namespace Teleport\Request;
 
+use React\ChildProcess\Process;
+use React\EventLoop\Factory;
+use Teleport\ConfigException;
+use Teleport\Teleport;
+
 class APIRequest extends Request
 {
     public function handle(array $arguments)
     {
         $this->parseArguments($arguments);
-        
+
         $start = microtime(true);
 
-        $loop = \React\EventLoop\Factory::create();
+        $loop = Factory::create();
 
-        $process = new \React\ChildProcess\Process($this->getCLICommand());
+        $process = new Process($this->getCLICommand());
 
         $message = '';
         $request =& $this;
-        $teleport = \Teleport\Teleport::instance();
+
+        try {
+            $teleport = Teleport::instance();
+        } catch (ConfigException $e) {
+            throw new RequestException($this, "Error handling {$this->action} Teleport API request: " . $e->getMessage(), $e);
+        }
 
         $process->on('exit', function($exitCode, $termSignal) use ($teleport, $request, $start, &$message) {
             $request->results = explode(PHP_EOL, rtrim($message, PHP_EOL));
@@ -66,7 +76,7 @@ class APIRequest extends Request
         foreach ($this->args() as $argKey => $argVal) {
             if (is_bool($argVal)) {
                 $command .= " --{$argKey}";
-                $command .= $argVal !== true ? "=0 " : " "; 
+                $command .= $argVal !== true ? "=0 " : " ";
             } elseif (is_string($argVal)) {
                 $command .= " --{$argKey}=" . escapeshellarg($argVal) . " ";
             }

@@ -1,6 +1,6 @@
 <?php
 /**
- * @var Teleport\Action\Extract $this
+ * @var \Teleport\Action\Extract $this
  * @var array $graph
  * @var array $graphCriteria
  * @var array $vehicle
@@ -15,8 +15,8 @@ if (isset($object['changeset'])) {
     $removeRead = (isset($object['remove_read']) && !empty($object['remove_read'])) ? true : false;
 
     $GLOBALS['modx'] =& $this->modx;
-    $this->modx->getService('registry', 'registry.modRegistry');
-    $this->modx->registry->getRegister('changes', 'registry.modDbRegister', array('directory' => 'changes'));
+    $this->modx->getService('registry', \MODX\Revolution\Registry\modRegistry::class);
+    $this->modx->registry->getRegister('changes', \MODX\Revolution\Registry\modDbRegister::class, array('directory' => 'changes'));
 
     $this->modx->registry->changes->connect();
     $this->modx->registry->changes->subscribe("/{$changeSet}/");
@@ -31,11 +31,11 @@ if (isset($object['changeset'])) {
     $count = count($changes);
 
     if ($count > 0) {
-        $this->modx->log(modX::LOG_LEVEL_INFO, "Extracting changeset {$changeSet}: {$count} total changes");
+        $this->modx->log(\MODX\Revolution\modX::LOG_LEVEL_INFO, "Extracting changeset {$changeSet}: {$count} total changes");
         foreach ($changes as $key => $change) {
             $data = $this->modx->fromJSON($change);
             if (!isset($data['action']) || !isset($data['class'])) {
-                $this->modx->log(modX::LOG_LEVEL_ERROR, "changeset {$changeSet}: invalid data defined in change {$key}:\n" . print_r($data, true));
+                $this->modx->log(\MODX\Revolution\modX::LOG_LEVEL_ERROR, "changeset {$changeSet}: invalid data defined in change {$key}:\n" . print_r($data, true));
                 continue;
             }
             switch ($data['action']) {
@@ -43,39 +43,39 @@ if (isset($object['changeset'])) {
                     /* create an xPDOObject vehicle */
                     $object = $this->modx->newObject($data['class']);
                     if (!$object) {
-                        $this->modx->log(modX::LOG_LEVEL_ERROR, "Error getting instance of class {$data['class']}");
+                        $this->modx->log(\MODX\Revolution\modX::LOG_LEVEL_ERROR, "Error getting instance of class {$data['class']}");
                         break;
                     }
                     $object->fromArray($data['object'], '', true, true);
                     if ($this->package->put(
                         $object,
                         array(
-                            'vehicle_class' => 'xPDOObjectVehicle',
+                            'vehicle_class' => \xPDO\Transport\xPDOObjectVehicle::class,
                             xPDOTransport::UPDATE_OBJECT => true,
                             xPDOTransport::PRESERVE_KEYS => true,
                         )
                     )) {
                         $vehicleCount++;
                     } else {
-                        $this->modx->log(modX::LOG_LEVEL_ERROR, "Error creating vehicle for change {$key} — {$data['action']} - {$data['class']}::" . implode('-', (array)$data['pk']));
+                        $this->modx->log(\MODX\Revolution\modX::LOG_LEVEL_ERROR, "Error creating vehicle for change {$key} — {$data['action']} - {$data['class']}::" . implode('-', (array)$data['pk']));
                     }
                     break;
                 case 'remove':
                     /* add an xPDOScript vehicle to remove the object */
                     if ($this->package->put(
                         array(
-                            'vehicle_class' => 'xPDOScriptVehicle',
+                            'vehicle_class' => \xPDO\Transport\xPDOScriptVehicle::class,
                             'source' => 'tpl/scripts/remove.object.php',
                             'class' => $data['class'],
                             'pk' => $data['pk']
                         ),
                         array(
-                            'vehicle_class' => 'xPDOScriptVehicle'
+                            'vehicle_class' => \xPDO\Transport\xPDOScriptVehicle::class
                         )
                     )) {
                         $vehicleCount++;
                     } else {
-                        $this->modx->log(modX::LOG_LEVEL_ERROR, "Error creating vehicle for change {$key} — {$data['action']} - {$data['class']}::" . implode('-', (array)$data['pk']));
+                        $this->modx->log(\MODX\Revolution\modX::LOG_LEVEL_ERROR, "Error creating vehicle for change {$key} — {$data['action']} - {$data['class']}::" . implode('-', (array)$data['pk']));
                     }
                     break;
                 case 'updateCollection':
@@ -83,18 +83,18 @@ if (isset($object['changeset'])) {
                     /* add an xPDOScript vehicle to execute an xPDOQuery object */
                     if ($this->package->put(
                         array(
-                            'vehicle_class' => 'xPDOScriptVehicle',
+                            'vehicle_class' => \xPDO\Transport\xPDOScriptVehicle::class,
                             'source' => 'tpl/scripts/exec.xpdoquery.php',
                             'class' => $data['class'],
                             'criteria' => $data['criteria']
                         ),
                         array(
-                            'vehicle_class' => 'xPDOScriptVehicle'
+                            'vehicle_class' => \xPDO\Transport\xPDOScriptVehicle::class
                         )
                     )) {
                         $vehicleCount++;
                     } else {
-                        $this->modx->log(modX::LOG_LEVEL_ERROR, "Error creating vehicle for change {$key} - {$data['action']} - {$data['class']}");
+                        $this->modx->log(\MODX\Revolution\modX::LOG_LEVEL_ERROR, "Error creating vehicle for change {$key} - {$data['action']} - {$data['class']}");
                     }
                     break;
                 default:
@@ -104,6 +104,6 @@ if (isset($object['changeset'])) {
             }
         }
     } else {
-        $this->modx->log(modX::LOG_LEVEL_INFO, "Changeset {$changeSet} is empty");
+        $this->modx->log(\MODX\Revolution\modX::LOG_LEVEL_INFO, "Changeset {$changeSet} is empty");
     }
 }

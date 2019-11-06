@@ -10,9 +10,12 @@
 
 namespace Teleport\Action\Workspace;
 
+use Exception;
+use FilesystemIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Teleport\Action\Action;
 use Teleport\Action\ActionException;
-use Teleport\Teleport;
 
 /**
  * Clean-up the Teleport workspace
@@ -28,19 +31,19 @@ class GC extends Action
             $this->deleteTree(TELEPORT_BASE_PATH . 'workspace');
 
             $this->request->log("Completed cleaning up the Teleport workspace");
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new ActionException($this, "Error cleaning up the Teleport workspace: {$e->getMessage()}", $e);
         }
     }
 
     private function deleteTree($dir)
     {
-        $iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator(
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator(
                 $dir,
-                \FilesystemIterator::SKIP_DOTS
+                FilesystemIterator::SKIP_DOTS
             ),
-            \RecursiveIteratorIterator::CHILD_FIRST
+            RecursiveIteratorIterator::CHILD_FIRST
         );
         /** @var \SplFileInfo $fileInfo */
         foreach ($iterator as $filename => $fileInfo) {

@@ -10,13 +10,17 @@
 
 namespace Teleport\Action;
 
+use Exception;
+use stdClass;
 use Teleport\Teleport;
 use Teleport\Transport\Transport;
+use xPDO\Transport\xPDOTransport;
+use xPDO\xPDO;
 
 /**
  * Inject a Snapshot into a MODX Instance.
  *
- * @property \stdClass profile
+ * @property stdClass profile
  * @property string    source
  * @property bool      preserveWorkspace
  *
@@ -46,12 +50,7 @@ class Inject extends Action
 
             $this->getMODX($this->profile);
 
-            $this->modx->setOption(\xPDO::OPT_SETUP, true);
-
-            $this->modx->loadClass('transport.xPDOTransport', XPDO_CORE_PATH, true, true);
-            $this->modx->loadClass('transport.xPDOVehicle', XPDO_CORE_PATH, true, true);
-            $this->modx->loadClass('transport.xPDOObjectVehicle', XPDO_CORE_PATH, true, true);
-            $this->modx->loadClass('transport.xPDOFileVehicle', XPDO_CORE_PATH, true, true);
+            $this->modx->setOption(xPDO::OPT_SETUP, true);
 
             $transportName = basename($this->source);
             if (TELEPORT_BASE_PATH . 'workspace' . DIRECTORY_SEPARATOR . $transportName !== realpath($this->source)) {
@@ -69,7 +68,7 @@ class Inject extends Action
 
             $this->package->preInstall();
 
-            if (!$this->package->install(array(\xPDOTransport::PREEXISTING_MODE => \xPDOTransport::REMOVE_PREEXISTING))) {
+            if (!$this->package->install(array(xPDOTransport::PREEXISTING_MODE => xPDOTransport::REMOVE_PREEXISTING))) {
                 throw new ActionException($this, "Error installing {$transportName}");
             }
 
@@ -85,8 +84,8 @@ class Inject extends Action
             }
 
             $this->request->log("Successfully injected {$transportName} into instance {$this->profile->code}");
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new ActionException($this, 'Error injecting snapshot: ' . $e->getMessage(), $e);
         }
     }
-} 
+}

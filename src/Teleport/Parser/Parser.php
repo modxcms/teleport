@@ -10,7 +10,10 @@
 
 namespace Teleport\Parser;
 
-class Parser extends \modParser
+use MODX\Revolution\modParser;
+use xPDO\xPDO;
+
+class Parser extends modParser
 {
     public function processElementTags($parentTag, & $content, $processUncacheable = false, $removeUnprocessed = false, $prefix = "{+", $suffix = "}", $tokens = array(), $depth = 10)
     {
@@ -20,7 +23,7 @@ class Parser extends \modParser
         $depth = $depth > 0 ? $depth - 1 : 0;
         $processed = 0;
         $tags = array();
-        if ($collected = $this->collectElementTags($content, $tags, $prefix, $suffix, $tokens)) {
+        if ($collected = $this->collectElementTags($content, $tags, $prefix, $suffix)) {
             $tagMap = array();
             foreach ($tags as $tag) {
                 if ($tag[0] === $parentTag) {
@@ -63,10 +66,10 @@ class Parser extends \modParser
             $elementOutput = $outerTag;
         }
         if ($this->modx->getDebug() === true) {
-            $this->modx->log(\xPDO::LOG_LEVEL_DEBUG, "Processing {$outerTag} as {$innerTag}:\n" . print_r($elementOutput, 1) . "\n\n");
+            $this->modx->log(xPDO::LOG_LEVEL_DEBUG, "Processing {$outerTag} as {$innerTag}:\n" . print_r($elementOutput, 1) . "\n\n");
             /* $this->modx->cacheManager->writeFile(MODX_BASE_PATH . 'parser.log', "Processing {$outerTag} as {$innerTag}:\n" . print_r($elementOutput, 1) . "\n\n", 'a'); */
         }
         $this->_processingTag = false;
         return $elementOutput;
     }
-} 
+}

@@ -10,9 +10,12 @@
 
 namespace Teleport\Action;
 
+use Exception;
+use PDO;
 use Teleport\Parser\Parser;
 use Teleport\Teleport;
 use Teleport\Transport\Transport;
+use xPDO\Om\xPDOObject;
 
 /**
  * Extract a Snapshot from a MODX Instance.
@@ -94,7 +97,7 @@ class Extract extends Action
             } else {
                 $this->request->log("{$this->package->path}{$this->package->signature}.transport.zip", false);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new ActionException($this, "Error Extracting snapshot: " . $e->getMessage(), $e);
         }
     }
@@ -121,7 +124,6 @@ class Extract extends Action
      */
     protected function prepareTpl(&$content)
     {
-        $this->modx->loadClass('modParser', '', false, true);
         $parser = new Parser($this->modx);
         $this->modx->toPlaceholders($this->profile);
         $this->modx->toPlaceholders($this->request->args());
@@ -139,10 +141,6 @@ class Extract extends Action
      */
     protected function createPackage($name, $version, $release = '')
     {
-        $this->modx->loadClass('transport.xPDOTransport', XPDO_CORE_PATH, true, true);
-        $this->modx->loadClass('transport.xPDOVehicle', XPDO_CORE_PATH, true, true);
-        $this->modx->loadClass('transport.xPDOObjectVehicle', XPDO_CORE_PATH, true, true);
-
         /* setup the signature and filename */
         $s['name'] = strtolower($name);
         $s['version'] = $version;
@@ -238,8 +236,8 @@ class Extract extends Action
             }
         }
         switch ($vehicle['vehicle_class']) {
-            case '\\Teleport\\Transport\\xPDOObjectVehicle':
-            case 'xPDOObjectVehicle':
+            case 'Teleport\\Transport\\xPDOObjectVehicle':
+            case 'xPDO\\Om\\xPDOObjectVehicle':
                 $realClass = $this->modx->loadClass($vehicle['object']['class']);
                 if ($realClass === false) {
                     $this->request->log("Invalid class {$vehicle['object']['class']} specified; skipping vehicle");
@@ -274,7 +272,7 @@ class Extract extends Action
                 }
                 $this->request->log("Packaged {$vehicleCount} xPDOObjectVehicles for class {$vehicle['object']['class']}");
                 break;
-            case '\\Teleport\\Transport\\xPDOCollectionVehicle':
+            case 'Teleport\\Transport\\xPDOCollectionVehicle':
                 $objCnt = 0;
                 $realClass = $this->modx->loadClass($vehicle['object']['class']);
                 $graph = isset($vehicle['object']['graph']) && is_array($vehicle['object']['graph'])
@@ -305,7 +303,7 @@ class Extract extends Action
                     $set = $this->modx->getCollection($vehicle['object']['class'], $criteria->limit($limit, $offset), false);
                     while (!empty($set)) {
                         foreach ($set as &$object) {
-                            /** @var \xPDOObject $object */
+                            /** @var xPDOObject $object */
                             if (!empty($graph)) {
                                 $object->getGraph($graph, $graphCriteria, false);
                             }
@@ -320,7 +318,7 @@ class Extract extends Action
                 }
                 $this->request->log("Packaged {$vehicleCount} xPDOCollectionVehicles with {$objCnt} total objects for class {$vehicle['object']['class']}");
                 break;
-            case '\\Teleport\\Transport\\MySQLVehicle':
+            case 'Teleport\\Transport\\MySQLVehicle':
                 /* collect table names from classes and grab any additional tables/data not listed */
                 $modxDatabase = $this->modx->getOption('dbname', null, $this->modx->getOption('database'));
                 $modxTablePrefix = $this->modx->getOption('table_prefix', null, '');
@@ -331,7 +329,7 @@ class Extract extends Action
                 }
 
                 $stmt = $this->modx->query("SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = '{$modxDatabase}' AND TABLE_NAME NOT IN (" . implode(',', $coreTables) . ")");
-                $extraTables = $stmt->fetchAll(\PDO::FETCH_COLUMN);
+                $extraTables = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
                 if (is_array($extraTables) && !empty($extraTables)) {
                     $excludeExtraTablePrefix = isset($vehicle['object']['excludeExtraTablePrefix']) && is_array($vehicle['object']['excludeExtraTablePrefix'])
@@ -343,12 +341,10 @@ class Extract extends Action
 
                         $instances = 0;
                         $object = array(
-                            'vehicle_package' => '',
-                            'vehicle_class' => '\\Teleport\\Transport\\MySQLVehicle'
+                            'vehicle_class' => 'Teleport\\Transport\\MySQLVehicle'
                         );
                         $attributes = array(
-                            'vehicle_package' => '',
-                            'vehicle_class' => '\\Teleport\\Transport\\MySQLVehicle'
+                            'vehicle_class' => 'Teleport\\Transport\\MySQLVehicle'
                         );
 
                         /* remove modx table_prefix if table starts with it */
@@ -366,7 +362,7 @@ class Extract extends Action
 
                         /* generate the CREATE TABLE statement */
                         $stmt = $this->modx->query("SHOW CREATE TABLE {$this->modx->escape($extraTable)}");
-                        $resultSet = $stmt->fetch(\PDO::FETCH_NUM);
+                        $resultSet = $stmt->fetch(PDO::FETCH_NUM);
                         $stmt->closeCursor();
                         if (isset($resultSet[1])) {
                             if ($addTablePrefix) {
@@ -384,7 +380,7 @@ class Extract extends Action
                                 $this->request->log("Skipping table {$extraTable} as SELECT query failed");
                                 break;
                             }
-                            while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                 if ($instances === 0) {
                                     $fields = implode(', ', array_map(array($this->modx, 'escape'), array_keys($row)));
                                 }
@@ -428,14 +424,14 @@ class Extract extends Action
                     $this->request->log("No non-core tables found for packaging");
                 }
                 break;
-            case 'xPDOScriptVehicle':
+            case 'xPDO\\Transport\\xPDOScriptVehicle':
                 if (isset($vehicle['object']['source'])) {
                     if (strpos($vehicle['object']['source'], ':/') === false && strpos($vehicle['object']['source'], '/') !== 0) {
                         $vehicle['object']['source'] = $this->tplBase . '/' . $vehicle['object']['source'];
                     }
                 }
-            case 'xPDOFileVehicle':
-            case 'xPDOTransportVehicle':
+            case 'xPDO\\Transport\\xPDOFileVehicle':
+            case 'xPDO\\Transport\\xPDOTransportVehicle':
             default:
                 if (isset($vehicle['object']['script'])) {
                     include $this->tplBase . '/scripts/' . $vehicle['object']['script'];
@@ -450,4 +446,4 @@ class Extract extends Action
         }
         return $vehicleCount;
     }
-} 
+}

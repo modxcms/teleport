@@ -10,9 +10,13 @@
 
 namespace Teleport\Action\Packages;
 
+use Exception;
+use MODX\Revolution\Error\modError;
+use MODX\Revolution\Transport\modTransportPackage;
 use Teleport\Action\Action;
 use Teleport\Action\ActionException;
 use Teleport\Teleport;
+use xPDO\xPDO;
 
 /**
  * Clean-up older versions of installed packages
@@ -36,17 +40,14 @@ class GC extends Action
             $this->profile = Teleport::loadProfile($this->profile);
 
             $this->getMODX($this->profile);
-            $this->modx->getService('error', 'error.modError');
+            $this->modx->getService('error', modError::class);
             $this->modx->error->message = '';
-            $this->modx->setOption(\xPDO::OPT_SETUP, true);
+            $this->modx->setOption(xPDO::OPT_SETUP, true);
 
-            $this->modx->loadClass('transport.xPDOTransport', XPDO_CORE_PATH, true, true);
-            $this->modx->loadClass('transport.modTransportPackage');
-
-            $latestPackages = $this->modx->call('modTransportPackage', 'listPackages', array(&$this->modx, 1));
-            /** @var \modTransportPackage $latestPackage */
+            $latestPackages = $this->modx->call(modTransportPackage::class, 'listPackages', array(&$this->modx, 1));
+            /** @var modTransportPackage $latestPackage */
             foreach ($latestPackages['collection'] as $latestPackage) {
-                $versions = $this->modx->call('modTransportPackage', 'listPackageVersions', array(
+                $versions = $this->modx->call(modTransportPackage::class, 'listPackageVersions', array(
                     &$this->modx,
                     array(
                         'package_name:LIKE' => $latestPackage->package_name,
@@ -55,7 +56,7 @@ class GC extends Action
                 );
                 if (isset($versions['collection']) && $versions['total'] > 0) {
                     $this->request->log("Removing {$versions['total']} outdated package versions for {$latestPackage->package_name}");
-                    /** @var \modTransportPackage $version */
+                    /** @var modTransportPackage $version */
                     foreach ($versions['collection'] as $version) {
                         $this->request->log("Removing outdated package version {$version->signature} from {$this->profile->name}");
                         $version->removePackage(true, false);
@@ -65,7 +66,7 @@ class GC extends Action
             }
 
             $this->request->log("Completed Removing outdated packages for {$this->profile->name}");
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new ActionException($this, "Error removing outdated packages: {$e->getMessage()}", $e);
         }
     }

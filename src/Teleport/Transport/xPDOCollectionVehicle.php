@@ -10,19 +10,22 @@
 
 namespace Teleport\Transport;
 
+use xPDO\Om\xPDOObject;
+use xPDO\Transport\xPDOTransport;
+
 /**
- * A custom \xPDOVehicle implementation for installing a collection of xPDOObjects.
+ * A custom xPDOVehicle implementation for installing a collection of xPDOObjects.
  *
  * @package Teleport\Transport
  */
-class xPDOCollectionVehicle extends \xPDOObjectVehicle
+class xPDOCollectionVehicle extends \xPDO\Transport\xPDOObjectVehicle
 {
-    public $class = 'xPDOCollectionVehicle';
+    public $class = self::class;
 
     /**
      * Put a representation of an xPDOObject collection into this vehicle.
      *
-     * @param \xPDOTransport $transport The transport package hosting the vehicle.
+     * @param xPDOTransport $transport The transport package hosting the vehicle.
      * @param mixed          &$object A reference to the artifact this vehicle will represent.
      * @param array          $attributes Additional attributes represented in the vehicle.
      */
@@ -35,14 +38,14 @@ class xPDOCollectionVehicle extends \xPDOObjectVehicle
             }
             $obj = reset($object);
             if (!isset ($this->payload['package'])) {
-                if ($obj instanceof \xPDOObject) {
+                if ($obj instanceof xPDOObject) {
                     $packageName = $obj->_package;
                 } else {
                     $packageName = '';
                 }
                 $this->payload['package'] = $packageName;
             }
-            if (!isset($this->payload['class']) && $obj instanceof \xPDOObject) {
+            if (!isset($this->payload['class']) && $obj instanceof xPDOObject) {
                 $this->payload['class'] = $obj->_class;
             }
             while ($obj) {
@@ -50,13 +53,13 @@ class xPDOCollectionVehicle extends \xPDOObjectVehicle
                         'package' => $this->payload['package'],
                         'class' => $this->payload['class'],
                     ));
-                if ($obj instanceof \xPDOObject) {
+                if ($obj instanceof xPDOObject) {
                     $nativeKey = $obj->getPrimaryKey();
                     $payload['object'] = $obj->toJSON('', true);
                     $payload['guid'] = md5(uniqid(rand(), true));
                     $payload['native_key'] = $nativeKey;
                     $payload['signature'] = md5($payload['class'] . '_' . $payload['guid']);
-                    if (isset ($payload[\xPDOTransport::RELATED_OBJECTS]) && !empty ($payload[\xPDOTransport::RELATED_OBJECTS])) {
+                    if (isset ($payload[xPDOTransport::RELATED_OBJECTS]) && !empty ($payload[xPDOTransport::RELATED_OBJECTS])) {
                         $relatedObjects = array();
                         foreach ($obj->_relatedObjects as $rAlias => $related) {
                             if (is_array($related)) {

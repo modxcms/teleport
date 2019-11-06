@@ -10,6 +10,8 @@
 
 namespace Teleport\Action;
 
+use Exception;
+
 /**
  * Pull a source stream to a target stream.
  *
@@ -38,7 +40,7 @@ class Pull extends Action
                 throw new ActionException($this, "copy failed");
             }
             $this->request->log("Successfully pulled {$this->source} to {$this->target}");
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new ActionException($this, "Error pulling {$this->source} to {$this->target}", $e);
         }
     }

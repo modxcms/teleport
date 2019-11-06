@@ -2,9 +2,9 @@
     "name": "resources",
     "vehicles": [
         {
-            "vehicle_class": "xPDOObjectVehicle",
+            "vehicle_class": "xPDO\\Transport\\xPDOObjectVehicle",
             "object": {
-                "class": "modResource",
+                "class": "MODX\\Revolution\\modResource",
                 "criteria": [
                     "1 = 1"
                 ],
@@ -30,8 +30,7 @@
 
                         ]
                     }
-                },
-                "package": "modx"
+                }
             },
             "attributes": {
                 "preserve_keys": false,

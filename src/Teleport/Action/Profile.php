@@ -10,6 +10,9 @@
 
 namespace Teleport\Action;
 
+use Exception;
+use stdClass;
+
 /**
  * Generate a Teleport Profile from a MODX Instance.
  *
@@ -43,9 +46,9 @@ class Profile extends Action
                 $this->code = str_replace(array('-', '.'), array('_', '_'), $this->name);
             }
 
-            $profile = new \stdClass();
-            $profile->properties = new \stdClass();
-            $profile->properties->modx = new \stdClass();
+            $profile = new stdClass();
+            $profile->properties = new stdClass();
+            $profile->properties->modx = new stdClass();
             $profile->properties->modx->core_path = $this->core_path;
             $profile->properties->modx->config_key = $this->config_key;
 
@@ -84,7 +87,7 @@ class Profile extends Action
             } else {
                 $this->request->log("{$profileFilename}", false);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new ActionException($this, "Error generating profile: " . $e->getMessage(), $e);
         }
     }

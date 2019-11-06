@@ -11,11 +11,11 @@ $criteria = isset($vehicle['object']['criteria']) ? $vehicle['object']['criteria
 $graph = isset($vehicle['object']['graph']) ? $vehicle['object']['graph'] : null;
 $graphCriteria = isset($vehicle['object']['graphCriteria']) ? $vehicle['object']['graphCriteria'] : null;
 
-$query = $this->modx->newQuery('modResource', $criteria, false);
+$query = $this->modx->newQuery(\MODX\Revolution\modResource::class, $criteria, false);
 
-$iterator = $this->modx->getIterator('modResource', $query, false);
+$iterator = $this->modx->getIterator(\MODX\Revolution\modResource::class, $query, false);
 foreach ($iterator as $object) {
-    /** @var modResource $object */
+    /** @var \MODX\Revolution\modResource $object */
     if ($graph !== null) {
         $object->getGraph($graph, $graphCriteria, false);
     }
@@ -24,12 +24,12 @@ foreach ($iterator as $object) {
     }
     modresource_populate_children($this, $object, $criteria, $graph, $graphCriteria, $vehicle, $vehicleCount);
 }
-function modresource_populate_children(\Teleport\Action\Extract &$extract, modResource &$object, $criteria, $graph, $graphCriteria, $vehicle, &$vehicleCount) {
+function modresource_populate_children(\Teleport\Action\Extract &$extract, \MODX\Revolution\modResource &$object, $criteria, $graph, $graphCriteria, $vehicle, &$vehicleCount) {
     unset($criteria['parent']);
     $children = $object->getMany('Children', null, false);
     if ($children) {
         foreach ($children as &$child) {
-            /** @var modResource $child */
+            /** @var \MODX\Revolution\modResource $child */
             if ($graph !== null) {
                 $child->getGraph($graph, $graphCriteria);
             }

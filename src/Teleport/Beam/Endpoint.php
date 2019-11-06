@@ -11,8 +11,15 @@
 namespace Teleport\Beam;
 
 
+use Exception;
+use MODX\Revolution\Registry\modFileRegister;
+use MODX\Revolution\Registry\modRegistry;
+use React\EventLoop\Factory;
+use React\EventLoop\LibEventLoop;
 use React\Promise\Deferred;
 use React\Promise\LazyPromise;
+use RuntimeException;
+use Teleport\ConfigException;
 use Teleport\InvalidProfileException;
 use Teleport\Teleport;
 
@@ -27,9 +34,10 @@ class Endpoint extends Teleport
      * Get a singleton instance of the Teleport Endpoint listener.
      *
      * @param array $options An associative array of Teleport Config options for the instance.
-     * @param bool  $forceNew If true, a new instance of Teleport is created and replaces the existing singleton.
+     * @param bool $forceNew If true, a new instance of Teleport is created and replaces the existing singleton.
      *
-     * @return HttpServer
+     * @return Endpoint
+     * @throws ConfigException
      */
     public static function instance(array $options = array(), $forceNew = false)
     {
@@ -51,7 +59,7 @@ class Endpoint extends Teleport
                 $request->handle($def);
 
                 $deferred->resolve($request->getResults());
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $deferred->reject($e->getMessage());
             }
 
@@ -66,7 +74,7 @@ class Endpoint extends Teleport
      * bind the Endpoint listener to.
      * @param array $options An array of options for the Endpoint.
      *
-     * @throws \RuntimeException If an error occurs binding the listener to the
+     * @throws RuntimeException If an error occurs binding the listener to the
      * specified MODX instance.
      */
     public function run($profile, array $options = array())
@@ -75,27 +83,27 @@ class Endpoint extends Teleport
             $profile = self::loadProfile($profile);
             $modx = $this->getMODX($profile, array_merge(array('log_target' => 'ECHO'), $options));
 
-            /** @var \modRegistry $registry */
-            $registry = $modx->getService('registry', 'registry.modRegistry');
+            /** @var modRegistry $registry */
+            $registry = $modx->getService('registry', modRegistry::class);
             $registerName = $this->getConfig()->get('endpoint.registerName', $options, 'endpoint');
-            $registerClass = $this->getConfig()->get('endpoint.registerClass', $options, 'registry.modFileRegister');
+            $registerClass = $this->getConfig()->get('endpoint.registerClass', $options, modFileRegister::class);
             $registerOptions = $this->getConfig()->get('endpoint.registerOptions', $options, array('directory' => $registerName));
             $register = $registry->getRegister($registerName, $registerClass, $registerOptions);
             $register->connect();
         } catch (InvalidProfileException $e) {
-            throw new \RuntimeException("Could not start Endpoint listener: {$e->getMessage()}", $e->getCode(), $e);
-        } catch (\Exception $e) {
-            throw new \RuntimeException("Could not start Endpoint listener: {$e->getMessage()}", $e->getCode(), $e);
+            throw new RuntimeException("Could not start Endpoint listener: {$e->getMessage()}", $e->getCode(), $e);
+        } catch (Exception $e) {
+            throw new RuntimeException("Could not start Endpoint listener: {$e->getMessage()}", $e->getCode(), $e);
         }
 
         $pollInterval = (float)$this->getConfig()->get('endpoint.pollInterval', $options, 1);
 
-        /** @var \React\EventLoop\LibEventLoop $loop */
-        $loop = \React\EventLoop\Factory::create();
+        /** @var LibEventLoop $loop */
+        $loop = Factory::create();
 
         $self = &$this;
 
-        /* poll MODX registry for Teleportation requests and act on them */
+        /* poll MODX registry for Teleport requests and act on them */
         $loop->addPeriodicTimer($pollInterval, function () use ($self, $profile, $modx, $register) {
             $register->subscribe('/queue/');
             $msgs = $register->read(array(
@@ -144,4 +152,4 @@ class Endpoint extends Teleport
 
         $loop->run();
     }
-} 
+}

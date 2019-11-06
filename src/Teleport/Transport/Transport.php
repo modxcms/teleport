@@ -10,20 +10,26 @@
 
 namespace Teleport\Transport;
 
-class Transport extends \xPDOTransport
+use MODX\Revolution\modSystemSetting;
+use MODX\Revolution\modX;
+use xPDO\Transport\xPDOTransport;
+use xPDO\Transport\xPDOVehicle;
+use xPDO\xPDO;
+
+class Transport extends xPDOTransport
 {
-    /** @var \modX */
+    /** @var modX */
     public $xpdo = null;
 
     /**
      * Get an existing Transport instance.
      *
-     * @param \modX  &$xpdo A reference to a \modX instance.
+     * @param \modX  &$xpdo A reference to a modX instance.
      * @param string $source The source path to the transport.
      * @param string $target The target path to unpack the transport.
      * @param int    $state The packed state of the transport.
      *
-     * @return null|Transport|\xPDOTransport The transport instance or null.
+     * @return null|Transport|xPDOTransport The transport instance or null.
      */
     public static function retrieve(& $xpdo, $source, $target, $state = self::STATE_PACKED)
     {
@@ -35,7 +41,7 @@ class Transport extends \xPDOTransport
                 if ($manifest) {
                     $instance = new Transport($xpdo, $signature, $target);
                     if (!$instance) {
-                        $xpdo->log(\xPDO::LOG_LEVEL_ERROR, "Could not instantiate a valid Transport object from the package {$source} to {$target}. SIG: {$signature} MANIFEST: " . print_r($manifest, 1));
+                        $xpdo->log(xPDO::LOG_LEVEL_ERROR, "Could not instantiate a valid Transport object from the package {$source} to {$target}. SIG: {$signature} MANIFEST: " . print_r($manifest, 1));
                     }
                     $manifestVersion = self::manifestVersion($manifest);
                     switch ($manifestVersion) {
@@ -55,13 +61,13 @@ class Transport extends \xPDOTransport
                             break;
                     }
                 } else {
-                    $xpdo->log(\xPDO::LOG_LEVEL_ERROR, "Could not unpack package {$source} to {$target}. SIG: {$signature}");
+                    $xpdo->log(xPDO::LOG_LEVEL_ERROR, "Could not unpack package {$source} to {$target}. SIG: {$signature}");
                 }
             } else {
-                $xpdo->log(\xPDO::LOG_LEVEL_ERROR, "Could not unpack package: {$target} is not writable. SIG: {$signature}");
+                $xpdo->log(xPDO::LOG_LEVEL_ERROR, "Could not unpack package: {$target} is not writable. SIG: {$signature}");
             }
         } else {
-            $xpdo->log(\xPDO::LOG_LEVEL_ERROR, "Package {$source} not found. SIG: {$signature}");
+            $xpdo->log(xPDO::LOG_LEVEL_ERROR, "Package {$source} not found. SIG: {$signature}");
         }
         return $instance;
     }
@@ -70,14 +76,10 @@ class Transport extends \xPDOTransport
     {
         $vehicle = null;
         $objFile = $this->path . $this->signature . '/' . $objFile;
-        $vehiclePackage = isset($options['vehicle_package']) ? $options['vehicle_package'] : 'transport';
+        $vehiclePackage = isset($options['vehicle_package']) ? $options['vehicle_package'] : '';
         $vehiclePackagePath = isset($options['vehicle_package_path']) ? $options['vehicle_package_path'] : '';
         $vehicleClass = isset($options['vehicle_class']) ? $options['vehicle_class'] : '';
-        $vehicleParentClass = isset($options['vehicle_parent_class']) ? $options['vehicle_parent_class'] : '';
-        if (!empty($vehicleParentClass)) {
-            $this->xpdo->loadClass('transport.' . $vehicleParentClass, '', true, true);
-        }
-        if (empty($vehicleClass)) $vehicleClass = $options['vehicle_class'] = 'xPDOObjectVehicle';
+        if (empty($vehicleClass)) $vehicleClass = $options['vehicle_class'] = 'xPDO\\Transport\\xPDOObjectVehicle';
         if (!empty($vehiclePackage)) {
             $vehicleClass = "{$vehiclePackage}.{$vehicleClass}";
             $className = $this->xpdo->loadClass($vehicleClass, $vehiclePackagePath, true, true);
@@ -93,7 +95,7 @@ class Transport extends \xPDOTransport
                 }
             }
         } else {
-            $this->xpdo->log(\xPDO::LOG_LEVEL_ERROR, "The specified xPDOVehicle class ({$vehicleClass}) could not be loaded.");
+            $this->xpdo->log(xPDO::LOG_LEVEL_ERROR, "The specified xPDOVehicle class ({$vehicleClass}) could not be loaded.");
         }
         return $vehicle;
     }
@@ -102,14 +104,10 @@ class Transport extends \xPDOTransport
     {
         $added = false;
         if (!empty($artifact)) {
-            $vehiclePackage = isset($attributes['vehicle_package']) ? $attributes['vehicle_package'] : 'transport';
+            $vehiclePackage = isset($attributes['vehicle_package']) ? $attributes['vehicle_package'] : '';
             $vehiclePackagePath = isset($attributes['vehicle_package_path']) ? $attributes['vehicle_package_path'] : '';
             $vehicleClass = isset($attributes['vehicle_class']) ? $attributes['vehicle_class'] : '';
-            $vehicleParentClass = isset($attributes['vehicle_parent_class']) ? $attributes['vehicle_parent_class'] : '';
-            if (!empty($vehicleParentClass)) {
-                $this->xpdo->loadClass('transport.' . $vehicleParentClass, '', true, true);
-            }
-            if (empty($vehicleClass)) $vehicleClass = $options['vehicle_class'] = 'xPDOObjectVehicle';
+            if (empty($vehicleClass)) $vehicleClass = $options['vehicle_class'] = 'xPDO\\Transport\\xPDOObjectVehicle';
             if (!empty($vehiclePackage)) {
                 $vehicleClass = "{$vehiclePackage}.{$vehicleClass}";
                 $className = $this->xpdo->loadClass($vehicleClass, $vehiclePackagePath, true, true);
@@ -117,14 +115,14 @@ class Transport extends \xPDOTransport
                 $className = $vehicleClass;
             }
             if ($className) {
-                /** @var \xPDOVehicle $vehicle */
+                /** @var xPDOVehicle $vehicle */
                 $vehicle = new $className();
                 $vehicle->put($this, $artifact, $attributes);
                 if ($added = $vehicle->store($this)) {
                     $this->registerVehicle($vehicle);
                 }
             } else {
-                $this->xpdo->log(\xPDO::LOG_LEVEL_ERROR, "The specified xPDOVehicle class ({$vehiclePackage}.{$vehicleClass}) could not be loaded.");
+                $this->xpdo->log(xPDO::LOG_LEVEL_ERROR, "The specified xPDOVehicle class ({$vehicleClass}) could not be loaded.");
             }
         }
         return $added;
@@ -132,27 +130,14 @@ class Transport extends \xPDOTransport
 
     public function preInstall()
     {
-        /* convert Siphon vehicle classes */
-        $toTeleportMap = array(
-            'Teleport\\Transport\\MySQLVehicle' => '\\Siphon\\Transport\\SiphonMySQLVehicle',
-            'Teleport\\Transport\\xPDOCollectionVehicle' => '\\Siphon\\Transport\\SiphonXPDOCollectionVehicle',
-        );
-        array_walk($this->vehicles, function (&$vehicle) use ($toTeleportMap) {
-            if ($teleportClass = array_search($vehicle['vehicle_class'], $toTeleportMap)) {
-                $vehicle['vehicle_class'] = $teleportClass;
-                if (isset($vehicle['object']) && isset($vehicle['object']['vehicle_class'])) {
-                    $vehicle['object']['vehicle_class'] = $teleportClass;
-                }
-            }
-        });
-
         /* filter problem vehicles */
         $this->vehicles = array_filter($this->vehicles, function ($vehicle) {
             $keep = true;
             switch ($vehicle['vehicle_class']) {
-                case 'xPDOObjectVehicle':
+                case \xPDO\Transport\xPDOObjectVehicle::class:
+                case xPDOObjectVehicle::class:
                     switch ($vehicle['class']) {
-                        case 'modSystemSetting':
+                        case modSystemSetting::class:
                             $excludes = array(
                                 'session_cookie_domain',
                                 'session_cookie_path',
@@ -177,10 +162,10 @@ class Transport extends \xPDOTransport
     public function postInstall()
     {
         /* fix settings_version */
-        /** @var \modSystemSetting $object */
-        $object = $this->xpdo->getObject('modSystemSetting', array('key' => 'settings_version'));
+        /** @var modSystemSetting $object */
+        $object = $this->xpdo->getObject(modSystemSetting::class, array('key' => 'settings_version'));
         if (!$object) {
-            $object = $this->xpdo->newObject('modSystemSetting');
+            $object = $this->xpdo->newObject(modSystemSetting::class);
             $object->fromArray(array(
                 'key' => 'settings_version',
                 'area' => 'system',
@@ -192,9 +177,9 @@ class Transport extends \xPDOTransport
         $object->save(false);
 
         /* fix session_cookie_domain */
-        $object = $this->xpdo->getObject('modSystemSetting', array('key' => 'session_cookie_domain'));
+        $object = $this->xpdo->getObject(modSystemSetting::class, array('key' => 'session_cookie_domain'));
         if (!$object) {
-            $object = $this->xpdo->newObject('modSystemSetting');
+            $object = $this->xpdo->newObject(modSystemSetting::class);
             $object->fromArray(array(
                 'key' => 'session_cookie_domain',
                 'area' => 'session',
@@ -206,9 +191,9 @@ class Transport extends \xPDOTransport
         $object->save(false);
 
         /* fix session_cookie_path */
-        $object = $this->xpdo->getObject('modSystemSetting', array('key' => 'session_cookie_path'));
+        $object = $this->xpdo->getObject(modSystemSetting::class, array('key' => 'session_cookie_path'));
         if (!$object) {
-            $object = $this->xpdo->newObject('modSystemSetting');
+            $object = $this->xpdo->newObject(modSystemSetting::class);
             $object->fromArray(array(
                 'key' => 'session_cookie_path',
                 'area' => 'session',

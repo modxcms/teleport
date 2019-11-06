@@ -9,8 +9,8 @@ Teleport currently functions primarily as a packaging toolkit which extends the 
 
 In order to use Teleport, your environment must at least meet the following requirements:
 
-* PHP >= 5.4
-* MODX Revolution >= 2.1 (MySQL)
+* PHP >= 7.0
+* MODX Revolution >= 3.0 (MySQL)
 
 You must also be able to run PHP using the CLI SAPI.
 
@@ -33,7 +33,7 @@ Create a working directory for Teleport and cd to that directory, e.g.
 
     mkdir ~/teleport/ && cd ~/teleport/
 
-Download the latest [`teleport.phar`](http://modx.s3.amazonaws.com/releases/teleport/teleport.phar "teleport.phar") distribution of Teleport into your Teleport working directory.
+Download the latest [`teleport.phar`](http://modx.s3.amazonaws.com/releases/teleport/2.x/teleport.phar "teleport.phar") distribution of Teleport into your Teleport working directory.
 
 Create a Profile of a MODX site:
 
