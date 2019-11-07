@@ -11,7 +11,6 @@
 namespace Teleport\Test;
 
 
-use Aws\CloudFront\Exception\Exception;
 use Teleport\Config;
 use Teleport\TestCase;
 

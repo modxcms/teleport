@@ -11,6 +11,3 @@
 error_reporting(E_ALL);
 
 $loader = require __DIR__.'/../src/bootstrap.php';
-$loader->add('Teleport\\Test', __DIR__);
-
-require __DIR__.'/Teleport/TestCase.php';

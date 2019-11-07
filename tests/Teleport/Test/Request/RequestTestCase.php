@@ -11,6 +11,7 @@
 namespace Teleport\Test\Request;
 
 
+use Teleport\Request\RequestException;
 use Teleport\Request\RequestInterface;
 use Teleport\TestCase;
 
@@ -38,7 +39,7 @@ abstract class RequestTestCase extends TestCase {
 
     public function testHandle()
     {
-        $this->setExpectedException('Teleport\\Request\\RequestException');
+        $this->expectException(RequestException::class);
         $this->fixture->handle(array('foo' => 'bar'));
     }
 

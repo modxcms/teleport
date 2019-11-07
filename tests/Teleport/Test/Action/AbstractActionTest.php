@@ -20,7 +20,8 @@ class AbstractActionTest extends ActionTestCase {
     public function setUp()
     {
         parent::setUp();
-        $this->fixture = new MockAction(new MockRequest);
+        $request = new MockRequest;
+        $this->fixture = new MockAction($request);
     }
 
     public function testInstanceOf()

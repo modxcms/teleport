@@ -36,6 +36,7 @@ class AbstractRequestTest extends RequestTestCase {
      * @param array $arguments
      *
      * @dataProvider providerParseArguments
+     * @throws RequestException
      */
     public function testParseArguments($expected, $arguments)
     {
