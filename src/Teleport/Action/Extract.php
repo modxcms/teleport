@@ -325,13 +325,19 @@ class Extract extends Action
                 $modxDatabase = $this->modx->getOption('dbname', null, $this->modx->getOption('database'));
                 $modxTablePrefix = $this->modx->getOption('table_prefix', null, '');
 
-                $coreTables = array();
-                foreach ($vehicle['object']['classes'] as $class) {
-                    $coreTables[$class] = $this->modx->quote($this->modx->literal($this->modx->getTableName($class)));
-                }
+                if (!isset($vehicle['object']['extraTables'])) {
 
-                $stmt = $this->modx->query("SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = '{$modxDatabase}' AND TABLE_NAME NOT IN (" . implode(',', $coreTables) . ")");
-                $extraTables = $stmt->fetchAll(\PDO::FETCH_COLUMN);
+                    $coreTables = array();
+                    foreach ($vehicle['object']['classes'] as $class) {
+                        $coreTables[$class] = $this->modx->quote($this->modx->literal($this->modx->getTableName($class)));
+                    }
+
+                    $stmt = $this->modx->query("SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = '{$modxDatabase}' AND TABLE_NAME NOT IN (" . implode(',', $coreTables) . ")");
+                    $extraTables = $stmt->fetchAll(\PDO::FETCH_COLUMN);
+
+                } else {
+                    $extraTables = (array)$vehicle['object']['extraTables'];
+                }
 
                 if (is_array($extraTables) && !empty($extraTables)) {
                     $excludeExtraTablePrefix = isset($vehicle['object']['excludeExtraTablePrefix']) && is_array($vehicle['object']['excludeExtraTablePrefix'])
@@ -450,4 +456,4 @@ class Extract extends Action
         }
         return $vehicleCount;
     }
-} 
+}
