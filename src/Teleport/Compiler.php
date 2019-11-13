@@ -193,17 +193,11 @@ class Compiler
         $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_namespaces.php'));
         $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_psr4.php'));
         $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_real.php'));
+        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_static.php'));
         if (file_exists($this->path . '/vendor/composer/include_paths.php')) {
             $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/include_paths.php'));
         }
         $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/ClassLoader.php'));
-
-        /* add react/promise */
-        $react = new Finder();
-        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/promise/src');
-        foreach ($react as $file) {
-            $this->addFile($phar, $file);
-        }
     }
 
     /**
@@ -236,6 +230,13 @@ class Compiler
             $this->addFile($phar, $file);
         }
 
+        /* add symfony/polyfill-ctype */
+        $polyfillctype = new Finder();
+        $polyfillctype->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/symfony/polyfill-ctype');
+        foreach ($polyfillctype as $file) {
+            $this->addFile($phar, $file);
+        }
+
         /* add react libs */
         $react = new Finder();
         $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/child-process');
@@ -253,7 +254,7 @@ class Compiler
             $this->addFile($phar, $file);
         }
         $psr7 = new Finder();
-        $psr7->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/guzzlehttp/psr7/src');
+        $psr7->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/ringcentral/psr7/src');
         foreach ($psr7 as $file) {
             $this->addFile($phar, $file);
         }
@@ -276,6 +277,11 @@ class Compiler
         $evenement = new Finder();
         $evenement->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/evenement/evenement/src');
         foreach ($evenement as $file) {
+            $this->addFile($phar, $file);
+        }
+        $httpmessage = new Finder();
+        $httpmessage->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/psr/http-message/src');
+        foreach ($httpmessage as $file) {
             $this->addFile($phar, $file);
         }
     }

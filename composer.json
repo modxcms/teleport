@@ -22,8 +22,7 @@
         "ext-pdo": "*"
     },
     "require-dev": {
-        "symfony/process": "^2.1",
-        "phpunit/phpunit": "^6"
+        "symfony/process": "^2.1"
     },
     "suggest": {
         "aws/aws-sdk-php": "Require this with ^2.0 version constraint to enable registration of an S3 stream wrapper.",
