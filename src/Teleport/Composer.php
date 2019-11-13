@@ -10,7 +10,7 @@
 
 namespace Teleport;
 
-use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Composer\Script\Event;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -23,9 +23,9 @@ class Composer
     /**
      * Composer post-install-cmd callback.
      *
-     * @param ConsoleCommandEvent $event The composer Event object.
+     * @param Event $event The composer Event object.
      */
-    public static function postInstall(ConsoleCommandEvent $event)
+    public static function postInstall(Event $event)
     {
         self::copyTpl($event);
     }
@@ -33,9 +33,9 @@ class Composer
     /**
      * Composer post-update-cmd callback.
      *
-     * @param ConsoleCommandEvent $event The composer Event object.
+     * @param Event $event The composer Event object.
      */
-    public static function postUpdate(ConsoleCommandEvent $event)
+    public static function postUpdate(Event $event)
     {
         self::copyTpl($event);
     }
@@ -43,9 +43,9 @@ class Composer
     /**
      * Copy teleport tpl files in local tpl directory.
      *
-     * @param ConsoleCommandEvent $event The composer Event object.
+     * @param Event $event The composer Event object.
      */
-    public static function copyTpl(ConsoleCommandEvent $event)
+    public static function copyTpl(Event $event)
     {
         $config = self::getOptions($event);
 
@@ -61,7 +61,7 @@ class Composer
     /**
      * Copy a source file from teleport/tpl to the teleport-tpl-dir.
      *
-     * @param ConsoleCommandEvent $event The composer Event object.
+     * @param Event $event The composer Event object.
      * @param string $base The base path of the installation.
      * @param \SplFileInfo $source The source file info.
      * @param array $config Project config options.
@@ -85,11 +85,11 @@ class Composer
     /**
      * Get the config data from the extra definition in composer.json.
      *
-     * @param ConsoleCommandEvent $event The composer Event object.
+     * @param Event $event The composer Event object.
      *
      * @return array An array of options from the package extra.
      */
-    protected static function getOptions(ConsoleCommandEvent $event)
+    protected static function getOptions(Event $event)
     {
         $options = array_merge(
             array(
