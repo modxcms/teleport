@@ -38,12 +38,7 @@ class xPDOCollectionVehicle extends \xPDO\Transport\xPDOObjectVehicle
             }
             $obj = reset($object);
             if (!isset ($this->payload['package'])) {
-                if ($obj instanceof xPDOObject) {
-                    $packageName = $obj->_package;
-                } else {
-                    $packageName = '';
-                }
-                $this->payload['package'] = $packageName;
+                $this->payload['package'] = '';
             }
             if (!isset($this->payload['class']) && $obj instanceof xPDOObject) {
                 $this->payload['class'] = $obj->_class;
