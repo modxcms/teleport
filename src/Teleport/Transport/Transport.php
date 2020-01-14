@@ -190,33 +190,5 @@ class Transport extends \xPDOTransport
         }
         $object->set('value', $this->xpdo->version['full_version']);
         $object->save(false);
-
-        /* fix session_cookie_domain */
-        $object = $this->xpdo->getObject('modSystemSetting', array('key' => 'session_cookie_domain'));
-        if (!$object) {
-            $object = $this->xpdo->newObject('modSystemSetting');
-            $object->fromArray(array(
-                'key' => 'session_cookie_domain',
-                'area' => 'session',
-                'namespace' => 'core',
-                'xtype' => 'textfield',
-            ), '', true);
-        }
-        $object->set('value', '');
-        $object->save(false);
-
-        /* fix session_cookie_path */
-        $object = $this->xpdo->getObject('modSystemSetting', array('key' => 'session_cookie_path'));
-        if (!$object) {
-            $object = $this->xpdo->newObject('modSystemSetting');
-            $object->fromArray(array(
-                'key' => 'session_cookie_path',
-                'area' => 'session',
-                'namespace' => 'core',
-                'xtype' => 'textfield',
-            ), '', true);
-        }
-        $object->set('value', $this->xpdo->getOption('base_url', null, MODX_BASE_URL));
-        $object->save(false);
     }
 }
