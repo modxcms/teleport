@@ -21,8 +21,8 @@ To prevent some data from corrupting a target MODX deployment when it is injecte
         * `new_folder_permissions`
 * After Injection
     * modSystemSetting `settings_version` is set to the actual target version.
-    * modSystemSetting `session_cookie_domain` is set to empty.
-    * modSystemSetting `session_cookie_path` is set to `MODX_BASE_PATH`.
+    * modSystemSetting `session_cookie_domain` is set to empty. _<= 1.7.0_
+    * modSystemSetting `session_cookie_path` is set to `MODX_BASE_PATH`. _<= 1.7.0_
 
 
 ## The Inject Action
