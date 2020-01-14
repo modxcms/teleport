@@ -1,5 +1,9 @@
   * Prevent Transport::postInstall() from clearing session settings
 
+### Teleport 1.6.0 (2019-11-21)
+
+  * Allow base option to override current working directory
+
 ### Teleport 1.5.0 (2016-03-01)
 
   * Make sure xPDOObjectCollection sets are ordered
