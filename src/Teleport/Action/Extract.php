@@ -385,7 +385,7 @@ class Extract extends Action
                                     $fields = implode(', ', array_map(array($this->modx, 'escape'), array_keys($row)));
                                 }
                                 $values = array();
-                                while (list($key, $value) = each($row)) {
+                                foreach ($row as $key => $value) {
                                     switch (gettype($value)) {
                                         case 'string':
                                             $values[] = $this->modx->quote($value);
