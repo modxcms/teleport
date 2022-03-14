@@ -1,3 +1,6 @@
+### Teleport 1.6.1 (2022-03-14)
+
+  * Replace each() with foreach() for PHP 8 compatibility (#38)
   * Prevent Transport::postInstall() from clearing session settings
 
 ### Teleport 1.6.0 (2019-11-21)
