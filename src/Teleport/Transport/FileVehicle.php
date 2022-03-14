@@ -81,9 +81,9 @@ class FileVehicle extends xPDOFileVehicle {
             $rootFolder = explode('/', $this->payload['object']['in']);
             $rootFolder = array_pop($rootFolder);
             $this->payload['object']['name'] = $rootFolder;
-            $this->payload['object']['source'] = $transport->signature . '/' . $this->payload['class'] . '/' . $this->payload['signature'];
+            $this->payload['object']['source'] = $transport->signature . '/' . str_replace('\\', '/', $this->payload['class']) . '/' . $this->payload['signature'];
 
-            $filePath = $transport->path . $transport->signature . '/' . $this->payload['class'] . '/' . $this->payload['signature'] . '/' . $rootFolder;
+            $filePath = $transport->path . $transport->signature . '/' . str_replace('\\', '/', $this->payload['class']) . '/' . $this->payload['signature'] . '/' . $rootFolder;
 
             $fs->mkdir($filePath);
 
