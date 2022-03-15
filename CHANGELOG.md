@@ -1,3 +1,7 @@
+### Teleport 1.6.2 (2022-03-15)
+
+  * Update phar compilation to add missing composer files
+
 ### Teleport 1.6.1 (2022-03-14)
 
   * Replace each() with foreach() for PHP 8 compatibility (#38)
