@@ -1,3 +1,7 @@
+### Teleport 2.0.1 (2022-03-15)
+
+  * Update phar compilation to add missing composer files
+
 ### Teleport 2.0.0 (2022-03-14)
 
   * Fix FileVehicle paths (#40)
