@@ -198,6 +198,9 @@ class Compiler
             $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/include_paths.php'));
         }
         $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/ClassLoader.php'));
+        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/installed.json'));
+        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/installed.php'));
+        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/platform_check.php'));
     }
 
     /**
