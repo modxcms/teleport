@@ -69,9 +69,7 @@ class Compiler
 
         $this->addTpl($phar);
 
-        $this->addAutoload($phar);
-
-        $this->addDependencies($phar);
+        $this->addVendor($phar);
 
         $this->addTeleportBin($phar);
 
@@ -181,110 +179,15 @@ class Compiler
     }
 
     /**
-     * Add the Composer autoload infrastructure.
+     * Add required dependencies from vendor directory.
      *
      * @param \Phar $phar
      */
-    private function addAutoload($phar)
+    private function addVendor($phar)
     {
-        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/autoload.php'));
-        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_classmap.php'));
-        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_files.php'));
-        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_namespaces.php'));
-        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_psr4.php'));
-        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_real.php'));
-        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/autoload_static.php'));
-        if (file_exists($this->path . '/vendor/composer/include_paths.php')) {
-            $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/include_paths.php'));
-        }
-        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/ClassLoader.php'));
-        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/installed.json'));
-        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/installed.php'));
-        $this->addFile($phar, new \SplFileInfo($this->path . '/vendor/composer/platform_check.php'));
-    }
-
-    /**
-     * Add required dependencies.
-     *
-     * @param \Phar $phar
-     */
-    private function addDependencies($phar)
-    {
-        /* add teleport if this is a project using it as a library */
-        if (file_exists($this->path . '/vendor/modxcms/teleport/src/Teleport/Teleport.php')) {
-            $teleport = new Finder();
-            $teleport->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->notName('Compiler.php')->notName('Composer.php')->in($this->path . '/vendor/modxcms/teleport/src');
-            foreach ($teleport as $file) {
-                $this->addFile($phar, $file);
-            }
-        }
-
-        /* add symfony/filesystem */
-        $filesystem = new Finder();
-        $filesystem->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/symfony/filesystem');
-        foreach ($filesystem as $file) {
-            $this->addFile($phar, $file);
-        }
-
-        /* add symfony/finder */
-        $finder = new Finder();
-        $finder->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/symfony/finder');
-        foreach ($finder as $file) {
-            $this->addFile($phar, $file);
-        }
-
-        /* add symfony/polyfill-ctype */
-        $polyfillctype = new Finder();
-        $polyfillctype->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/symfony/polyfill-ctype');
-        foreach ($polyfillctype as $file) {
-            $this->addFile($phar, $file);
-        }
-
-        /* add react libs */
-        $react = new Finder();
-        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/child-process');
-        foreach ($react as $file) {
-            $this->addFile($phar, $file);
-        }
-        $react = new Finder();
-        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/event-loop');
-        foreach ($react as $file) {
-            $this->addFile($phar, $file);
-        }
-        $react = new Finder();
-        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/http');
-        foreach ($react as $file) {
-            $this->addFile($phar, $file);
-        }
-        $psr7 = new Finder();
-        $psr7->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/ringcentral/psr7/src');
-        foreach ($psr7 as $file) {
-            $this->addFile($phar, $file);
-        }
-        $react = new Finder();
-        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/promise/src');
-        foreach ($react as $file) {
-            $this->addFile($phar, $file);
-        }
-        $react = new Finder();
-        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/socket/src');
-        foreach ($react as $file) {
-            $this->addFile($phar, $file);
-        }
-        $react = new Finder();
-        $react->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/react/stream/src');
-        foreach ($react as $file) {
-            $this->addFile($phar, $file);
-        }
-
-        $evenement = new Finder();
-        $evenement->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/evenement/evenement/src');
-        foreach ($evenement as $file) {
-            $this->addFile($phar, $file);
-        }
-        $httpmessage = new Finder();
-        $httpmessage->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor/psr/http-message/src');
-        foreach ($httpmessage as $file) {
+        $dependencies = new Finder();
+        $dependencies->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')->in($this->path . '/vendor');
+        foreach ($dependencies as $file) {
             $this->addFile($phar, $file);
         }
     }
