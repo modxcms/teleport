@@ -1,3 +1,7 @@
+### Teleport 1.6.3 (2022-03-18)
+
+* Change phar compilation to include all vendor php files
+
 ### Teleport 1.6.2 (2022-03-15)
 
   * Update phar compilation to add missing composer files
