@@ -5,6 +5,11 @@ Teleport is an extensible scripting toolkit for working with one or more local M
 Teleport currently functions primarily as a packaging toolkit which extends the MODX Transport APIs and provides commands for extracting and injecting customizable snapshots of MODX deployments. But it can be extended easily to perform an infinite variety of actions related to MODX.
 
 
+## MODX Revolution 3.x
+
+Please use the [`2.x`](https://github.com/modxcms/teleport/tree/2.x) branch and releases for MODX 3.x support. 
+
+
 ## Requirements
 
 In order to use Teleport, your environment must at least meet the following requirements:
