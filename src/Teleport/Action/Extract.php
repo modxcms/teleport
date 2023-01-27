@@ -237,7 +237,7 @@ class Extract extends Action
         }
         switch ($vehicle['vehicle_class']) {
             case 'Teleport\\Transport\\xPDOObjectVehicle':
-            case 'xPDO\\Om\\xPDOObjectVehicle':
+            case 'xPDO\\Transport\\xPDOObjectVehicle':
                 $realClass = $this->modx->loadClass($vehicle['object']['class']);
                 if ($realClass === false) {
                     $this->request->log("Invalid class {$vehicle['object']['class']} specified; skipping vehicle");
