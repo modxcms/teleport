@@ -1,3 +1,7 @@
+### Teleport 2.0.3 (2023-01-27)
+
+* Fix Extract to check for correct xPDOObjectVehicle class (#42)
+
 ### Teleport 2.0.2 (2022-03-18)
 
 * Change phar compilation to include all vendor php files
