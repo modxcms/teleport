@@ -1,10 +1,14 @@
+### Teleport 2.0.4 (2023-05-12)
+
+  * Force generation of namespaces cache after inject
+
 ### Teleport 2.0.3 (2023-01-27)
 
-* Fix Extract to check for correct xPDOObjectVehicle class (#42)
+  * Fix Extract to check for correct xPDOObjectVehicle class (#42)
 
 ### Teleport 2.0.2 (2022-03-18)
 
-* Change phar compilation to include all vendor php files
+  * Change phar compilation to include all vendor php files
 
 ### Teleport 2.0.1 (2022-03-15)
 
