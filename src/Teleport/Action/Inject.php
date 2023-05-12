@@ -76,6 +76,8 @@ class Inject extends Action
 
             if ($this->modx->getCacheManager()) {
                 $this->modx->cacheManager->refresh();
+                /* TODO: Make this conditional based on MODX version once this is solved in refresh() */
+                $this->modx->cacheManager->generateNamespacesCache('namespaces');
             }
 
             if (!$this->preserveWorkspace && $this->modx->getCacheManager()) {
