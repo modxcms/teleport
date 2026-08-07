@@ -89,11 +89,13 @@ class FileVehicle extends xPDOFileVehicle {
 
             /** @var SplFileInfo $file */
             foreach ($this->payload['object']['files'] as $file) {
+                $target = $filePath . '/' . $file->getRelativePathname();
                 if ($file->isDir()) {
-                    $fs->mkdir($filePath . '/' . $file->getRelativePathname());
+                    $fs->mkdir($target);
                 } else {
-                    $fs->copy($file->getRealpath(), $filePath . '/' . $file->getRelativePathname());
+                    $fs->copy($file->getRealpath(), $target);
                 }
+                $fs->chmod($target, $file->getPerms());
             }
 
             unset($this->payload['object']['files']);
