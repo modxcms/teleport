@@ -95,7 +95,9 @@ class FileVehicle extends xPDOFileVehicle {
                 } else {
                     $fs->copy($file->getRealpath(), $target);
                 }
-                $fs->chmod($target, $file->getPerms());
+                if ($file->getPerms() !== false) {
+                    $fs->chmod($target, $file->getPerms());
+                }
             }
 
             unset($this->payload['object']['files']);
